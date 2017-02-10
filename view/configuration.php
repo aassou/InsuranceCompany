@@ -69,10 +69,28 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Regions</div></div>
                                     </div>
                                 </a>
-                                <a href="configuration.php">
+                                <a href="commercial.php">
                                     <div class="tile bg-dark-red">
-                                        <div class="tile-body"><i class="icon-wrench"></i></div>
-                                        <div class="tile-object"><div class="name">Paramétrages</div></div>
+                                        <div class="tile-body"><i class="icon-group"></i></div>
+                                        <div class="tile-object"><div class="name">Commerciaux</div></div>
+                                    </div>
+                                </a>
+                                <a href="codeReglementSinistre.php">
+                                    <div class="tile bg-dark-black">
+                                        <div class="tile-body"><i class="icon-ok-sign"></i></div>
+                                        <div class="tile-object"><div class="name">ReglementSinistre</div></div>
+                                    </div>
+                                </a>
+                                <a href="expert.php">
+                                    <div class="tile bg-red">
+                                        <div class="tile-body"><i class="icon-eye-open"></i></div>
+                                        <div class="tile-object"><div class="name">Experts</div></div>
+                                    </div>
+                                </a>
+                                <a href="classeAT.php">
+                                    <div class="tile bg-cyan">
+                                        <div class="tile-body"><i class="icon-list"></i></div>
+                                        <div class="tile-object"><div class="name">ClassesAT</div></div>
                                     </div>
                                 </a>
                             </div>

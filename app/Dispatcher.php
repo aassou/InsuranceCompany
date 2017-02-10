@@ -27,5 +27,5 @@
     //Step 3 : Send response
     $_SESSION['actionMessage'] = $componentController->actionMessage();
     $_SESSION['typeMessage'] = $componentController->typeMessage();
-    header('Location:../view/'.$source.".php");
+    header('Location:../'.$source.".php");
     
