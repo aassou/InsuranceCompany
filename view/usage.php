@@ -1,7 +1,5 @@
 <?php
 require('../app/classLoad.php');
-spl_autoload_register("classLoad"); 
-require('../app/PDOFactory.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
@@ -88,8 +86,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <thead>
                                                 <tr>
                                                     <th class="hidden-phone" style="width: 10%">Actions</th>
-                                                    <th style="width: 10%">Code</th>
-                                                    <th style="width: 80%">Designation</th>
+                                                    <th class="t10">Code</th>
+                                                    <th class="t80">Designation</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

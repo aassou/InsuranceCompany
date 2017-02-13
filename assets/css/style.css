@@ -81,9 +81,31 @@ a {
 /***
 General backgrounds
 ***/
+.bg-navy { background-color: #001F3F; }
+.bg-blue-3 { background-color: #0074D9; }
+.bg-aqua { background-color: #7FDBFF; }
+.bg-teal { background-color: #39CCCC; }
+.bg-olive-2 { background-color: #3D9970; }
+.bg-green-2 { background-color: #2ECC40; }
+.bg-lime { background-color: #01FF70; }
+.bg-yellow-2 { background-color: #FFDC00; }
+.bg-orange { background-color: #FF851B; }
+.bg-red-2 { background-color: #FF4136; }
+.bg-fuchsia { background-color: #F012BE; }
+.bg-purple-2 { background-color: #B10DC9; }
+.bg-maroon { background-color: #85144B; }
+.bg-white { background-color: #FFFFFF; }
+.bg-gray-2 { background-color: #AAAAAA; }
+.bg-silver { background-color: #DDDDDD; }
+.bg-black { background-color: #111111; }
 .bg-blue {
   background-image: none !important;
   background-color: #4b8df8 !important;
+}
+
+.bg-blue-2 {
+  background-image: none !important;
+  background-color: #4b8da1 !important;
 }
 
 .bg-red {
@@ -114,6 +136,16 @@ General backgrounds
 .bg-brown {
   background-image: none !important;
   background-color: #6a482d !important;
+}
+
+.bg-light-purple {
+  background-image: none !important;
+  background-color: #6a485d !important;
+}
+
+.bg-olive {
+  background-image: none !important;
+  background-color: #5f682d !important;
 }
 
 .bg-cyan {
@@ -5061,12 +5093,11 @@ input[type="text"].input-error-text{
 	font-size: 14px;
 	background-color: #f2dede;
 }
-
 /*AASSOU Modifications*/
 .textarea-width{
 	width: 300px;
 }
-
 .dangerous-action{
 	color: red;
-}
+}/* Table width classes */
+.t5{width:5%;}.t10{width:10%;}.t15{width:15%;}.t20{width:20%;}.t25{width:25%;}.t30{width:30%;}.t35{width:35%;}.t40{width:40%;}.t45{width:45%;}.t50{width:50%;}.t55{width:55%;}.t60{width:60%;}.t65{width:65%;}.t70{width:70%;}.t75{width:75%;}.t80{width:80%;}.t85{width:85%;}.t90{width:90%;}.t95{width:95%;}.t100{width:100%;}

@@ -1,7 +1,5 @@
 <?php
 require('../app/classLoad.php');
-spl_autoload_register("classLoad"); 
-require('../app/PDOFactory.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     $codeReglementSinistreManager = new CodeReglementSinistreManager(PDOFactory::getMysqlConnection());

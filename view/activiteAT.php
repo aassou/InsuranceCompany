@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $expertManager = new ExpertManager(PDOFactory::getMysqlConnection());
-    $experts = $expertManager->getExperts(); 
+    $activiteATManager = new ActiviteATManager(PDOFactory::getMysqlConnection());
+    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
+    $activiteATs = $activiteATManager->getActiviteATs(); 
+    $compagnies = $compagnieManager->getCompagnies();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -25,7 +27,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-wrench"></i><a href="configuration.php">Paramètrages</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-eye-open"></i><a>Experts</a></li>
+                                <li><i class="icon-list-ol"></i><a>Activités AT</a></li>
                             </ul>
                         </div>
                     </div>
@@ -34,54 +36,46 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
                             <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
                             <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
-                            <!-- addExpert box begin -->
-                            <div id="addExpert" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
+                            <!-- addActiviteAT box begin -->
+                            <div id="addActiviteAT" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter Expert</h3>
+                                    <h3>Ajouter ActiviteAT</h3>
                                 </div>
                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
                                     <div class="control-group">
-                                            <label class="control-label">Code</label>
+                                            <label class="control-label">Compagnie</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="code" />
+                                                <select name="codeCompagnie">
+                                                    <?php foreach ( $compagnies as $compagnie ) { ?>
+                                                    <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
+                                                    <?php } ?>
+                                                </select>    
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Nom</label>
+                                            <label class="control-label">Classe</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="nom" />
+                                                <input required="required" type="text" name="codeClasse" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Adresse</label>
+                                            <label class="control-label">Code Activite</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="adresse" />
+                                                <input required="required" type="text" name="codeActivite" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Ville</label>
+                                            <label class="control-label">Description</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="ville" />
+                                                <input required="required" type="text" name="description" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Tel1</label>
+                                            <label class="control-label">Taux</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="tel1" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Tel2</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="tel2" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Fax</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="fax" />
+                                                <input required="required" type="text" name="taux" />
                                             </div>
                                         </div>
                                              
@@ -90,7 +84,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="control-group">
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="expert" />    
+                                                <input type="hidden" name="source" value="activiteAT" />    
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -98,10 +92,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </form>
                             </div>    
-                            <!-- addExpert box end -->
+                            <!-- addActiviteAT box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Liste des Experts</h4>
+                                    <h4>Liste des Activites AT</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="reload"></a>
                                     </div>
@@ -109,96 +103,86 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <div class="portlet-body">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a class="btn blue pull-right" href="#addExpert" data-toggle="modal">
-                                                <i class="icon-plus-sign"></i>&nbsp;Expert
+                                            <a class="btn blue pull-right" href="#addActiviteAT" data-toggle="modal">
+                                                <i class="icon-plus-sign"></i>&nbsp;ActiviteAT
                                             </a>
                                         </div>
                                     </div>
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
-                                                <th class="t10 hidden-phone">Actions</th>
-                                                <th class="t5 hidden-phone">Code</th>
-                                                <th class="t15">Nom</th>
-                                                <th class="t45 hidden-phone">Adresse</th>
-                                                <th class="t10 hidden-phone">Ville</th>
-                                                <th class="t5">Tel1</th>
-                                                <th class="t5">Tel2</th>
-                                                <th class="t5 hidden-phone">Fax</th>
+                                                <th class="hidden-phone t10">Actions</th>
+                                                <th class="t10">Compagnie</th>
+                                                <th class="t10">Classe</th>
+                                                <th class="t10">Code Activite</th>
+                                                <th class="t55">Description</th>
+                                                <th class="t5">%Taux</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ( $experts as $expert ) { ?>
+                                            <?php foreach ( $activiteATs as $activiteAT ) { ?>
                                             <tr>
                                                 <td class="hidden-phone">
-                                                    <a href="#deleteExpert<?= $expert->id() ?>" data-toggle="modal" data-id="<?= $expert->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                    <a href="#updateExpert<?= $expert->id() ?>" data-toggle="modal" data-id="<?= $expert->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                    <a href="#deleteActiviteAT<?= $activiteAT->id() ?>" data-toggle="modal" data-id="<?= $activiteAT->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
+                                                    <a href="#updateActiviteAT<?= $activiteAT->id() ?>" data-toggle="modal" data-id="<?= $activiteAT->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $expert->code() ?></td>
-                                                <td><?= $expert->nom() ?></td>
-                                                <td class="hidden-phone"><?= $expert->adresse() ?></td>
-                                                <td class="hidden-phone"><?= $expert->ville() ?></td>
-                                                <td><?= $expert->tel1() ?></td>
-                                                <td><?= $expert->tel2() ?></td>
-                                                <td class="hidden-phone"><?= $expert->fax() ?></td>
+                                                <td><?= $activiteAT->codeCompagnie() ?></td>
+                                                <td><?= $activiteAT->codeClasse() ?></td>
+                                                <td><?= $activiteAT->codeActivite() ?></td>
+                                                <td><?= $activiteAT->description() ?></td>
+                                                <td><?= $activiteAT->taux() ?></td>
                                             </tr> 
-                                            <!-- updateExpert box begin -->
-                                            <div id="updateExpert<?= $expert->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- updateActiviteAT box begin -->
+                                            <div id="updateActiviteAT<?= $activiteAT->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Modifier Info Expert</h3>
+                                                    <h3>Modifier Info ActiviteAT</h3>
                                                 </div>
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
                                                         <div class="control-group">
-                                                            <label class="control-label">Code</label>
+                                                            <label class="control-label">Compagnie</label>
                                                             <div class="controls">
-                                                                <input class="m-wrap" type="text" name="code"  value="<?= $expert->code() ?>" />
+                                                                <select name="codeCompagnie">
+                                                                    <option value="<?= $activiteAT->codeCompagnie() ?>"><?= $activiteAT->codeCompagnie()." : ".$compagnieManager->getCompagnieById($activiteAT->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option disabled="disabled">----------------------------------------------</option>
+                                                                    <?php foreach ( $compagnies as $compagnie ) { ?>
+                                                                    <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>    
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Nom</label>
+                                                            <label class="control-label">Classe</label>
                                                             <div class="controls">
-                                                                <input class="m-wrap" type="text" name="nom"  value="<?= $expert->nom() ?>" />
+                                                                <input required="required" type="text" name="codeClasse"  value="<?= $activiteAT->codeClasse() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Adresse</label>
+                                                            <label class="control-label">Code Activite</label>
                                                             <div class="controls">
-                                                                <input class="m-wrap" type="text" name="adresse"  value="<?= $expert->adresse() ?>" />
+                                                                <input required="required" type="text" name="codeActivite"  value="<?= $activiteAT->codeActivite() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Ville</label>
+                                                            <label class="control-label">Description</label>
                                                             <div class="controls">
-                                                                <input class="m-wrap" type="text" name="ville"  value="<?= $expert->ville() ?>" />
+                                                                <input required="required" type="text" name="description"  value="<?= $activiteAT->description() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Tel1</label>
+                                                            <label class="control-label">Taux</label>
                                                             <div class="controls">
-                                                                <input class="m-wrap" type="text" name="tel1"  value="<?= $expert->tel1() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">Tel2</label>
-                                                            <div class="controls">
-                                                                <input class="m-wrap" type="text" name="tel2"  value="<?= $expert->tel2() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">Fax</label>
-                                                            <div class="controls">
-                                                                <input class="m-wrap" type="text" name="fax"  value="<?= $expert->fax() ?>" />
+                                                                <input required="required" type="text" name="taux"  value="<?= $activiteAT->taux() ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idExpert" value="<?= $expert->id() ?>" />
+                                                                <input type="hidden" name="idActiviteAT" value="<?= $activiteAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
-                                                                <input type="hidden" name="source" value="expert" />    
+                                                                <input type="hidden" name="source" value="activiteAT" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -207,22 +191,22 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- updateClasse box end --> 
-                                            <!-- deleteExpert box begin -->
-                                            <div id="deleteExpert<?= $expert->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- deleteActiviteAT box begin -->
+                                            <div id="deleteActiviteAT<?= $activiteAT->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Supprimer Expert</h3>
+                                                    <h3>Supprimer ActiviteAT</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Expert : <?= $expert->code() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer ActiviteAT : <?= $activiteAT->codeCompagnie() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idExpert" value="<?= $expert->id() ?>" />
+                                                                <input type="hidden" name="idActiviteAT" value="<?= $activiteAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="expert" />    
+                                                                <input type="hidden" name="source" value="activiteAT" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>

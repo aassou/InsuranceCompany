@@ -1,11 +1,12 @@
 <?php
-    //classes loading begin
-    function classLoad ($myClass) {
-        if(file_exists('../model/'.$myClass.'.php')){
-            include('../model/'.$myClass.'.php');
-        }
-        elseif(file_exists('../controller/'.$myClass.'.php')){
-            include('../controller/'.$myClass.'.php');
-        }
+spl_autoload_register(function ($myClass){
+    if(file_exists('../model/'.$myClass.'.php')){
+        include('../model/'.$myClass.'.php');
     }
-    spl_autoload_register("classLoad"); 
+    if(file_exists('../controller/'.$myClass.'.php')){
+        include('../controller/'.$myClass.'.php');
+    }
+    if(file_exists('../app/'.$myClass.'.php')){
+        include('../app/'.$myClass.'.php');
+    }
+});

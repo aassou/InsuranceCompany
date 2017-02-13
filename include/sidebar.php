@@ -303,6 +303,8 @@
         or $currentPage=="commercial.php"
         or $currentPage=="expert.php"
         or $currentPage=="classeAT.php"
+        or $currentPage=="activiteAT.php"
+        or $currentPage=="motifRetourQuittance.php"
         or $currentPage=="codeReglementSinistre.php"
         or $currentPage=="operations-status-archive-group.php"
         or $currentPage=="operations-status-archive.php"

@@ -1,7 +1,5 @@
 <?php
 require('../app/classLoad.php');
-spl_autoload_register("classLoad"); 
-require('../app/PDOFactory.php');  
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
 ?>
@@ -28,69 +26,81 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             </ul>
                             <div class="tiles">
                                 <a href="compagnie.php">
-                                    <div class="tile bg-dark-blue">
+                                    <div class="tile bg-navy">
                                         <div class="tile-body"><i class="icon-sitemap"></i></div>
                                         <div class="tile-object"><div class="name">Compagnies</div></div>
                                     </div>
                                 </a>
                                 <a href="branche.php">
-                                    <div class="tile bg-green">
+                                    <div class="tile bg-blue-3">
                                         <div class="tile-body"><i class="icon-list-alt"></i></div>
                                         <div class="tile-object"><div class="name">Branches</div></div>
                                     </div>
                                 </a>
                                 <a href="usage.php">
-                                    <div class="tile bg-grey">
+                                    <div class="tile bg-blue">
                                         <div class="tile-body"><i class="icon-truck"></i></div>
                                         <div class="tile-object"><div class="name">Usage</div></div>
                                     </div>
                                 </a>
                                 <a href="classe.php">
-                                    <div class="tile bg-blue">
+                                    <div class="tile bg-blue-2">
                                         <div class="tile-body"><i class="icon-file"></i></div>
                                         <div class="tile-object"><div class="name">Classes</div></div>
                                     </div>
                                 </a>
                                 <a href="sousClasse.php">
-                                    <div class="tile bg-brown">
+                                    <div class="tile bg-aqua">
                                         <div class="tile-body"><i class="icon-copy"></i></div>
                                         <div class="tile-object"><div class="name">Sous Classes</div></div>
                                     </div>
                                 </a>
                                 <a href="banque.php">
-                                    <div class="tile bg-yellow">
+                                    <div class="tile bg-teal">
                                         <div class="tile-body"><i class="icon-credit-card"></i></div>
                                         <div class="tile-object"><div class="name">Banques</div></div>
                                     </div>
                                 </a>
                                 <a href="region.php">
-                                    <div class="tile bg-dark-cyan">
+                                    <div class="tile bg-olive-2">
                                         <div class="tile-body"><i class="icon-map-marker"></i></div>
                                         <div class="tile-object"><div class="name">Regions</div></div>
                                     </div>
                                 </a>
                                 <a href="commercial.php">
-                                    <div class="tile bg-dark-red">
+                                    <div class="tile bg-olive">
                                         <div class="tile-body"><i class="icon-group"></i></div>
                                         <div class="tile-object"><div class="name">Commerciaux</div></div>
                                     </div>
                                 </a>
                                 <a href="codeReglementSinistre.php">
-                                    <div class="tile bg-dark-black">
+                                    <div class="tile bg-green">
                                         <div class="tile-body"><i class="icon-ok-sign"></i></div>
                                         <div class="tile-object"><div class="name">ReglementSinistre</div></div>
                                     </div>
                                 </a>
                                 <a href="expert.php">
-                                    <div class="tile bg-red">
+                                    <div class="tile bg-lime">
                                         <div class="tile-body"><i class="icon-eye-open"></i></div>
                                         <div class="tile-object"><div class="name">Experts</div></div>
                                     </div>
                                 </a>
                                 <a href="classeAT.php">
-                                    <div class="tile bg-cyan">
+                                    <div class="tile bg-yellow-2">
                                         <div class="tile-body"><i class="icon-list"></i></div>
-                                        <div class="tile-object"><div class="name">ClassesAT</div></div>
+                                        <div class="tile-object"><div class="name">Classes AT</div></div>
+                                    </div>
+                                </a>
+                                <a href="activiteAT.php">
+                                    <div class="tile bg-yellow">
+                                        <div class="tile-body"><i class="icon-list-ol"></i></div>
+                                        <div class="tile-object"><div class="name">Activités AT</div></div>
+                                    </div>
+                                </a>
+                                <a href="motifRetourQuittance.php">
+                                    <div class="tile bg-orange">
+                                        <div class="tile-body"><i class="icon-signin"></i></div>
+                                        <div class="tile-object"><div class="name">Motif Retour Quittance</div></div>
                                     </div>
                                 </a>
                             </div>

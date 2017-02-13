@@ -1,7 +1,5 @@
 <?php
 require('../app/classLoad.php');
-spl_autoload_register("classLoad"); 
-require('../app/PDOFactory.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
@@ -106,13 +104,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <table class="table table-striped table-bordered table-hover" id="sample_1">
                                             <thead>
                                                 <tr>
-                                                    <th class="hidden-phone" style="width: 10%">Actions</th>
-                                                    <th style="width: 23%">Raison Sociale</th>
-                                                    <th class="hidden-phone" style="width: 12%">Code Intermedi</th>
-                                                    <th style="width: 15%">Auto</th>
-                                                    <th style="width: 15%">Sinistre</th>
-                                                    <th style="width: 15%">Recouvrement</th>
-                                                    <th style="width: 10%">Tél</th>
+                                                    <th class="t10 hidden-phone">Actions</th>
+                                                    <th class="t25" >Raison Sociale</th>
+                                                    <th class="t15 hidden-phone">Code Intermedi</th>
+                                                    <th class="t15 hidden-phone">Auto</th>
+                                                    <th class="t15 hidden-phone">Sinistre</th>
+                                                    <th class="t15 hidden-phone">Recouvrement</th>
+                                                    <th class="t5 hidden-phone">Tél</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -124,10 +122,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     </td>
                                                     <td><?= $compagnie->raisonSociale() ?></td>
                                                     <td class="hidden-phone"><?= $compagnie->codeIntermediaire() ?></td>
-                                                    <td><?= $compagnie->correspondantAuto() ?></td>
-                                                    <td><?= $compagnie->correspondantSinistre() ?></td>
-                                                    <td><?= $compagnie->correspondantRecouvrement() ?></td>
-                                                    <td><?= $compagnie->tel() ?></td>
+                                                    <td class="hidden-phone"><?= $compagnie->correspondantAuto() ?></td>
+                                                    <td class="hidden-phone"><?= $compagnie->correspondantSinistre() ?></td>
+                                                    <td class="hidden-phone"><?= $compagnie->correspondantRecouvrement() ?></td>
+                                                    <td class="hidden-phone"><?= $compagnie->tel() ?></td>
                                                 </tr> 
                                                 <!-- updateCompagnie box begin -->
                                                 <div id="updateCompagnie<?= $compagnie->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >

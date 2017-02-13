@@ -1,21 +1,10 @@
 <?php
-    //classes loading begin
-    function classLoad ($myClass) {
-        if(file_exists('../model/'.$myClass.'.php')){
-            include('../model/'.$myClass.'.php');
-        }
-        elseif(file_exists('../controller/'.$myClass.'.php')){
-            include('../controller/'.$myClass.'.php');
-        }
-    }
-    spl_autoload_register("classLoad"); 
-    include('../app/PDOFactory.php');  
-    include('../lib/ImageProcessing.php');
+    include('classLoad.php');
     //classes loading end
     session_start();
     //post input processing
-    $action = htmlentities($_POST['action']);
-    $source = htmlentities($_POST['source']);
+    $action = htmlentities($_POST['action']);//add or update or delete
+    $source = htmlentities($_POST['source']);//automobile
     //Components Porcessing
     //Step 1: Generate components names
     $component = ucfirst($source);
@@ -27,5 +16,5 @@
     //Step 3 : Send response
     $_SESSION['actionMessage'] = $componentController->actionMessage();
     $_SESSION['typeMessage'] = $componentController->typeMessage();
-    header('Location:../'.$source.".php");
+    header('Location:../view/'.$source.".php");
     
