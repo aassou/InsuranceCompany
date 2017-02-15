@@ -46,12 +46,12 @@ class MotifRetourQuittanceActionController {
             $this->_motifRetourQuittanceManager->add($motifRetourQuittance);
             $this->_actionMessage = "Opération Valide : MotifRetourQuittance Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "motifRetourQuittance";
+            $this->_source = "view/motifRetourQuittance";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "motifRetourQuittance";
+            $this->_source = "view/motifRetourQuittance";
         }
     }
     
@@ -73,12 +73,12 @@ class MotifRetourQuittanceActionController {
             $this->_motifRetourQuittanceManager->update($motifRetourQuittance);
             $this->_actionMessage = "Opération Valide : MotifRetourQuittance Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "motifRetourQuittance";
+            $this->_source = "view/motifRetourQuittance";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "motifRetourQuittance";
+            $this->_source = "view/motifRetourQuittance";
         }
     }
     
@@ -88,7 +88,7 @@ class MotifRetourQuittanceActionController {
         $this->_motifRetourQuittanceManager->delete($idMotifRetourQuittance);
         $this->_actionMessage = "Opération Valide : MotifRetourQuittance supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "motifRetourQuittance";
+        $this->_source = "view/motifRetourQuittance";
     }
     
 }

@@ -46,12 +46,12 @@ class RegionActionController {
             $this->_regionManager->add($region);
             $this->_actionMessage = "Opération Valide : Region Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "region";
+            $this->_source = "view/region";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "region";
+            $this->_source = "view/region";
         }
     }
     
@@ -73,12 +73,12 @@ class RegionActionController {
             $this->_regionManager->update($region);
             $this->_actionMessage = "Opération Valide : Region Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "region";
+            $this->_source = "view/region";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "region";
+            $this->_source = "view/region";
         }
     }
     
@@ -88,7 +88,7 @@ class RegionActionController {
         $this->_regionManager->delete($idRegion);
         $this->_actionMessage = "Opération Valide : Region supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "region";
+        $this->_source = "view/region";
     }
     
 }

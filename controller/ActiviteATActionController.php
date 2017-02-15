@@ -52,12 +52,12 @@ class ActiviteATActionController {
             $this->_activiteATManager->add($activiteAT);
             $this->_actionMessage = "Opération Valide : ActiviteAT Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "activiteAT";
+            $this->_source = "view/activiteAT";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'codeCompagnie'.";
             $this->_typeMessage = "error";
-            $this->_source = "activiteAT";
+            $this->_source = "view/activiteAT";
         }
     }
     
@@ -85,12 +85,12 @@ class ActiviteATActionController {
             $this->_activiteATManager->update($activiteAT);
             $this->_actionMessage = "Opération Valide : ActiviteAT Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "activiteAT";
+            $this->_source = "view/activiteAT";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'codeCompagnie'.";
             $this->_typeMessage = "error";
-            $this->_source = "activiteAT";
+            $this->_source = "view/activiteAT";
         }
     }
     
@@ -100,7 +100,7 @@ class ActiviteATActionController {
         $this->_activiteATManager->delete($idActiviteAT);
         $this->_actionMessage = "Opération Valide : ActiviteAT supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "activiteAT";
+        $this->_source = "view/activiteAT";
     }
     
 }

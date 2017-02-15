@@ -10,3 +10,4 @@ spl_autoload_register(function ($myClass){
         include('../app/'.$myClass.'.php');
     }
 });
+require('../lib/pagination.min.php');

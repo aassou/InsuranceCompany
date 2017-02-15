@@ -72,12 +72,12 @@ class CompagnieActionController {
             $this->_compagnieManager->add($compagnie);
             $this->_actionMessage = "Opération Valide : Compagnie Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "compagnie";
+            $this->_source = "view/compagnie";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'raisonSociale'.";
             $this->_typeMessage = "error";
-            $this->_source = "compagnie";
+            $this->_source = "view/compagnie";
         }
     }
     
@@ -125,12 +125,12 @@ class CompagnieActionController {
             $this->_compagnieManager->update($compagnie);
             $this->_actionMessage = "Opération Valide : Compagnie Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "compagnie";
+            $this->_source = "view/compagnie";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'raisonSociale'.";
             $this->_typeMessage = "error";
-            $this->_source = "compagnie";
+            $this->_source = "view/compagnie";
         }
     }
     
@@ -140,7 +140,7 @@ class CompagnieActionController {
         $this->_compagnieManager->delete($idCompagnie);
         $this->_actionMessage = "Opération Valide : Compagnie supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "compagnie";
+        $this->_source = "view/compagnie";
     }
     
 }

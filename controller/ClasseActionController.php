@@ -46,12 +46,12 @@ class ClasseActionController {
             $this->_classeManager->add($classe);
             $this->_actionMessage = "Opération Valide : Classe Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "classe";
+            $this->_source = "view/classe";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "classe";
+            $this->_source = "view/classe";
         }
     }
     
@@ -73,12 +73,12 @@ class ClasseActionController {
             $this->_classeManager->update($classe);
             $this->_actionMessage = "Opération Valide : Classe Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "classe";
+            $this->_source = "view/classe";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "classe";
+            $this->_source = "view/classe";
         }
     }
     
@@ -88,7 +88,7 @@ class ClasseActionController {
         $this->_classeManager->delete($idClasse);
         $this->_actionMessage = "Opération Valide : Classe supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "classe";
+        $this->_source = "view/classe";
     }
     
 }

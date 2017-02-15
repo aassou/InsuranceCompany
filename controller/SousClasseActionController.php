@@ -48,12 +48,12 @@ class SousClasseActionController {
             $this->_sousClasseManager->add($sousClasse);
             $this->_actionMessage = "Opération Valide : SousClasse Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "sousClasse";
+            $this->_source = "view/sousClasse";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "sousClasse";
+            $this->_source = "view/sousClasse";
         }
     }
     
@@ -77,12 +77,12 @@ class SousClasseActionController {
             $this->_sousClasseManager->update($sousClasse);
             $this->_actionMessage = "Opération Valide : SousClasse Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "sousClasse";
+            $this->_source = "view/sousClasse";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "sousClasse";
+            $this->_source = "view/sousClasse";
         }
     }
     
@@ -92,7 +92,7 @@ class SousClasseActionController {
         $this->_sousClasseManager->delete($idSousClasse);
         $this->_actionMessage = "Opération Valide : SousClasse supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "sousClasse";
+        $this->_source = "view/sousClasse";
     }
     
 }

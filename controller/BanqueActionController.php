@@ -60,12 +60,12 @@ class BanqueActionController {
             $this->_banqueManager->add($banque);
             $this->_actionMessage = "Opération Valide : Banque Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "banque";
+            $this->_source = "view/banque";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "banque";
+            $this->_source = "view/banque";
         }
     }
     
@@ -101,12 +101,12 @@ class BanqueActionController {
             $this->_banqueManager->update($banque);
             $this->_actionMessage = "Opération Valide : Banque Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "banque";
+            $this->_source = "view/banque";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "banque";
+            $this->_source = "view/banque";
         }
     }
     
@@ -116,7 +116,7 @@ class BanqueActionController {
         $this->_banqueManager->delete($idBanque);
         $this->_actionMessage = "Opération Valide : Banque supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "banque";
+        $this->_source = "view/banque";
     }
     
 }

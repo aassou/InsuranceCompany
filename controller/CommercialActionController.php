@@ -58,12 +58,12 @@ class CommercialActionController {
             $this->_commercialManager->add($commercial);
             $this->_actionMessage = "Opération Valide : Commercial Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "commercial";
+            $this->_source = "view/commercial";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "commercial";
+            $this->_source = "view/commercial";
         }
     }
     
@@ -97,12 +97,12 @@ class CommercialActionController {
             $this->_commercialManager->update($commercial);
             $this->_actionMessage = "Opération Valide : Commercial Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "commercial";
+            $this->_source = "view/commercial";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "commercial";
+            $this->_source = "view/commercial";
         }
     }
     
@@ -112,7 +112,7 @@ class CommercialActionController {
         $this->_commercialManager->delete($idCommercial);
         $this->_actionMessage = "Opération Valide : Commercial supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "commercial";
+        $this->_source = "view/commercial";
     }
     
 }

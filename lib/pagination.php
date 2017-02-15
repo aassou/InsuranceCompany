@@ -17,24 +17,25 @@ function paginate($url, $link, $total, $current, $adj=3) {
  
     if ($total > 1) {
         // Remplissage de la chaîne de caractères à retourner
-        $pagination .= " <div id=\"tSortable_paginate\" class=\"dataTables_paginate paging_bootstrap pagination\"> ";
+        $pagination .= " <div class=\"dataTables_paginate paging_bootstrap pagination\"> ";
+        $pagination .= "<ul>";
  
         /* =================================
          *  Affichage du bouton [précédent]
          * ================================= */
         if ($current == 2) {
             // la page courante est la 2, le bouton renvoie donc sur la page 1, remarquez qu'il est inutile de mettre $url{$link}1
-            $pagination .= "<a id=\"tSortable_previous\" class=\"previous paginate_button\" tabindex=\"0\" href=\"{$url}\"> ◄ </a>";
+            $pagination .= "<li class=\"prev\"><a href=\"{$url}\">← Prev</a></li>";
         } 
         elseif ($current > 2) {
             // la page courante est supérieure à 2, le bouton renvoie sur la page dont le numéro est immédiatement inférieur
-            $pagination .= "<a id=\"tSortable_previous\" class=\"previous paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$prev}\"> ◄ </a>";
+            $pagination .= "<li class=\"prev\"><a href=\"{$url}{$link}{$prev}\">← Prev</a></li>";
         } 
         else {
             // dans tous les autres, cas la page est 1 : désactivation du bouton [précédent]
-            $pagination .= " <a id=\"tSortable_previous\" class=\"previous paginate_active\" tabindex=\"0\"> ◄ </a> ";
+            $pagination .= "<li class=\"prev disabled\"><a>← Prev</a></li>";
         }
-        $pagination .= "<span>";
+        //$pagination .= "<span>";
         /**
          * Début affichage des pages, l'exemple reprend le cas de 3 numéros de pages adjacents (par défaut) de chaque côté du numéro courant
          * - CAS 1 : il y a au plus 12 pages, insuffisant pour faire une troncature
@@ -46,17 +47,17 @@ function paginate($url, $link, $total, $current, $adj=3) {
          * =============================================== */
         if ($total < 7 + ($adj * 2)) {
             // Ajout de la page 1 : on la traite en dehors de la boucle pour n'avoir que index.php au lieu de index.php?p=1 et ainsi éviter le duplicate content
-            $pagination .= ($current == 1) ? "<a class=\"paginate_active\" tabindex=\"0\" > 1 </a>" : "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}\"> 1 </a>"; // Opérateur ternaire : (condition) ? 'valeur si vrai' : 'valeur si fausse'
+            $pagination .= ($current == 1) ? "<li class=\"active\"><a> 1 </a></li>" : "<li><a href=\"{$url}\">1</a></li>"; // Opérateur ternaire : (condition) ? 'valeur si vrai' : 'valeur si fausse'
  
             // Pour les pages restantes on utilise itère
             for ($i=2; $i<=$total; $i++) {
                 if ($i == $current) {
                     // Le numéro de la page courante est mis en évidence (cf. CSS)
-                    $pagination .= " <a class=\"paginate_active\" tabindex=\"0\" > {$i} </a> ";
+                    $pagination .= " <li class=\"active\"><a>{$i}</a></li>";
                 } 
                 else {
                     // Les autres sont affichées normalement
-                    $pagination .= " <a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$i}\" > {$i} </a> ";
+                    $pagination .= "<li><a href=\"{$url}{$link}{$i}\">{$i}</a></li>";
                 }
             }
         }
@@ -71,14 +72,14 @@ function paginate($url, $link, $total, $current, $adj=3) {
              */
             if ($current < 2 + ($adj * 2)) {
                 // Affichage du numéro de page 1
-                $pagination .= ($current == 1) ? "<a class=\"paginate_active\" tabindex=\"0\"> 1 </a>" : "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}\"> 1 </a>";
+                $pagination .= ($current == 1) ? "<li class=\"active\"><a> 1 </a></li>" : "<li><a     href=\"{$url}\"> 1 </a></li>";
  
                 // puis des huit autres suivants
                 for ($i = 2; $i < 4 + ($adj * 2); $i++) {
                     if ($i == $current) {
-                        $pagination .= "<a class=\"paginate_active\" tabindex=\"0\"> {$i} </a>";
+                        $pagination .= "<li class=\"active\"><a> {$i} </a></li>";
                     } else {
-                        $pagination .= "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$i}\"> {$i} </a>";
+                        $pagination .= "<li><a     href=\"{$url}{$link}{$i}\"> {$i} </a></li>";
                     }
                 }
  
@@ -86,8 +87,8 @@ function paginate($url, $link, $total, $current, $adj=3) {
                 $pagination .= '&hellip;';
  
                 // et enfin les deux derniers numéros
-                $pagination .= "<a href=\"{$url}{$link}{$penultimate}\" class=\"paginate_button\" tabindex=\"0\" > {$penultimate} </a>";
-                $pagination .= "<a href=\"{$url}{$link}{$total}\" class=\"paginate_button\" tabindex=\"0\" > {$total} </a>";
+                $pagination .= "<li><a href=\"{$url}{$link}{$penultimate}\"     > {$penultimate} </a></li>";
+                $pagination .= "<li><a href=\"{$url}{$link}{$total}\"     > {$total} </a></li>";
             }
             /**
              * Troncature 2 : on se situe dans la partie centrale de notre pagination, on tronque donc le début et la fin de la pagination.
@@ -96,24 +97,24 @@ function paginate($url, $link, $total, $current, $adj=3) {
              */
             elseif ( (($adj * 2) + 1 < $current) && ($current < $total - ($adj * 2)) ) {
                 // Affichage des numéros 1 et 2
-                $pagination .= "<a class=\"paginate_button\" tabindex=\"0\"  href=\"{$url}\"> 1 </a>";
-                $pagination .= "<a class=\"paginate_button\" tabindex=\"0\"  href=\"{$url}{$link}2\"> 2 </a>";
+                $pagination .= "<li><a      href=\"{$url}\"> 1 </a></li>";
+                $pagination .= "<li><a      href=\"{$url}{$link}2\"> 2 </a></li>";
                 $pagination .= '&hellip;';
  
                 // les pages du milieu : les trois précédant la page courante, la page courante, puis les trois lui succédant
                 for ($i = $current - $adj; $i <= $current + $adj; $i++) {
                     if ($i == $current) {
-                        $pagination .= "<a class=\"paginate_active\" tabindex=\"0\"> {$i} </a>";
+                        $pagination .= "<li class=\"active\"><a>{$i}</a></li>";
                     } else {
-                        $pagination .= "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$i}\"> {$i} </a>";
+                        $pagination .= "<li><a href=\"{$url}{$link}{$i}\"> {$i} </a></li>";
                     }
                 }
  
                 $pagination .= '&hellip;';
  
                 // et les deux derniers numéros
-                $pagination .= "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$penultimate}\"> {$penultimate} </a>";
-                $pagination .= "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$total}\"> {$total} </a>";
+                $pagination .= "<li><a     href=\"{$url}{$link}{$penultimate}\"> {$penultimate} </a></li>";
+                $pagination .= "<li><a     href=\"{$url}{$link}{$total}\"> {$total} </a></li>";
             }
             /**
              * Troncature 3 : on se situe dans la partie de droite, on tronque donc le début de la pagination.
@@ -122,33 +123,33 @@ function paginate($url, $link, $total, $current, $adj=3) {
              */
             else {
                 // Affichage des numéros 1 et 2
-                $pagination .= "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}\"> 1 </a>";
-                $pagination .= "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}{$link}2\"> 2 </a>";
+                $pagination .= "<li><a     href=\"{$url}\"> 1 </a></li>";
+                $pagination .= "<li><a     href=\"{$url}{$link}2\"> 2 </a></li>";
                 $pagination .= '&hellip;';
  
                 // puis des neuf derniers numéros
                 for ($i = $total - (2 + ($adj * 2)); $i <= $total; $i++) {
                     if ($i == $current) {
-                        $pagination .= "<a class=\"paginate_active\" tabindex=\"0\"> {$i} </a>";
+                        $pagination .= "<li class=\"active\"><a   > {$i} </a></li>";
                     } 
                     else {
-                        $pagination .= "<a class=\"paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$i}\"> {$i} </a>";
+                        $pagination .= "<li><a     href=\"{$url}{$link}{$i}\"> {$i} </a></li>";
                     }
                 }
             }
         }
-        $pagination .= "</span>";
+        //$pagination .= "</span>";
         /* ===============================
          *  Affichage du bouton [suivant]
          * =============================== */
         if ($current == $total){
-            $pagination .= "<a  id=\"tSortable_next\" class=\"next paginate_active\" tabindex=\"0\"> ► </a>";
+            $pagination .= "<li class=\"next disabled\"><a  >Next →</a></li>";
         }
         else{
-            $pagination .= "<a  id=\"tSortable_next\" class=\"next paginate_button\" tabindex=\"0\" href=\"{$url}{$link}{$next}\"> ► </a>";
+            $pagination .= "<li class=\"next\"><a href=\"{$url}{$link}{$next}\">Next →</a></li>";
         }
         // Fermeture de la <div> d'affichage
-        $pagination .= "</div>";
+        $pagination .= "</ul></div>";
     }
  
     return ($pagination);

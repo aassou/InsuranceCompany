@@ -54,12 +54,12 @@ class BrancheActionController {
             $this->_brancheManager->add($branche);
             $this->_actionMessage = "Opération Valide : Branche Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "branche";
+            $this->_source = "view/branche";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "branche";
+            $this->_source = "view/branche";
         }
     }
     
@@ -89,12 +89,12 @@ class BrancheActionController {
             $this->_brancheManager->update($branche);
             $this->_actionMessage = "Opération Valide : Branche Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "branche";
+            $this->_source = "view/branche";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "branche";
+            $this->_source = "view/branche";
         }
     }
     
@@ -104,7 +104,7 @@ class BrancheActionController {
         $this->_brancheManager->delete($idBranche);
         $this->_actionMessage = "Opération Valide : Branche supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "branche";
+        $this->_source = "view/branche";
     }
     
 }

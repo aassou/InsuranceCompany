@@ -103,6 +103,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Motif Retour Quittance</div></div>
                                     </div>
                                 </a>
+                                <a href="tarifRC.php">
+                                    <div class="tile bg-red-2">
+                                        <div class="tile-body"><i class="icon-barcode"></i></div>
+                                        <div class="tile-object"><div class="name">Tarif RC</div></div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

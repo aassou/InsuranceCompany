@@ -46,12 +46,12 @@ class CodeReglementSinistreActionController {
             $this->_codeReglementSinistreManager->add($codeReglementSinistre);
             $this->_actionMessage = "Opération Valide : CodeReglementSinistre Ajouté(e) avec succès.";  
             $this->_typeMessage = "success";
-            $this->_source = "codeReglementSinistre";
+            $this->_source = "view/codeReglementSinistre";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "codeReglementSinistre";
+            $this->_source = "view/codeReglementSinistre";
         }
     }
     
@@ -73,12 +73,12 @@ class CodeReglementSinistreActionController {
             $this->_codeReglementSinistreManager->update($codeReglementSinistre);
             $this->_actionMessage = "Opération Valide : CodeReglementSinistre Modifié(e) avec succès.";
             $this->_typeMessage = "success";
-            $this->_source = "codeReglementSinistre";
+            $this->_source = "view/codeReglementSinistre";
         }
         else{
             $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'code'.";
             $this->_typeMessage = "error";
-            $this->_source = "codeReglementSinistre";
+            $this->_source = "view/codeReglementSinistre";
         }
     }
     
@@ -88,7 +88,7 @@ class CodeReglementSinistreActionController {
         $this->_codeReglementSinistreManager->delete($idCodeReglementSinistre);
         $this->_actionMessage = "Opération Valide : CodeReglementSinistre supprimé(e) avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "codeReglementSinistre";
+        $this->_source = "view/codeReglementSinistre";
     }
     
 }
