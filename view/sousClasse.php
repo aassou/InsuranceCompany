@@ -97,10 +97,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <table class="table table-striped table-bordered table-hover" id="sample_2">
                                             <thead>
                                                 <tr>
-                                                    <th class="hidden-phone" style="width: 10%">Actions</th>
-                                                    <th style="width: 20%">Code Classe</th>
-                                                    <th style="width: 20%">Code Sous Classe</th>
-                                                    <th style="width: 50%">Designation</th>
+                                                    <th class="t10 hidden-phone">Actions</th>
+                                                    <th class="t20">Classe</th>
+                                                    <th class="t20">Sous Classe</th>
+                                                    <th class="t50">Designation</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

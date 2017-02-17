@@ -87,9 +87,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
-                                                <th class="hidden-phone" style="width: 10%">Actions</th>
-                                                <th style="width: 10%">Code</th>
-                                                <th style="width: 10%">Libelle</th>
+                                                <th class="t10 hidden-phone">Actions</th>
+                                                <th class="t10">Code</th>
+                                                <th class="t10">Libelle</th>
                                             </tr>
                                         </thead>
                                         <tbody>

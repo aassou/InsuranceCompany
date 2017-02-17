@@ -115,13 +115,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <table class="table table-striped table-bordered table-hover" id="sample_2">
                                             <thead>
                                                 <tr>
-                                                    <th class="hidden-phone" style="width: 10%">Actions</th>
-                                                    <th style="width: 5%">Compagnie</th>
-                                                    <th style="width: 5%">Branche</th>
-                                                    <th class="hidden-phone" style="width: 50%">Designation</th>
-                                                    <th style="width: 10%">%Taxe</th>
-                                                    <th style="width: 10%">%Commission</th>
-                                                    <th style="width: 10%">%TPS</th>
+                                                    <th class="t10 hidden-phone">Actions</th>
+                                                    <th class="t5 hidden-phone">Compagnie</th>
+                                                    <th class="t5">Branche</th>
+                                                    <th class="t50 hidden-phone">Designation</th>
+                                                    <th class="t10">%Taxe</th>
+                                                    <th class="t10">%Commission</th>
+                                                    <th class="t10">%TPS</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -131,7 +131,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <a href="#deleteBranche<?= $branche->id() ?>" data-toggle="modal" data-id="<?= $branche->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                         <a href="#updateBranche<?= $branche->id() ?>" data-toggle="modal" data-id="<?= $branche->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                     </td>
-                                                    <td><?= $branche->idCompagnie() ?></td>
+                                                    <td class="hidden-phone"><?= $branche->idCompagnie() ?></td>
                                                     <td><?= $branche->code() ?></td>
                                                     <td class="hidden-phone"><?= $branche->designation() ?></td>
                                                     <td><?= $branche->tauxTaxe() ?></td>

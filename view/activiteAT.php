@@ -4,8 +4,23 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     $activiteATManager = new ActiviteATManager(PDOFactory::getMysqlConnection());
     $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $activiteATs = $activiteATManager->getActiviteATs(); 
+    //$activiteATs = $activiteATManager->getActiviteATs(); 
     $compagnies = $compagnieManager->getCompagnies();
+    $activiteATNumber = $activiteATManager->getActiviteATsNumber(); 
+    $p = 1;
+    if ( $activiteATNumber != 0 ) {
+        $activiteATPerPage = 20;
+        $pageNumber = ceil($activiteATNumber/$activiteATPerPage);
+        if(isset($_GET['p']) and ($_GET['p']>0 and $_GET['p']<=$pageNumber)){
+            $p = $_GET['p'];
+        }
+        else{
+            $p = 1;
+        }
+        $begin = ($p - 1) * $activiteATPerPage;
+        $pagination = paginate('activiteAT.php', '?p=', $pageNumber, $p);
+        $activiteATs = $activiteATManager->getActiviteATsByLimits($begin, $activiteATPerPage);
+    } 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -108,26 +123,29 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </a>
                                         </div>
                                     </div>
-                                    <table class="table table-striped table-bordered table-hover" id="sample_2">
+                                    <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="hidden-phone t10">Actions</th>
-                                                <th class="t10">Compagnie</th>
-                                                <th class="t10">Classe</th>
-                                                <th class="t10">Code Activite</th>
+                                                <th class="t10 hidden-phone">Actions</th>
+                                                <th class="t10 hidden-phone">Compagnie</th>
+                                                <th class="t10 hidden-phone">Classe</th>
+                                                <th class="t10"><span class="hidden-phone">Code </span>Activite</th>
                                                 <th class="t55">Description</th>
                                                 <th class="t5">%Taux</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ( $activiteATs as $activiteAT ) { ?>
+                                            <?php 
+                                            if ( $activiteATNumber != 0 ) {
+                                            foreach ( $activiteATs as $activiteAT ) { 
+                                            ?>
                                             <tr>
                                                 <td class="hidden-phone">
                                                     <a href="#deleteActiviteAT<?= $activiteAT->id() ?>" data-toggle="modal" data-id="<?= $activiteAT->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateActiviteAT<?= $activiteAT->id() ?>" data-toggle="modal" data-id="<?= $activiteAT->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $activiteAT->codeCompagnie() ?></td>
-                                                <td><?= $activiteAT->codeClasse() ?></td>
+                                                <td class="hidden-phone"><?= $activiteAT->codeCompagnie() ?></td>
+                                                <td class="hidden-phone"><?= $activiteAT->codeClasse() ?></td>
                                                 <td><?= $activiteAT->codeActivite() ?></td>
                                                 <td><?= $activiteAT->description() ?></td>
                                                 <td><?= $activiteAT->taux() ?></td>
@@ -183,6 +201,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 <input type="hidden" name="idActiviteAT" value="<?= $activiteAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="activiteAT" />    
+                                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />     
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -206,7 +225,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="controls">
                                                                 <input type="hidden" name="idActiviteAT" value="<?= $activiteAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="activiteAT" />    
+                                                                <input type="hidden" name="source" value="activiteAT" />
+                                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />         
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -215,9 +235,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- deleteClasse box end --> 
-                                            <?php } ?>
+                                            <?php 
+                                            }//end foreach 
+                                            }//end if
+                                            ?>
                                         </tbody>
                                     </table>
+                                    <?php if ( $activiteATNumber != 0 ) { echo $pagination; } ?><br><br>
                                 </div>
                             </div>
                         </div>

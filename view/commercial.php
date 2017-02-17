@@ -123,15 +123,15 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
-                                                <th class="hidden-phone" style="width: 10%">Actions</th>
-                                                <th style="width: 10%">Code</th>
-                                                <th style="width: 20%">RaisonSocial</th>
-                                                <th style="width: 10%">NomContact</th>
-                                                <th style="width: 10%">Adresse</th>
-                                                <th style="width: 10%">Rue</th>
-                                                <th style="width: 10%">Tel1</th>
-                                                <th style="width: 10%">Tel2</th>
-                                                <th style="width: 10%">Email</th>
+                                                <th class="t10 hidden-phone">Actions</th>
+                                                <th class="t10 hidden-phone">Code</th>
+                                                <th class="t20">Raison Sociale</th>
+                                                <th class="t10">Contact</th>
+                                                <th class="t10 hidden-phone">Adresse</th>
+                                                <th class="t10 hidden-phone">Rue</th>
+                                                <th class="t10">Tel1</th>
+                                                <th class="t10">Tel2</th>
+                                                <th class="t10 hidden-phone">Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -141,14 +141,14 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteCommercial<?= $commercial->id() ?>" data-toggle="modal" data-id="<?= $commercial->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateCommercial<?= $commercial->id() ?>" data-toggle="modal" data-id="<?= $commercial->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $commercial->code() ?></td>
+                                                <td class="hidden-phone"><?= $commercial->code() ?></td>
                                                 <td><?= $commercial->raisonSocial() ?></td>
                                                 <td><?= $commercial->nomContact() ?></td>
-                                                <td><?= $commercial->Adresse() ?></td>
-                                                <td><?= $commercial->Rue() ?></td>
+                                                <td class="hidden-phone"><?= $commercial->Adresse() ?></td>
+                                                <td class="hidden-phone"><?= $commercial->Rue() ?></td>
                                                 <td><?= $commercial->tel1() ?></td>
                                                 <td><?= $commercial->tel2() ?></td>
-                                                <td><?= $commercial->email() ?></td>
+                                                <td class="hidden-phone"><?= $commercial->email() ?></td>
                                             </tr> 
                                             <!-- updateCommercial box begin -->
                                             <div id="updateCommercial<?= $commercial->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">

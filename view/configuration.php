@@ -80,13 +80,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </a>
                                 <a href="expert.php">
-                                    <div class="tile bg-lime">
+                                    <div class="tile bg-green-2">
                                         <div class="tile-body"><i class="icon-eye-open"></i></div>
                                         <div class="tile-object"><div class="name">Experts</div></div>
                                     </div>
                                 </a>
                                 <a href="classeAT.php">
-                                    <div class="tile bg-yellow-2">
+                                    <div class="tile bg-lime">
                                         <div class="tile-body"><i class="icon-list"></i></div>
                                         <div class="tile-object"><div class="name">Classes AT</div></div>
                                     </div>
@@ -107,6 +107,18 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     <div class="tile bg-red-2">
                                         <div class="tile-body"><i class="icon-barcode"></i></div>
                                         <div class="tile-object"><div class="name">Tarif RC</div></div>
+                                    </div>
+                                </a>
+                                <a href="tarifFrontiere.php">
+                                    <div class="tile bg-maroon">
+                                        <div class="tile-body"><i class="icon-plane"></i></div>
+                                        <div class="tile-object"><div class="name">Tarif Frontière</div></div>
+                                    </div>
+                                </a>
+                                <a href="fractionPrimeRC.php">
+                                    <div class="tile bg-fuchsia">
+                                        <div class="tile-body"><i class="icon-th"></i></div>
+                                        <div class="tile-object"><div class="name">Fraction Prime RC</div></div>
                                     </div>
                                 </a>
                             </div>

@@ -3,32 +3,29 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //get Managers
-    $tarifRCManager = new TarifRCManager(PDOFactory::getMysqlConnection());
+    $tarifFrontiereManager = new TarifFrontiereManager(PDOFactory::getMysqlConnection());
     $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
     $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
     $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
     //get objects
     $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses();
-    $sousClasses = $sousClasseManager->getSousClasses();
-    //set pagination
-    $tarifRCNumber = $tarifRCManager->getTarifRCsNumber(); 
+    $classes = $classeManager->getClasses(); 
+    $tarifFrontieres = $tarifFrontiereManager->getTarifFrontieres(); 
+    /*$tarifFrontieresNumber = $tarifFrontiereManager->getTarifFrontieresNumber(); 
     $p = 1;
-    if($tarifRCNumber!=0){
-        $tarifRCPerPage = 20;
-        $pageNumber = ceil($tarifRCNumber/$tarifRCPerPage);
+    if ( $tarifFrontieresNumber != 0 ) {
+        $tarifFrontierePerPage = 20;
+        $pageNumber = ceil($tarifFrontieresNumber/$tarifFrontierePerPage);
         if(isset($_GET['p']) and ($_GET['p']>0 and $_GET['p']<=$pageNumber)){
             $p = $_GET['p'];
         }
         else{
             $p = 1;
         }
-        $begin = ($p - 1) * $tarifRCPerPage;
-        $pagination = paginate('tarifRC.php', '?p=', $pageNumber, $p);
-        $tarifRCs = $tarifRCManager->getTarifRCsByLimits($begin, $tarifRCPerPage);
-    } 
+        $begin = ($p - 1) * $tarifFrontierePerPage;
+        $pagination = paginate('tarifFrontiere.php', '?p=', $pageNumber, $p);
+        $tarifFrontieres = $tarifFrontiereManager->getTarifFrontieresByLimits($begin, $tarifFrontierePerPage);
+    }*/ 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -50,7 +47,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-wrench"></i><a href="configuration.php">Paramètrages</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-barcode"></i><a>Tarifs RC</a></li>
+                                <li><i class="icon-plane"></i><a>Tarifs Frontières</a></li>
                             </ul>
                         </div>
                     </div>
@@ -59,30 +56,20 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
                             <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
                             <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
-                            <!-- addTarifRC box begin -->
-                            <div id="addTarifRC" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
+                            <!-- addTarifFrontiere box begin -->
+                            <div id="addTarifFrontiere" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter TarifRC</h3>
+                                    <h3>Ajouter TarifFrontiere</h3>
                                 </div>
                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
-                                    <div class="control-group">
+                                        <div class="control-group">
                                             <label class="control-label">Compagnie</label>
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieManager->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
-                                                <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Usage</label>
-                                            <div class="controls">
-                                                <select name="codeUsage">
-                                                <?php foreach ( $usages as $usage ) { ?>
-                                                <option value="<?= $usage->code() ?>"><?= $usage->code() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -105,18 +92,20 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Carburant</label>
+                                            <label class="control-label">Designation</label>
                                             <div class="controls">
-                                                <select name="carburant">
-                                                    <option value="D">D</option>
-                                                    <option value="E">E</option>
-                                                </select>
+                                                <input required="required" type="text" name="designation" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">PuissanceFiscale</label>
+                                            <label class="control-label">Periode</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="puissanceFiscale" />
+                                                <input class="span4" required="required" type="text" name="periode" />
+                                                <select class="span4" name="typePeriode">
+                                                    <option value="Jours">Jours</option>
+                                                    <option value="Mois">Mois</option>
+                                                    <option value="Ans">Ans</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -126,39 +115,21 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">MajorationRemorque</label>
+                                            <label class="control-label">Taxe</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="majorationRemorque" />
+                                                <input required="required" type="text" name="taxe" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">MatiereInflamable</label>
+                                            <label class="control-label">PrimeDR</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="matiereInflamable" />
+                                                <input required="required" type="text" name="primeDR" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">TransportPersonne</label>
+                                            <label class="control-label">TaxeDR</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="transportPersonne" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">TauxCommission</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="tauxCommission" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">TauxTPS</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="tauxTPS" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">TauxTaxe</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="tauxTaxe" />
+                                                <input required="required" type="text" name="taxeDR" />
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -167,13 +138,37 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <input required="required" type="text" name="timbre" />
                                             </div>
                                         </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Taux Majoration</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="tauxMajoration" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Taxe Remorque</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="taxeRemorque" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Taux Commission</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="tauxCommission" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Taux TPS</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="tauxTPS" />
+                                            </div>
+                                        </div>
                                              
                                     </div>
                                     <div class="modal-footer">
                                         <div class="control-group">
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="tarifRC" />    
+                                                <input type="hidden" name="source" value="tarifFrontiere" />    
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -181,10 +176,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </form>
                             </div>    
-                            <!-- addTarifRC box end -->
+                            <!-- addTarifFrontiere box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Liste des Tarifs RC</h4>
+                                    <h4>Liste des Tarif Frontières</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="reload"></a>
                                     </div>
@@ -192,46 +187,61 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <div class="portlet-body">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a class="btn blue pull-right" href="#addTarifRC" data-toggle="modal">
-                                                <i class="icon-plus-sign"></i>&nbsp;TarifRC
+                                            <a class="btn blue pull-right" href="#addTarifFrontiere" data-toggle="modal">
+                                                <i class="icon-plus-sign"></i>&nbsp;Tarif Frontiere
                                             </a>
                                         </div>
                                     </div>
-                                    <table class="table table-striped table-bordered table-hover">
+                                    <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
                                                 <th class="t10 hidden-phone">Actions</th>
-                                                <th class="t40 hidden-phone">Compagnie</th>
-                                                <th class="t5">Usage</th>
-                                                <th class="t5">Classe</th>
-                                                <th class="t10 hidden-phone">S-Classe</th>
-                                                <th class="t5">Carburant</th>
-                                                <th class="t10">PFisc</th>
-                                                <th class="t10">PrimeRC</th>
+                                                <th class="t5 hidden-phone">Comp</th>
+                                                <th class="t5">Class</th>
+                                                <th class="t5 hidden-phone">SClass</th>
+                                                <th class="t10">Designat°</th>
+                                                <th class="t10">Periode</th>
+                                                <th class="t10 hidden-phone">PrimeRC</th>
+                                                <th class="t10 hidden-phone">Taxe</th>
+                                                <th class="t10 hidden-phone">PrimeDR</th>
+                                                <th class="t5 hidden-phone">TaxeDR</th>
+                                                <th class="t5 hidden-phone">Timbre</th>
+                                                <th class="t10 hidden-phone">%Majorat°</th>
+                                                <th class="t5 hidden-phone">TRemorq</th>
+                                                <th class="t5 hidden-phone">%Commiss</th>
+                                                <th class="t5 hidden-phone">%TPS</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if ( $tarifRCNumber != 0 ) { 
-                                            foreach ( $tarifRCs as $tarifRC ) { ?>
+                                            //if ( $tarifFrontieresNumber != 0 ) { 
+                                            foreach ( $tarifFrontieres as $tarifFrontiere ) {
+                                            ?>
                                             <tr>
                                                 <td class="hidden-phone">
-                                                    <a href="#deleteTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                    <a href="#updateTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                    <a href="#deleteTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
+                                                    <a href="#updateTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $tarifRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></td>
-                                                <td><?= $tarifRC->codeUsage() ?></td>
-                                                <td><?= $tarifRC->codeClasse() ?></td>
-                                                <td class="hidden-phone"><?= $tarifRC->codeSousClasse() ?></td>
-                                                <td><?= $tarifRC->carburant() ?></td>
-                                                <td><?= $tarifRC->puissanceFiscale() ?></td>
-                                                <td><?= number_format($tarifRC->primeRC(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= $tarifFrontiere->codeCompagnie().": ".$compagnieManager->getCompagnieById($tarifFrontiere->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td><?= $tarifFrontiere->codeClasse() ?></td>
+                                                <td class="hidden-phone"><?= $tarifFrontiere->codeSousClasse() ?></td>
+                                                <td><?= $tarifFrontiere->designation() ?></td>
+                                                <td><?= $tarifFrontiere->periode()." ".$tarifFrontiere->typePeriode() ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->primeRC(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->taxe(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->primeDR(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->taxeDR(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->timbre(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->tauxMajoration(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->taxeRemorque(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->tauxCommission(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= number_format($tarifFrontiere->tauxTPS(), 2, ',', ' ') ?></td>
                                             </tr> 
-                                            <!-- updateTarifRC box begin -->
-                                            <div id="updateTarifRC<?= $tarifRC->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- updateTarifFrontiere box begin -->
+                                            <div id="updateTarifFrontiere<?= $tarifFrontiere->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Modifier Info TarifRC</h3>
+                                                    <h3>Modifier Info TarifFrontiere</h3>
                                                 </div>
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
@@ -239,7 +249,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">CodeCompagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                <option value="<?= $tarifRC->codeCompagnie() ?>"><?= $tarifRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></option>
+                                                                <option value="<?= $tarifFrontiere->codeCompagnie() ?>"><?= $tarifFrontiere->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifFrontiere->codeCompagnie())->raisonSociale() ?></option>
                                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                 <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                 <?php } ?>
@@ -247,91 +257,97 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">CodeUsage</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="codeUsage"  value="<?= $tarifRC->codeUsage() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
                                                             <label class="control-label">CodeClasse</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="codeClasse"  value="<?= $tarifRC->codeClasse() ?>" />
+                                                                <input required="required" type="text" name="codeClasse"  value="<?= $tarifFrontiere->codeClasse() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">CodeSousClasse</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="codeSousClasse"  value="<?= $tarifRC->codeSousClasse() ?>" />
+                                                                <input required="required" type="text" name="codeSousClasse"  value="<?= $tarifFrontiere->codeSousClasse() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Carburant</label>
+                                                            <label class="control-label">Designation</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="carburant"  value="<?= $tarifRC->carburant() ?>" />
+                                                                <input required="required" type="text" name="designation"  value="<?= $tarifFrontiere->designation() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">PuissanceFiscale</label>
+                                                            <label class="control-label">Periode</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="puissanceFiscale"  value="<?= $tarifRC->puissanceFiscale() ?>" />
+                                                                <input class="span4" required="required" type="text" name="periode"  value="<?= $tarifFrontiere->periode() ?>" />
+                                                                <select class="span4" name="typePeriode">
+                                                                    <option value="<?= $tarifFrontiere->typePeriode() ?>"><?= $tarifFrontiere->typePeriode() ?></option>
+                                                                    <option disabled="disabled">-----------------</option>
+                                                                    <option value="Jours">Jours</option>
+                                                                    <option value="Mois">Mois</option>
+                                                                    <option value="Ans">Ans</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">PrimeRC</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="primeRC"  value="<?= $tarifRC->primeRC() ?>" />
+                                                                <input required="required" type="text" name="primeRC"  value="<?= $tarifFrontiere->primeRC() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">MajorationRemorque</label>
+                                                            <label class="control-label">Taxe</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="majorationRemorque"  value="<?= $tarifRC->majorationRemorque() ?>" />
+                                                                <input required="required" type="text" name="taxe"  value="<?= $tarifFrontiere->taxe() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">MatiereInflamable</label>
+                                                            <label class="control-label">PrimeDR</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="matiereInflamable"  value="<?= $tarifRC->matiereInflamable() ?>" />
+                                                                <input required="required" type="text" name="primeDR"  value="<?= $tarifFrontiere->primeDR() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">TransportPersonne</label>
+                                                            <label class="control-label">TaxeDR</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="transportPersonne"  value="<?= $tarifRC->transportPersonne() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">TauxCommission</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $tarifRC->tauxCommission() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">TauxTPS</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $tarifRC->tauxTPS() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">TauxTaxe</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="tauxTaxe"  value="<?= $tarifRC->tauxTaxe() ?>" />
+                                                                <input required="required" type="text" name="taxeDR"  value="<?= $tarifFrontiere->taxeDR() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">Timbre</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="timbre"  value="<?= $tarifRC->timbre() ?>" />
+                                                                <input required="required" type="text" name="timbre"  value="<?= $tarifFrontiere->timbre() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">TauxMajoration</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="tauxMajoration"  value="<?= $tarifFrontiere->tauxMajoration() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">TaxeRemorque</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="taxeRemorque"  value="<?= $tarifFrontiere->taxeRemorque() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">TauxCommission</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $tarifFrontiere->tauxCommission() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">TauxTPS</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $tarifFrontiere->tauxTPS() ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTarifRC" value="<?= $tarifRC->id() ?>" />
+                                                                <input type="hidden" name="idTarifFrontiere" value="<?= $tarifFrontiere->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
-                                                                <input type="hidden" name="source" value="tarifRC" />
-                                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />     
+                                                                <input type="hidden" name="source" value="tarifFrontiere" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -340,23 +356,22 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- updateClasse box end --> 
-                                            <!-- deleteTarifRC box begin -->
-                                            <div id="deleteTarifRC<?= $tarifRC->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- deleteTarifFrontiere box begin -->
+                                            <div id="deleteTarifFrontiere<?= $tarifFrontiere->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Supprimer TarifRC</h3>
+                                                    <h3>Supprimer TarifFrontiere</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer TarifRC : <?= $tarifRC->codeCompagnie() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer TarifFrontiere : <?= $tarifFrontiere->codeCompagnie() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTarifRC" value="<?= $tarifRC->id() ?>" />
+                                                                <input type="hidden" name="idTarifFrontiere" value="<?= $tarifFrontiere->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="tarifRC" />    
-                                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />     
+                                                                <input type="hidden" name="source" value="tarifFrontiere" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -365,11 +380,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- deleteClasse box end --> 
-                                            <?php }//end foreach
-                                            }//end if?>
+                                            <?php 
+                                            }//end foreach 
+                                            //}//end if
+                                            ?>
                                         </tbody>
                                     </table>
-                                    <?php if($tarifRCNumber != 0){ echo $pagination; } ?><br>
+                                    <?php /*if($tarifFrontieresNumber != 0){ echo $pagination; }*/ ?><br>
                                 </div>
                             </div>
                         </div>
@@ -379,9 +396,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         </div>
         <?php include('../include/footer.php'); ?>
         <?php include('../include/scripts.php'); ?>     
-        <script>
-            jQuery(document).ready( function(){ App.setPage("table_managed"); App.init(); } );
-        </script>
+        <script>jQuery(document).ready( function(){ App.setPage("table_managed"); App.init(); } );</script>
     </body>
 </html>
 <?php

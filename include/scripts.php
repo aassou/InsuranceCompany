@@ -21,3 +21,4 @@
 <script src="../assets/js/respond.js"></script>
 <![endif]-->
 <script src="../assets/js/app.js"></script>
+<script src="../assets/js/classes-sous-classes.js"></script>

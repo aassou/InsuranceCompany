@@ -11,7 +11,7 @@ class ActiviteATManager{
 
 	//BASIC CRUD OPERATIONS
 	public function add(ActiviteAT $activiteAT){
-        $query = $this->_db->prepare(' INSERT INTO t_activiteAT (
+        $query = $this->_db->prepare(' INSERT INTO t_activiteat (
 		codeCompagnie, codeClasse, codeActivite, description, taux, created, createdBy)
 		VALUES (:codeCompagnie, :codeClasse, :codeActivite, :description, :taux, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
@@ -27,7 +27,7 @@ class ActiviteATManager{
 	}
 
 	public function update(ActiviteAT $activiteAT){
-        $query = $this->_db->prepare(' UPDATE t_activiteAT SET 
+        $query = $this->_db->prepare(' UPDATE t_activiteat SET 
 		codeCompagnie=:codeCompagnie, codeClasse=:codeClasse, codeActivite=:codeActivite, description=:description, taux=:taux, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -44,7 +44,7 @@ class ActiviteATManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_activiteAT
+        $query = $this->_db->prepare(' DELETE FROM t_activiteat
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
@@ -53,7 +53,7 @@ class ActiviteATManager{
 	}
 
 	public function getActiviteATById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_activiteAT
+        $query = $this->_db->prepare(' SELECT * FROM t_activiteat
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
@@ -65,7 +65,7 @@ class ActiviteATManager{
 
 	public function getActiviteATs(){
         $activiteATs = array();
-		$query = $this->_db->query('SELECT * FROM t_activiteAT
+		$query = $this->_db->query('SELECT * FROM t_activiteat
         ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$activiteATs[] = new ActiviteAT($data);
@@ -76,7 +76,7 @@ class ActiviteATManager{
 
 	public function getActiviteATsByLimits($begin, $end){
         $activiteATs = array();
-		$query = $this->_db->query('SELECT * FROM t_activiteAT
+		$query = $this->_db->query('SELECT * FROM t_activiteat
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$activiteATs[] = new ActiviteAT($data);
@@ -84,9 +84,16 @@ class ActiviteATManager{
 		$query->closeCursor();
 		return $activiteATs;
 	}
+    
+    public function getActiviteATsNumber(){
+        $query = $this->_db->query('SELECT COUNT(*) AS activiteATsNumber FROM t_activiteat');
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $tarifRCNumber = $data['activiteATsNumber'];
+        return $tarifRCNumber;
+    }
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_activiteAT
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_activiteat
 		ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
