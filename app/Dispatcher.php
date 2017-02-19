@@ -19,4 +19,3 @@ $source = $componentController->source();
 $_SESSION['actionMessage'] = $componentController->actionMessage();
 $_SESSION['typeMessage'] = $componentController->typeMessage();
 header('Location:../'.$source.".php".$pageNumber);
-

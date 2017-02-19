@@ -77,7 +77,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="control-group">
                                             <label class="control-label">Classe</label>
                                             <div class="controls">
-                                                <select name="codeClasse" id="codeClasse">
+                                                <select name="codeClasse" id="codeClasse" onchange="getSousClasse('')">
                                                 <?php foreach ( $classes as $classe ) { ?>
                                                 <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
                                                 <?php } ?>
@@ -217,8 +217,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             //if ( $tarifFrontieresNumber != 0 ) { 
                                             foreach ( $tarifFrontieres as $tarifFrontiere ) {
                                             ?>
-                                            <tr>
+                                            <tr id="row<?= $tarifFrontiere->id() ?>">
                                                 <td class="hidden-phone">
+                                                    <span id="<?= $tarifFrontiere->id() ?>" class="btn mini red trash"><i class="icon-remove"></i></span>
                                                     <a href="#deleteTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
@@ -246,7 +247,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
                                                         <div class="control-group">
-                                                            <label class="control-label">CodeCompagnie</label>
+                                                            <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
                                                                 <option value="<?= $tarifFrontiere->codeCompagnie() ?>"><?= $tarifFrontiere->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifFrontiere->codeCompagnie())->raisonSociale() ?></option>
@@ -257,15 +258,23 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">CodeClasse</label>
+                                                            <label class="control-label">Classe</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="codeClasse"  value="<?= $tarifFrontiere->codeClasse() ?>" />
+                                                                <select name="codeClasse" id="codeClasse<?= $tarifFrontiere->id() ?>" onchange="getSousClasse(<?= $tarifFrontiere->id() ?>)">
+                                                                    <option value="<?= $tarifFrontiere->codeClasse() ?>"><?= $tarifFrontiere->codeClasse() ?></option>
+                                                                    <option disabled="disabled">----------------------------</option>
+                                                                    <?php foreach ( $classes as $classe ) { ?>
+                                                                    <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">CodeSousClasse</label>
+                                                            <label class="control-label">Sous-Classe</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="codeSousClasse"  value="<?= $tarifFrontiere->codeSousClasse() ?>" />
+                                                                <select name="codeSousClasse" id="codeSousClasse<?= $tarifFrontiere->id() ?>">
+                                                                    <option value="<?= $tarifFrontiere->codeSousClasse() ?>"><?= $tarifFrontiere->codeSousClasse() ?></option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
@@ -396,7 +405,26 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         </div>
         <?php include('../include/footer.php'); ?>
         <?php include('../include/scripts.php'); ?>     
-        <script>jQuery(document).ready( function(){ App.setPage("table_managed"); App.init(); } );</script>
+        <script>
+        jQuery(document).ready( function(){ 
+            App.setPage("table_managed"); App.init();
+            $(".trash").click(function(){
+                alert('Hello');
+                var del_id = $(this).attr('id');
+                var rowElement = $(this).parent().parent();
+                $.ajax({
+                    type:'POST',
+                    url:'../ajax/delete-element.php',
+                    data: {delete_id : del_id},
+                    success:function(data) {
+                        if(data == "YES") {
+                            rowElement.fadeOut(500).remove();
+                        }   
+                    }
+                });
+            });
+        } );
+        </script>
     </body>
 </html>
 <?php

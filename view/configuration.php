@@ -121,6 +121,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Fraction Prime RC</div></div>
                                     </div>
                                 </a>
+                                <a href="tierce.php">
+                                    <div class="tile bg-purple-2">
+                                        <div class="tile-body"><i class="icon-reorder"></i></div>
+                                        <div class="tile-object"><div class="name">Tierce</div></div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

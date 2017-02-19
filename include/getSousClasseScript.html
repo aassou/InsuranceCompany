@@ -1,0 +1,1 @@
+<script>function getSousClasse(idClasse){var id = "#codeClasse"+idClasse;var codeClasse = $(id).val();var idSousClasse = "#codeSousClasse"+idClasse;var data = 'codeClasse='+codeClasse;$.ajax({type: "POST",url: "../ajax/classes-sous-classes.php",data: data,cache: false,success: function(html){$(idSousClasse).html(html);}});}</script>

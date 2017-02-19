@@ -1,6 +1,6 @@
 <?php
-if ( isset($_POST['codeClasse']) ) {
-    $codeClasse = htmlentities($_POST['codeClasse']);
+if ( isset($_POST['classe']) ) {
+    $codeClasse = htmlentities($_POST['classe']);
     $requete = "SELECT * FROM t_sousclasse WHERE codeClasse = '".$codeClasse."'";
     try{
         $bdd = new PDO('mysql:host=localhost;dbname=amazigh_assurances', 'root', '');

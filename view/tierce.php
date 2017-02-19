@@ -3,32 +3,32 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //get Managers
-    $tarifRCManager = new TarifRCManager(PDOFactory::getMysqlConnection());
+    $tierceManager = new TierceManager(PDOFactory::getMysqlConnection());
     $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
     $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
     $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
     $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get objects
+    //get Objects
     $compagnies = $compagnieManager->getCompagnies();
     $usages = $usageManager->getUsages();
     $classes = $classeManager->getClasses();
     $sousClasses = $sousClasseManager->getSousClasses();
-    //set pagination
-    $tarifRCNumber = $tarifRCManager->getTarifRCsNumber(); 
+    $tierces = $tierceManager->getTierces(); 
+    /*$tiercesNumber = $tierceManager->getTiercesNumber(); 
     $p = 1;
-    if($tarifRCNumber!=0){
-        $tarifRCPerPage = 20;
-        $pageNumber = ceil($tarifRCNumber/$tarifRCPerPage);
+    if ( $tiercesNumber != 0 ) {
+        $tiercePerPage = 20;
+        $pageNumber = ceil($tiercesNumber/$tiercePerPage);
         if(isset($_GET['p']) and ($_GET['p']>0 and $_GET['p']<=$pageNumber)){
             $p = $_GET['p'];
         }
         else{
             $p = 1;
         }
-        $begin = ($p - 1) * $tarifRCPerPage;
-        $pagination = paginate('tarifRC.php', '?p=', $pageNumber, $p);
-        $tarifRCs = $tarifRCManager->getTarifRCsByLimits($begin, $tarifRCPerPage);
-    } 
+        $begin = ($p - 1) * $tiercePerPage;
+        $pagination = paginate('tierce.php', '?p=', $pageNumber, $p);
+        $tierces = $tierceManager->getTiercesByLimits($begin, $tiercePerPage);
+    }*/ 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -50,7 +50,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-wrench"></i><a href="configuration.php">Paramètrages</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-barcode"></i><a>Tarifs RC</a></li>
+                                <li><i class="icon-reorder"></i><a>Tierce</a></li>
                             </ul>
                         </div>
                     </div>
@@ -59,11 +59,11 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
                             <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
                             <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
-                            <!-- addTarifRC box begin -->
-                            <div id="addTarifRC" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
+                            <!-- addTierce box begin -->
+                            <div id="addTierce" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter TarifRC</h3>
+                                    <h3>Ajouter Tierce</h3>
                                 </div>
                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
@@ -81,19 +81,19 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <label class="control-label">Usage</label>
                                             <div class="controls">
                                                 <select name="codeUsage">
-                                                    <?php foreach ( $usages as $usage ) { ?>
-                                                    <option value="<?= $usage->code() ?>"><?= $usage->code() ?></option>
-                                                    <?php } ?>
+                                                <?php foreach ( $usages as $usage ) { ?>
+                                                <option value="<?= $usage->code() ?>"><?= $usage->code() ?></option>
+                                                <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">Classe</label>
                                             <div class="controls">
-                                                <select name="codeClasse" id="codeClasse" onchange="getSousClasse('')">
-                                                    <?php foreach ( $classes as $classe ) { ?>
-                                                    <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
-                                                    <?php } ?>
+                                                <select name="codeClasse" id="codeClasse">
+                                                <?php foreach ( $classes as $classe ) { ?>
+                                                <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
+                                                <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -105,66 +105,63 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Carburant</label>
+                                            <label class="control-label">FormuleTierce</label>
                                             <div class="controls">
-                                                <select name="carburant">
-                                                    <option value="D">D</option>
-                                                    <option value="E">E</option>
-                                                </select>
+                                                <input required="required" type="text" name="formuleTierce" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Puissance Fiscale</label>
+                                            <label class="control-label">PrimeFixe</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="puissanceFiscale" />
+                                                <input required="required" type="text" name="primeFixe" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Prime RC</label>
+                                            <label class="control-label">TauxVehiculeNeuf</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="primeRC" />
+                                                <input required="required" type="text" name="tauxVehiculeNeuf" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Majoration Remorque</label>
+                                            <label class="control-label">MajorationRemorque</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="majorationRemorque" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Matiere Inflamable</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="matiereInflamable" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Transport Personne</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="transportPersonne" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Taux Commission</label>
+                                            <label class="control-label">TauxCommission</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="tauxCommission" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Taux TPS</label>
+                                            <label class="control-label">TauxTPS</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="tauxTPS" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Taux Taxe</label>
+                                            <label class="control-label">TauxTaxe</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="tauxTaxe" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Timbre</label>
+                                            <label class="control-label">TauxFranchise</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="timbre" />
+                                                <input required="required" type="text" name="tauxFranchise" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">MontantFranchise</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="montantFranchise" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Observation</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="observation" />
                                             </div>
                                         </div>
                                              
@@ -173,8 +170,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="control-group">
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="tarifRC" />    
-                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />   
+                                                <input type="hidden" name="source" value="tierce" />    
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -182,10 +178,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </form>
                             </div>    
-                            <!-- addTarifRC box end -->
+                            <!-- addTierce box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Liste des Tarifs RC</h4>
+                                    <h4>Liste des Tierces</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="reload"></a>
                                     </div>
@@ -193,160 +189,155 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <div class="portlet-body">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a class="btn blue pull-right" href="#addTarifRC" data-toggle="modal">
-                                                <i class="icon-plus-sign"></i>&nbsp;TarifRC
+                                            <a class="btn blue pull-right" href="#addTierce" data-toggle="modal">
+                                                <i class="icon-plus-sign"></i>&nbsp;Tierce
                                             </a>
                                         </div>
                                     </div>
-                                    <table class="table table-striped table-bordered table-hover">
+                                    <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
                                                 <th class="t10 hidden-phone">Actions</th>
-                                                <th class="t40 hidden-phone">Compagnie</th>
+                                                <th class="t5 hidden-phone">Compa</th>
                                                 <th class="t5">Usage</th>
-                                                <th class="t5">Classe</th>
-                                                <th class="t10 hidden-phone">S-Classe</th>
-                                                <th class="t5">Carburant</th>
-                                                <th class="t10">PFisc</th>
-                                                <th class="t10">PrimeRC</th>
+                                                <th class="t5">Clas</th>
+                                                <th class="t5 hidden-phone">SClas</th>
+                                                <th class="t5">FrmlTierc</th>
+                                                <th class="t10 hidden-phone">PrimeFixe</th>
+                                                <th class="t10">%VehNeuf</th>
+                                                <th class="t10 hidden-phone">MajRmorq</th>
+                                                <th class="t5 hidden-phone">%Commi</th>
+                                                <th class="t5 hidden-phone">%TPS</th>
+                                                <th class="t5 hidden-phone">%Taxe</th>
+                                                <th class="t10">%Frnchise</th>
+                                                <th class="t5">MntFrnchs</th>
+                                                <th class="t5 hidden-phone">Observ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if ( $tarifRCNumber != 0 ) { 
-                                            foreach ( $tarifRCs as $tarifRC ) { ?>
+                                            //if ( $tiercesNumber != 0 ) { 
+                                            foreach ( $tierces as $tierce ) {
+                                            ?>
                                             <tr>
                                                 <td class="hidden-phone">
-                                                    <a href="#deleteTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                    <a href="#updateTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                    <a href="#deleteTierce<?= $tierce->id() ?>" data-toggle="modal" data-id="<?= $tierce->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
+                                                    <a href="#updateTierce<?= $tierce->id() ?>" data-toggle="modal" data-id="<?= $tierce->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $tarifRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></td>
-                                                <td><?= $tarifRC->codeUsage() ?></td>
-                                                <td><?= $tarifRC->codeClasse() ?></td>
-                                                <td class="hidden-phone"><?= $tarifRC->codeSousClasse() ?></td>
-                                                <td><?= $tarifRC->carburant() ?></td>
-                                                <td><?= $tarifRC->puissanceFiscale() ?></td>
-                                                <td><?= number_format($tarifRC->primeRC(), 2, ',', ' ') ?></td>
+                                                <td class="hidden-phone"><?= $tierce->codeCompagnie() ?></td>
+                                                <td><?= $tierce->codeUsage() ?></td>
+                                                <td><?= $tierce->codeClasse() ?></td>
+                                                <td class="hidden-phone"><?= $tierce->codeSousClasse() ?></td>
+                                                <td><?= $tierce->formuleTierce() ?></td>
+                                                <td class="hidden-phone"><?= $tierce->primeFixe() ?></td>
+                                                <td><?= $tierce->tauxVehiculeNeuf() ?></td>
+                                                <td class="hidden-phone"><?= $tierce->majorationRemorque() ?></td>
+                                                <td class="hidden-phone"><?= $tierce->tauxCommission() ?></td>
+                                                <td class="hidden-phone"><?= $tierce->tauxTPS() ?></td>
+                                                <td class="hidden-phone"><?= $tierce->tauxTaxe() ?></td>
+                                                <td><?= $tierce->tauxFranchise() ?></td>
+                                                <td><?= $tierce->montantFranchise() ?></td>
+                                                <td class="hidden-phone"><?= $tierce->observation() ?></td>
                                             </tr> 
-                                            <!-- updateTarifRC box begin -->
-                                            <div id="updateTarifRC<?= $tarifRC->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- updateTierce box begin -->
+                                            <div id="updateTierce<?= $tierce->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Modifier Info Tarif RC</h3>
+                                                    <h3>Modifier Info Tierce</h3>
                                                 </div>
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
                                                         <div class="control-group">
-                                                            <label class="control-label">Compagnie</label>
+                                                            <label class="control-label">CodeCompagnie</label>
                                                             <div class="controls">
-                                                                <select name="codeCompagnie">
-                                                                    <option value="<?= $tarifRC->codeCompagnie() ?>"><?= $tarifRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></option>
-                                                                    <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                                    <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
-                                                                    <?php } ?>
-                                                                </select>
+                                                                <input required="required" type="text" name="codeCompagnie"  value="<?= $tierce->codeCompagnie() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Usage</label>
+                                                            <label class="control-label">CodeUsage</label>
                                                             <div class="controls">
-                                                                <select name="codeUsage">
-                                                                    <option value="<?= $tarifRC->codeUsage() ?>"><?= $tarifRC->codeUsage() ?></option>
-                                                                    <option disabled="disabled">----------------------------</option>
-                                                                    <?php foreach ( $usages as $usage ) { ?>
-                                                                    <option value="<?= $usage->code() ?>"><?= $usage->code() ?></option>
-                                                                    <?php } ?>
-                                                                </select>
+                                                                <input required="required" type="text" name="codeUsage"  value="<?= $tierce->codeUsage() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Classe</label>
+                                                            <label class="control-label">CodeClasse</label>
                                                             <div class="controls">
-                                                                <select name="codeClasse" id="codeClasse<?= $tarifRC->id() ?>" onchange="getSousClasse(<?= $tarifRC->id() ?>)">
-                                                                    <option value="<?= $tarifRC->codeClasse() ?>"><?= $tarifRC->codeClasse() ?></option>
-                                                                    <option disabled="disabled">----------------------------</option>
-                                                                    <?php foreach ( $classes as $classe ) { ?>
-                                                                    <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
-                                                                    <?php } ?>
-                                                                </select>
+                                                                <input required="required" type="text" name="codeClasse"  value="<?= $tierce->codeClasse() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Sous-Classe</label>
+                                                            <label class="control-label">CodeSousClasse</label>
                                                             <div class="controls">
-                                                                <select name="codeSousClasse" id="codeSousClasse<?= $tarifRC->id() ?>">
-                                                                    <option value="<?= $tarifRC->codeSousClasse() ?>"><?= $tarifRC->codeSousClasse() ?></option>
-                                                                </select>
+                                                                <input required="required" type="text" name="codeSousClasse"  value="<?= $tierce->codeSousClasse() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Carburant</label>
+                                                            <label class="control-label">FormuleTierce</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="carburant"  value="<?= $tarifRC->carburant() ?>" />
+                                                                <input required="required" type="text" name="formuleTierce"  value="<?= $tierce->formuleTierce() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Puissance Fiscale</label>
+                                                            <label class="control-label">PrimeFixe</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="puissanceFiscale"  value="<?= $tarifRC->puissanceFiscale() ?>" />
+                                                                <input required="required" type="text" name="primeFixe"  value="<?= $tierce->primeFixe() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Prime RC</label>
+                                                            <label class="control-label">TauxVehiculeNeuf</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="primeRC"  value="<?= $tarifRC->primeRC() ?>" />
+                                                                <input required="required" type="text" name="tauxVehiculeNeuf"  value="<?= $tierce->tauxVehiculeNeuf() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Majoration Remorque</label>
+                                                            <label class="control-label">MajorationRemorque</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="majorationRemorque"  value="<?= $tarifRC->majorationRemorque() ?>" />
+                                                                <input required="required" type="text" name="majorationRemorque"  value="<?= $tierce->majorationRemorque() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">MatiereInflamable</label>
+                                                            <label class="control-label">TauxCommission</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="matiereInflamable"  value="<?= $tarifRC->matiereInflamable() ?>" />
+                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $tierce->tauxCommission() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Transport Personne</label>
+                                                            <label class="control-label">TauxTPS</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="transportPersonne"  value="<?= $tarifRC->transportPersonne() ?>" />
+                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $tierce->tauxTPS() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Taux Commission</label>
+                                                            <label class="control-label">TauxTaxe</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $tarifRC->tauxCommission() ?>" />
+                                                                <input required="required" type="text" name="tauxTaxe"  value="<?= $tierce->tauxTaxe() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Taux TPS</label>
+                                                            <label class="control-label">TauxFranchise</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $tarifRC->tauxTPS() ?>" />
+                                                                <input required="required" type="text" name="tauxFranchise"  value="<?= $tierce->tauxFranchise() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Taux Taxe</label>
+                                                            <label class="control-label">MontantFranchise</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxTaxe"  value="<?= $tarifRC->tauxTaxe() ?>" />
+                                                                <input required="required" type="text" name="montantFranchise"  value="<?= $tierce->montantFranchise() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">Timbre</label>
+                                                            <label class="control-label">Observation</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="timbre"  value="<?= $tarifRC->timbre() ?>" />
+                                                                <input required="required" type="text" name="observation"  value="<?= $tierce->observation() ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTarifRC" value="<?= $tarifRC->id() ?>" />
+                                                                <input type="hidden" name="idTierce" value="<?= $tierce->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
-                                                                <input type="hidden" name="source" value="tarifRC" />
-                                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />     
+                                                                <input type="hidden" name="source" value="tierce" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -355,23 +346,22 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- updateClasse box end --> 
-                                            <!-- deleteTarifRC box begin -->
-                                            <div id="deleteTarifRC<?= $tarifRC->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- deleteTierce box begin -->
+                                            <div id="deleteTierce<?= $tierce->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Supprimer Tarif RC</h3>
+                                                    <h3>Supprimer Tierce</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Tarif RC : <?= $tarifRC->codeCompagnie() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Tierce : <?= $tierce->codeCompagnie() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTarifRC" value="<?= $tarifRC->id() ?>" />
+                                                                <input type="hidden" name="idTierce" value="<?= $tierce->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="tarifRC" />    
-                                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />     
+                                                                <input type="hidden" name="source" value="tierce" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -380,11 +370,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- deleteClasse box end --> 
-                                            <?php }//end foreach
-                                            }//end if?>
+                                            <?php 
+                                            }//end foreach 
+                                            //}//end if
+                                            ?>
                                         </tbody>
                                     </table>
-                                    <?php if($tarifRCNumber != 0){ echo $pagination; } ?><br>
+                                    <?php /*if($tiercesNumber != 0){ echo $pagination; }*/ ?><br>
                                 </div>
                             </div>
                         </div>
