@@ -110,21 +110,39 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </a>
                                 <a href="tarifFrontiere.php">
-                                    <div class="tile bg-maroon">
+                                    <div class="tile bg-red">
                                         <div class="tile-body"><i class="icon-plane"></i></div>
                                         <div class="tile-object"><div class="name">Tarif Frontière</div></div>
                                     </div>
                                 </a>
                                 <a href="fractionPrimeRC.php">
-                                    <div class="tile bg-fuchsia">
+                                    <div class="tile bg-maroon">
                                         <div class="tile-body"><i class="icon-th"></i></div>
                                         <div class="tile-object"><div class="name">Fraction Prime RC</div></div>
                                     </div>
                                 </a>
                                 <a href="tierce.php">
-                                    <div class="tile bg-purple-2">
+                                    <div class="tile bg-purple">
                                         <div class="tile-body"><i class="icon-reorder"></i></div>
                                         <div class="tile-object"><div class="name">Tierce</div></div>
+                                    </div>
+                                </a>
+                                <a href="PTA.php">
+                                    <div class="tile bg-purple-2">
+                                        <div class="tile-body"><i class="icon-road"></i></div>
+                                        <div class="tile-object"><div class="name">PTA</div></div>
+                                    </div>
+                                </a>
+                                <a href="vol.php">
+                                    <div class="tile bg-black">
+                                        <div class="tile-body"><i class="icon-unlock"></i></div>
+                                        <div class="tile-object"><div class="name">Vol</div></div>
+                                    </div>
+                                </a>
+                                <a href="incendie.php">
+                                    <div class="tile bg-gray-2">
+                                        <div class="tile-body"><i class="icon-fire"></i></div>
+                                        <div class="tile-object"><div class="name">Incendie</div></div>
                                     </div>
                                 </a>
                             </div>

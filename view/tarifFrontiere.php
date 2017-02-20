@@ -219,7 +219,6 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             ?>
                                             <tr id="row<?= $tarifFrontiere->id() ?>">
                                                 <td class="hidden-phone">
-                                                    <span id="<?= $tarifFrontiere->id() ?>" class="btn mini red trash"><i class="icon-remove"></i></span>
                                                     <a href="#deleteTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
@@ -408,7 +407,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         <script>
         jQuery(document).ready( function(){ 
             App.setPage("table_managed"); App.init();
-            $(".trash").click(function(){
+            $(".delete").click(function(){
                 alert('Hello');
                 var del_id = $(this).attr('id');
                 var rowElement = $(this).parent().parent();
