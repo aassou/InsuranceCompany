@@ -3,30 +3,30 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //get Managers
-    $volManager = new VolManager(PDOFactory::getMysqlConnection());
+    $incendieManager = new IncendieManager(PDOFactory::getMysqlConnection());
     $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
     $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
     $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
     $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
     //get objects
-    $vols = $volManager->getVols(); 
+    $incendies = $incendieManager->getIncendies(); 
     $compagnies = $compagnieManager->getCompagnies();
     $usages = $usageManager->getUsages();
     $classes = $classeManager->getClasses();
-    /*$volsNumber = $volManager->getVolsNumber(); 
+    /*$incendiesNumber = $incendieManager->getIncendiesNumber(); 
     $p = 1;
-    if ( $volsNumber != 0 ) {
-        $volPerPage = 20;
-        $pageNumber = ceil($volsNumber/$volPerPage);
+    if ( $incendiesNumber != 0 ) {
+        $incendiePerPage = 20;
+        $pageNumber = ceil($incendiesNumber/$incendiePerPage);
         if(isset($_GET['p']) and ($_GET['p']>0 and $_GET['p']<=$pageNumber)){
             $p = $_GET['p'];
         }
         else{
             $p = 1;
         }
-        $begin = ($p - 1) * $volPerPage;
-        $pagination = paginate('vol.php', '?p=', $pageNumber, $p);
-        $vols = $volManager->getVolsByLimits($begin, $volPerPage);
+        $begin = ($p - 1) * $incendiePerPage;
+        $pagination = paginate('incendie.php', '?p=', $pageNumber, $p);
+        $incendies = $incendieManager->getIncendiesByLimits($begin, $incendiePerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-wrench"></i><a href="configuration.php">Paramètrages</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-unlock"></i><a>Vol</a></li>
+                                <li><i class="icon-fire"></i><a>Incendie</a></li>
                             </ul>
                         </div>
                     </div>
@@ -58,11 +58,11 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
                             <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
                             <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
-                            <!-- addVol box begin -->
-                            <div id="addVol" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
+                            <!-- addIncendie box begin -->
+                            <div id="addIncendie" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter Vol</h3>
+                                    <h3>Ajouter Incendie</h3>
                                 </div>
                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
@@ -104,9 +104,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Formule Vol</label>
+                                            <label class="control-label">Formule Incendie</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="formuleVol" />
+                                                <input required="required" type="text" name="formuleIncendie" />
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -131,6 +131,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <label class="control-label">Taux Taxe</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="tauxTaxe" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Designation</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="designation" />
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -169,7 +175,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="control-group">
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="vol" />    
+                                                <input type="hidden" name="source" value="incendie" />    
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -177,10 +183,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </form>
                             </div>    
-                            <!-- addVol box end -->
+                            <!-- addIncendie box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Liste des Vols</h4>
+                                    <h4>Liste des Incendies</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="reload"></a>
                                     </div>
@@ -188,8 +194,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <div class="portlet-body">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a class="btn blue pull-right" href="#addVol" data-toggle="modal">
-                                                <i class="icon-plus-sign"></i>&nbsp;Vol
+                                            <a class="btn blue pull-right" href="#addIncendie" data-toggle="modal">
+                                                <i class="icon-plus-sign"></i>&nbsp;Incendie
                                             </a>
                                         </div>
                                     </div>
@@ -201,7 +207,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <th class="t5 hidden-phone">Usage</th>
                                                 <th class="t5">Classe</th>
                                                 <th class="t5">SouClas</th>
-                                                <th class="t5">FormVol</th>
+                                                <th class="t5">FormIncend</th>
                                                 <th class="t5 hidden-phone">%Mille</th>
                                                 <th class="t10 hidden-phone">%Commission</th>
                                                 <th class="t10 hidden-phone">%TPS</th>
@@ -215,34 +221,34 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            //if ( $volsNumber != 0 ) { 
-                                            foreach ( $vols as $vol ) {
+                                            //if ( $incendiesNumber != 0 ) { 
+                                            foreach ( $incendies as $incendie ) {
                                             ?>
                                             <tr>
                                                 <td class="hidden-phone">
-                                                    <a href="#deleteVol<?= $vol->id() ?>" data-toggle="modal" data-id="<?= $vol->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                    <a href="#updateVol<?= $vol->id() ?>" data-toggle="modal" data-id="<?= $vol->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                    <a href="#deleteIncendie<?= $incendie->id() ?>" data-toggle="modal" data-id="<?= $incendie->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
+                                                    <a href="#updateIncendie<?= $incendie->id() ?>" data-toggle="modal" data-id="<?= $incendie->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $vol->codeCompagnie().": ".$compagnieManager->getCompagnieById($vol->codeCompagnie())->raisonSocialeAbrege() ?></td>
-                                                <td class="hidden-phone"><?= $vol->codeUsage() ?></td>
-                                                <td><?= $vol->codeClasse() ?></td>
-                                                <td><?= $vol->codeSousClasse() ?></td>
-                                                <td><?= $vol->formuleVol() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxMille() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxCommission() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxTPS() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxTaxe() ?></td>
-                                                <td class="hidden-phone"><?= $vol->montantFranchise() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxFranchise() ?></td>
-                                                <td class="hidden-phone"><?= $vol->montant() ?></td>
-                                                <td><?= $vol->formule() ?></td>
-                                                <td class="hidden-phone"><?= $vol->observation() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->codeCompagnie().": ".$compagnieManager->getCompagnieById($incendie->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->codeUsage() ?></td>
+                                                <td><?= $incendie->codeClasse() ?></td>
+                                                <td><?= $incendie->codeSousClasse() ?></td>
+                                                <td><?= $incendie->formuleIncendie() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->tauxMille() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->tauxCommission() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->tauxTPS() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->tauxTaxe() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->montantFranchise() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->tauxFranchise() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->montant() ?></td>
+                                                <td><?= $incendie->formule() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->observation() ?></td>
                                             </tr> 
-                                            <!-- updateVol box begin -->
-                                            <div id="updateVol<?= $vol->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- updateIncendie box begin -->
+                                            <div id="updateIncendie<?= $incendie->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Modifier Info Vol</h3>
+                                                    <h3>Modifier Info Incendie</h3>
                                                 </div>
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
@@ -250,7 +256,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $vol->codeCompagnie() ?>"><?= $vol->codeCompagnie()." : ".$compagnieManager->getCompagnieById($vol->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $incendie->codeCompagnie() ?>"><?= $incendie->codeCompagnie()." : ".$compagnieManager->getCompagnieById($incendie->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>
@@ -261,7 +267,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Usage</label>
                                                             <div class="controls">
                                                                 <select name="codeUsage">
-                                                                    <option value="<?= $vol->codeUsage() ?>"><?= $vol->codeUsage() ?></option>
+                                                                    <option value="<?= $incendie->codeUsage() ?>"><?= $incendie->codeUsage() ?></option>
                                                                     <option disabled="disabled">----------------------------</option>
                                                                     <?php foreach ( $usages as $usage ) { ?>
                                                                     <option value="<?= $usage->code() ?>"><?= $usage->code() ?></option>
@@ -272,8 +278,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="control-group">
                                                             <label class="control-label">Classe</label>
                                                             <div class="controls">
-                                                                <select name="codeClasse" id="codeClasse<?= $vol->id() ?>" onchange="getSousClasse(<?= $vol->id() ?>)">
-                                                                    <option value="<?= $vol->codeClasse() ?>"><?= $vol->codeClasse() ?></option>
+                                                                <select name="codeClasse" id="codeClasse<?= $incendie->id() ?>" onchange="getSousClasse(<?= $incendie->id() ?>)">
+                                                                    <option value="<?= $incendie->codeClasse() ?>"><?= $incendie->codeClasse() ?></option>
                                                                     <option disabled="disabled">----------------------------</option>
                                                                     <?php foreach ( $classes as $classe ) { ?>
                                                                     <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
@@ -284,78 +290,84 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="control-group">
                                                             <label class="control-label">Sous-Classe</label>
                                                             <div class="controls">
-                                                                <select name="codeSousClasse" id="codeSousClasse<?= $vol->id() ?>">
-                                                                    <option value="<?= $vol->codeSousClasse() ?>"><?= $vol->codeSousClasse() ?></option>
+                                                                <select name="codeSousClasse" id="codeSousClasse<?= $incendie->id() ?>">
+                                                                    <option value="<?= $incendie->codeSousClasse() ?>"><?= $incendie->codeSousClasse() ?></option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">FormuleVol</label>
+                                                            <label class="control-label">FormuleIncendie</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="formuleVol"  value="<?= $vol->formuleVol() ?>" />
+                                                                <input required="required" type="text" name="formuleIncendie"  value="<?= $incendie->formuleIncendie() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxMille</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxMille"  value="<?= $vol->tauxMille() ?>" />
+                                                                <input required="required" type="text" name="tauxMille"  value="<?= $incendie->tauxMille() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxCommission</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $vol->tauxCommission() ?>" />
+                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $incendie->tauxCommission() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxTPS</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $vol->tauxTPS() ?>" />
+                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $incendie->tauxTPS() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxTaxe</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxTaxe"  value="<?= $vol->tauxTaxe() ?>" />
+                                                                <input required="required" type="text" name="tauxTaxe"  value="<?= $incendie->tauxTaxe() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">Designation</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="designation"  value="<?= $incendie->designation() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">MontantFranchise</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="montantFranchise"  value="<?= $vol->montantFranchise() ?>" />
+                                                                <input required="required" type="text" name="montantFranchise"  value="<?= $incendie->montantFranchise() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxFranchise</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxFranchise"  value="<?= $vol->tauxFranchise() ?>" />
+                                                                <input required="required" type="text" name="tauxFranchise"  value="<?= $incendie->tauxFranchise() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">Montant</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="montant"  value="<?= $vol->montant() ?>" />
+                                                                <input required="required" type="text" name="montant"  value="<?= $incendie->montant() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">Formule</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="formule"  value="<?= $vol->formule() ?>" />
+                                                                <input required="required" type="text" name="formule"  value="<?= $incendie->formule() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">Observation</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="observation"  value="<?= $vol->observation() ?>" />
+                                                                <input required="required" type="text" name="observation"  value="<?= $incendie->observation() ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idVol" value="<?= $vol->id() ?>" />
+                                                                <input type="hidden" name="idIncendie" value="<?= $incendie->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
-                                                                <input type="hidden" name="source" value="vol" />    
+                                                                <input type="hidden" name="source" value="incendie" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -364,22 +376,22 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- updateClasse box end --> 
-                                            <!-- deleteVol box begin -->
-                                            <div id="deleteVol<?= $vol->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- deleteIncendie box begin -->
+                                            <div id="deleteIncendie<?= $incendie->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Supprimer Vol</h3>
+                                                    <h3>Supprimer Incendie</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Vol : <?= $vol->codeCompagnie() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Incendie : <?= $incendie->codeCompagnie() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idVol" value="<?= $vol->id() ?>" />
+                                                                <input type="hidden" name="idIncendie" value="<?= $incendie->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="vol" />    
+                                                                <input type="hidden" name="source" value="incendie" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -394,7 +406,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             ?>
                                         </tbody>
                                     </table>
-                                    <?php /*if($volsNumber != 0){ echo $pagination; }*/ ?><br>
+                                    <?php /*if($incendiesNumber != 0){ echo $pagination; }*/ ?><br>
                                 </div>
                             </div>
                         </div>

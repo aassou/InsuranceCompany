@@ -145,6 +145,18 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Incendie</div></div>
                                     </div>
                                 </a>
+                                <a href="defenseRecours.php">
+                                    <div class="tile bg-gray-2">
+                                        <div class="tile-body"><i class="icon-legal"></i></div>
+                                        <div class="tile-object"><div class="name">Défenses et Recours</div></div>
+                                    </div>
+                                </a>
+                                <a href="dommageCollision.php">
+                                    <div class="tile bg-gray-2">
+                                        <div class="tile-body"><i class="icon-warning-sign"></i></div>
+                                        <div class="tile-object"><div class="name">Dommage et Collision</div></div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

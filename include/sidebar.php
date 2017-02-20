@@ -311,6 +311,8 @@
         or $currentPage=="PTA.php"
         or $currentPage=="vol.php"
         or $currentPage=="incendie.php"
+        or $currentPage=="defenseRecours.php"
+        or $currentPage=="dommageCollision.php"
         or $currentPage=="codeReglementSinistre.php"
         or $currentPage=="operations-status-archive-group.php"
         or $currentPage=="operations-status-archive.php"

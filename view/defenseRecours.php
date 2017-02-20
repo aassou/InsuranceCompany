@@ -3,30 +3,30 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //get Managers
-    $volManager = new VolManager(PDOFactory::getMysqlConnection());
+    $defenseRecoursManager = new DefenseRecoursManager(PDOFactory::getMysqlConnection());
     $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
     $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
     $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
     $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
     //get objects
-    $vols = $volManager->getVols(); 
+    $defenseRecourss = $defenseRecoursManager->getDefenseRecourss();
     $compagnies = $compagnieManager->getCompagnies();
     $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses();
-    /*$volsNumber = $volManager->getVolsNumber(); 
+    $classes = $classeManager->getClasses(); 
+    /*$defenseRecourssNumber = $defenseRecoursManager->getDefenseRecourssNumber(); 
     $p = 1;
-    if ( $volsNumber != 0 ) {
-        $volPerPage = 20;
-        $pageNumber = ceil($volsNumber/$volPerPage);
+    if ( $defenseRecourssNumber != 0 ) {
+        $defenseRecoursPerPage = 20;
+        $pageNumber = ceil($defenseRecourssNumber/$defenseRecoursPerPage);
         if(isset($_GET['p']) and ($_GET['p']>0 and $_GET['p']<=$pageNumber)){
             $p = $_GET['p'];
         }
         else{
             $p = 1;
         }
-        $begin = ($p - 1) * $volPerPage;
-        $pagination = paginate('vol.php', '?p=', $pageNumber, $p);
-        $vols = $volManager->getVolsByLimits($begin, $volPerPage);
+        $begin = ($p - 1) * $defenseRecoursPerPage;
+        $pagination = paginate('defenseRecours.php', '?p=', $pageNumber, $p);
+        $defenseRecourss = $defenseRecoursManager->getDefenseRecourssByLimits($begin, $defenseRecoursPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-wrench"></i><a href="configuration.php">Paramètrages</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-unlock"></i><a>Vol</a></li>
+                                <li><i class="icon-legal"></i><a>Défense et recours</a></li>
                             </ul>
                         </div>
                     </div>
@@ -58,11 +58,11 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
                             <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
                             <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
-                            <!-- addVol box begin -->
-                            <div id="addVol" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
+                            <!-- addDefenseRecours box begin -->
+                            <div id="addDefenseRecours" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter Vol</h3>
+                                    <h3>Ajouter DefenseRecours</h3>
                                 </div>
                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
@@ -104,15 +104,27 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Formule Vol</label>
+                                            <label class="control-label">Puissance Fiscale</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="formuleVol" />
+                                                <input required="required" type="text" name="puissanceFiscale" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Taux Mille</label>
+                                            <label class="control-label">Type Defense</label>
                                             <div class="controls">
-                                                <input required="required" type="text" name="tauxMille" />
+                                                <input required="required" type="text" name="typeDefense" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Valeur Defense</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="valeurDefense" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Formule Defense</label>
+                                            <div class="controls">
+                                                <input required="required" type="text" name="formuleDefense" />
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -133,43 +145,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <input required="required" type="text" name="tauxTaxe" />
                                             </div>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Montant Franchise</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="montantFranchise" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Taux Franchise</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="tauxFranchise" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Montant</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="montant" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Formule</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="formule" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Observation</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="observation" />
-                                            </div>
-                                        </div>
                                              
                                     </div>
                                     <div class="modal-footer">
                                         <div class="control-group">
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="vol" />    
+                                                <input type="hidden" name="source" value="defenseRecours" />    
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -177,10 +159,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </form>
                             </div>    
-                            <!-- addVol box end -->
+                            <!-- addDefenseRecours box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Liste des Vols</h4>
+                                    <h4>Liste des Défenses et Recours</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="reload"></a>
                                     </div>
@@ -188,8 +170,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <div class="portlet-body">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a class="btn blue pull-right" href="#addVol" data-toggle="modal">
-                                                <i class="icon-plus-sign"></i>&nbsp;Vol
+                                            <a class="btn blue pull-right" href="#addDefenseRecours" data-toggle="modal">
+                                                <i class="icon-plus-sign"></i>&nbsp;Défense Recours
                                             </a>
                                         </div>
                                     </div>
@@ -197,52 +179,46 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <thead>
                                             <tr>
                                                 <th class="t10 hidden-phone">Actions</th>
-                                                <th class="t5 hidden-phone">Compagnie</th>
-                                                <th class="t5 hidden-phone">Usage</th>
+                                                <th class="t10">Compagnie</th>
+                                                <th class="t5">Usage</th>
                                                 <th class="t5">Classe</th>
-                                                <th class="t5">SouClas</th>
-                                                <th class="t5">FormVol</th>
-                                                <th class="t5 hidden-phone">%Mille</th>
-                                                <th class="t10 hidden-phone">%Commission</th>
-                                                <th class="t10 hidden-phone">%TPS</th>
-                                                <th class="t10 hidden-phone">%Taxe</th>
-                                                <th class="t10 hidden-phone">MntFranch</th>
-                                                <th class="t5 hidden-phone">%Franch</th>
-                                                <th class="t5">Montant</th>
-                                                <th class="t5 hidden-phone">Formule</th>
-                                                <th class="t5 hidden-phone">Observ</th>
+                                                <th class="t10">Sous Classe</th>
+                                                <th class="t10">PFiscale</th>
+                                                <th class="t10">TypeDefense</th>
+                                                <th class="t15">Valeur Defense</th>
+                                                <th class="t10">FormuDefense</th>
+                                                <th class="t5">%Commission</th>
+                                                <th class="t5">%TPS</th>
+                                                <th class="t5">%Taxe</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            //if ( $volsNumber != 0 ) { 
-                                            foreach ( $vols as $vol ) {
+                                            //if ( $defenseRecourssNumber != 0 ) { 
+                                            foreach ( $defenseRecourss as $defenseRecours ) {
                                             ?>
                                             <tr>
                                                 <td class="hidden-phone">
-                                                    <a href="#deleteVol<?= $vol->id() ?>" data-toggle="modal" data-id="<?= $vol->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                    <a href="#updateVol<?= $vol->id() ?>" data-toggle="modal" data-id="<?= $vol->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                    <a href="#deleteDefenseRecours<?= $defenseRecours->id() ?>" data-toggle="modal" data-id="<?= $defenseRecours->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
+                                                    <a href="#updateDefenseRecours<?= $defenseRecours->id() ?>" data-toggle="modal" data-id="<?= $defenseRecours->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $vol->codeCompagnie().": ".$compagnieManager->getCompagnieById($vol->codeCompagnie())->raisonSocialeAbrege() ?></td>
-                                                <td class="hidden-phone"><?= $vol->codeUsage() ?></td>
-                                                <td><?= $vol->codeClasse() ?></td>
-                                                <td><?= $vol->codeSousClasse() ?></td>
-                                                <td><?= $vol->formuleVol() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxMille() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxCommission() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxTPS() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxTaxe() ?></td>
-                                                <td class="hidden-phone"><?= $vol->montantFranchise() ?></td>
-                                                <td class="hidden-phone"><?= $vol->tauxFranchise() ?></td>
-                                                <td class="hidden-phone"><?= $vol->montant() ?></td>
-                                                <td><?= $vol->formule() ?></td>
-                                                <td class="hidden-phone"><?= $vol->observation() ?></td>
+                                                <td><?= $defenseRecours->codeCompagnie().": ".$compagnieManager->getCompagnieById($defenseRecours->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td><?= $defenseRecours->codeUsage() ?></td>
+                                                <td><?= $defenseRecours->codeClasse() ?></td>
+                                                <td><?= $defenseRecours->codeSousClasse() ?></td>
+                                                <td><?= $defenseRecours->puissanceFiscale() ?></td>
+                                                <td><?= $defenseRecours->typeDefense() ?></td>
+                                                <td><?= $defenseRecours->valeurDefense() ?></td>
+                                                <td><?= $defenseRecours->formuleDefense() ?></td>
+                                                <td><?= $defenseRecours->tauxCommission() ?></td>
+                                                <td><?= $defenseRecours->tauxTPS() ?></td>
+                                                <td><?= $defenseRecours->tauxTaxe() ?></td>
                                             </tr> 
-                                            <!-- updateVol box begin -->
-                                            <div id="updateVol<?= $vol->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- updateDefenseRecours box begin -->
+                                            <div id="updateDefenseRecours<?= $defenseRecours->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Modifier Info Vol</h3>
+                                                    <h3>Modifier Info DefenseRecours</h3>
                                                 </div>
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
@@ -250,7 +226,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $vol->codeCompagnie() ?>"><?= $vol->codeCompagnie()." : ".$compagnieManager->getCompagnieById($vol->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $defenseRecours->codeCompagnie() ?>"><?= $defenseRecours->codeCompagnie()." : ".$compagnieManager->getCompagnieById($defenseRecours->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>
@@ -261,7 +237,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Usage</label>
                                                             <div class="controls">
                                                                 <select name="codeUsage">
-                                                                    <option value="<?= $vol->codeUsage() ?>"><?= $vol->codeUsage() ?></option>
+                                                                    <option value="<?= $defenseRecours->codeUsage() ?>"><?= $defenseRecours->codeUsage() ?></option>
                                                                     <option disabled="disabled">----------------------------</option>
                                                                     <?php foreach ( $usages as $usage ) { ?>
                                                                     <option value="<?= $usage->code() ?>"><?= $usage->code() ?></option>
@@ -272,8 +248,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="control-group">
                                                             <label class="control-label">Classe</label>
                                                             <div class="controls">
-                                                                <select name="codeClasse" id="codeClasse<?= $vol->id() ?>" onchange="getSousClasse(<?= $vol->id() ?>)">
-                                                                    <option value="<?= $vol->codeClasse() ?>"><?= $vol->codeClasse() ?></option>
+                                                                <select name="codeClasse" id="codeClasse<?= $defenseRecours->id() ?>" onchange="getSousClasse(<?= $defenseRecours->id() ?>)">
+                                                                    <option value="<?= $defenseRecours->codeClasse() ?>"><?= $defenseRecours->codeClasse() ?></option>
                                                                     <option disabled="disabled">----------------------------</option>
                                                                     <?php foreach ( $classes as $classe ) { ?>
                                                                     <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
@@ -284,78 +260,60 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="control-group">
                                                             <label class="control-label">Sous-Classe</label>
                                                             <div class="controls">
-                                                                <select name="codeSousClasse" id="codeSousClasse<?= $vol->id() ?>">
-                                                                    <option value="<?= $vol->codeSousClasse() ?>"><?= $vol->codeSousClasse() ?></option>
+                                                                <select name="codeSousClasse" id="codeSousClasse<?= $defenseRecours->id() ?>">
+                                                                    <option value="<?= $defenseRecours->codeSousClasse() ?>"><?= $defenseRecours->codeSousClasse() ?></option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">FormuleVol</label>
+                                                            <label class="control-label">PuissanceFiscale</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="formuleVol"  value="<?= $vol->formuleVol() ?>" />
+                                                                <input required="required" type="text" name="puissanceFiscale"  value="<?= $defenseRecours->puissanceFiscale() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">TauxMille</label>
+                                                            <label class="control-label">TypeDefense</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxMille"  value="<?= $vol->tauxMille() ?>" />
+                                                                <input required="required" type="text" name="typeDefense"  value="<?= $defenseRecours->typeDefense() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">ValeurDefense</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="valeurDefense"  value="<?= $defenseRecours->valeurDefense() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">FormuleDefense</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="formuleDefense"  value="<?= $defenseRecours->formuleDefense() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxCommission</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $vol->tauxCommission() ?>" />
+                                                                <input required="required" type="text" name="tauxCommission"  value="<?= $defenseRecours->tauxCommission() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxTPS</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $vol->tauxTPS() ?>" />
+                                                                <input required="required" type="text" name="tauxTPS"  value="<?= $defenseRecours->tauxTPS() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
                                                             <label class="control-label">TauxTaxe</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="tauxTaxe"  value="<?= $vol->tauxTaxe() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">MontantFranchise</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="montantFranchise"  value="<?= $vol->montantFranchise() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">TauxFranchise</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="tauxFranchise"  value="<?= $vol->tauxFranchise() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">Montant</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="montant"  value="<?= $vol->montant() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">Formule</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="formule"  value="<?= $vol->formule() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">Observation</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="observation"  value="<?= $vol->observation() ?>" />
+                                                                <input required="required" type="text" name="tauxTaxe"  value="<?= $defenseRecours->tauxTaxe() ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idVol" value="<?= $vol->id() ?>" />
+                                                                <input type="hidden" name="idDefenseRecours" value="<?= $defenseRecours->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
-                                                                <input type="hidden" name="source" value="vol" />    
+                                                                <input type="hidden" name="source" value="defenseRecours" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -364,22 +322,22 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- updateClasse box end --> 
-                                            <!-- deleteVol box begin -->
-                                            <div id="deleteVol<?= $vol->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- deleteDefenseRecours box begin -->
+                                            <div id="deleteDefenseRecours<?= $defenseRecours->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Supprimer Vol</h3>
+                                                    <h3>Supprimer DefenseRecours</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Vol : <?= $vol->codeCompagnie() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer DefenseRecours : <?= $defenseRecours->codeCompagnie() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idVol" value="<?= $vol->id() ?>" />
+                                                                <input type="hidden" name="idDefenseRecours" value="<?= $defenseRecours->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="vol" />    
+                                                                <input type="hidden" name="source" value="defenseRecours" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -394,7 +352,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             ?>
                                         </tbody>
                                     </table>
-                                    <?php /*if($volsNumber != 0){ echo $pagination; }*/ ?><br>
+                                    <?php /*if($defenseRecourssNumber != 0){ echo $pagination; }*/ ?><br>
                                 </div>
                             </div>
                         </div>
