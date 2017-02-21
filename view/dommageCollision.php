@@ -49,7 +49,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-wrench"></i><a href="configuration.php">Paramètrages</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-warning-sign"></i><a>Défense et recours</a></li>
+                                <li><i class="icon-warning-sign"></i><a>Dommage et collisions</a></li>
                             </ul>
                         </div>
                     </div>
