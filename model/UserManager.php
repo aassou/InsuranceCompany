@@ -41,6 +41,30 @@ class UserManager{
 		$query->execute();
 		$query->closeCursor();
 	}
+    
+    public function updateProfil(User $user){
+        $query = $this->_db->prepare('UPDATE t_user SET 
+        profil=:profil, updated=:updated, updatedBy=:updatedBy
+        WHERE id=:id')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':id', $user->id());
+        $query->bindValue(':profil', $user->profil());
+        $query->bindValue(':updated', $user->updated());
+        $query->bindValue(':updatedBy', $user->updatedBy());
+        $query->execute();
+        $query->closeCursor();
+    }
+
+    public function updateStatus(User $user){
+        $query = $this->_db->prepare('UPDATE t_user SET status=:status, updated=:updated, updatedBy=:updatedBy 
+        WHERE id=:id');
+        $query->bindValue(':id', $user->id());
+        $query->bindValue(':status', $user->status());
+        $query->bindValue(':updated', $user->updated());
+        $query->bindValue(':updatedBy', $user->updatedBy());
+        $query->execute();
+        $query->closeCursor();
+    }
 
 	public function delete($id){
         $query = $this->_db->prepare(' DELETE FROM t_user WHERE id=:id')
@@ -86,22 +110,6 @@ class UserManager{
 		$id = $data['last_id'];
 		return $id;
 	}
-
-    public function changeStatus($status, $idUser){
-        $query = $this->_db->prepare('UPDATE t_user SET status=:status WHERE id=:idUser');
-        $query->bindValue(':status', $status);
-        $query->bindValue(':idUser', $idUser);
-        $query->execute();
-        $query->closeCursor();
-    }
-
-    public function updateProfil($idUser, $profil){
-        $query = $this->_db->prepare('UPDATE t_user SET profil=:profil WHERE id=:idUser');
-        $query->bindValue(':profil', $profil);
-        $query->bindValue(':idUser', $idUser);
-        $query->execute();
-        $query->closeCursor();
-    }
     
     public function getUsersNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS userNumbers FROM t_user');
@@ -145,6 +153,13 @@ class UserManager{
         return (bool) $query->fetchColumn();
     }
     
+    public function exist2($login){
+        $query = $this->_db->prepare('SELECT COUNT(*) FROM t_user WHERE login=:login');
+        $query->bindValue(':login', $login);
+        $query->execute();
+        return (bool) $query->fetchColumn();
+    }
+    
     public function getUserByLoginPassword($login, $password){
         $query = $this->_db->prepare('SELECT * FROM t_user WHERE login=:login AND password=:password');
         $query->bindValue(':login', $login);
@@ -153,6 +168,24 @@ class UserManager{
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $query->closeCursor();
         return new User($data);
+    }
+    
+    public function getUserByLogin($login){
+        $query = $this->_db->prepare('SELECT * FROM t_user WHERE login=:login');
+        $query->bindValue(':login', $login);
+        $query->execute();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+        return new User($data);
+    }
+    
+    public function getPasswordByLogin($login){
+        $query = $this->_db->prepare('SELECT password FROM t_user WHERE login=:login');
+        $query->bindValue(':login', $login);
+        $query->execute();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+        return $data['password'];
     }
 
 }

@@ -26,49 +26,49 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             </ul>
                             <div class="tiles">
                                 <a href="compagnie.php">
-                                    <div class="tile bg-navy">
+                                    <div class="tile bg-black">
                                         <div class="tile-body"><i class="icon-sitemap"></i></div>
                                         <div class="tile-object"><div class="name">Compagnies</div></div>
                                     </div>
                                 </a>
                                 <a href="branche.php">
-                                    <div class="tile bg-blue-3">
+                                    <div class="tile bg-navy">
                                         <div class="tile-body"><i class="icon-list-alt"></i></div>
                                         <div class="tile-object"><div class="name">Branches</div></div>
                                     </div>
                                 </a>
                                 <a href="usage.php">
-                                    <div class="tile bg-blue">
+                                    <div class="tile bg-blue-3">
                                         <div class="tile-body"><i class="icon-truck"></i></div>
                                         <div class="tile-object"><div class="name">Usage</div></div>
                                     </div>
                                 </a>
                                 <a href="classe.php">
-                                    <div class="tile bg-blue-2">
+                                    <div class="tile bg-blue">
                                         <div class="tile-body"><i class="icon-file"></i></div>
                                         <div class="tile-object"><div class="name">Classes</div></div>
                                     </div>
                                 </a>
                                 <a href="sousClasse.php">
-                                    <div class="tile bg-aqua">
+                                    <div class="tile bg-blue-2">
                                         <div class="tile-body"><i class="icon-copy"></i></div>
                                         <div class="tile-object"><div class="name">Sous Classes</div></div>
                                     </div>
                                 </a>
                                 <a href="banque.php">
-                                    <div class="tile bg-teal">
+                                    <div class="tile bg-aqua">
                                         <div class="tile-body"><i class="icon-credit-card"></i></div>
                                         <div class="tile-object"><div class="name">Banques</div></div>
                                     </div>
                                 </a>
                                 <a href="region.php">
-                                    <div class="tile bg-olive-2">
+                                    <div class="tile bg-teal">
                                         <div class="tile-body"><i class="icon-map-marker"></i></div>
                                         <div class="tile-object"><div class="name">Regions</div></div>
                                     </div>
                                 </a>
                                 <a href="commercial.php">
-                                    <div class="tile bg-olive">
+                                    <div class="tile bg-olive-2">
                                         <div class="tile-body"><i class="icon-group"></i></div>
                                         <div class="tile-object"><div class="name">Commerciaux</div></div>
                                     </div>
@@ -104,57 +104,69 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     </div>
                                 </a>
                                 <a href="tarifRC.php">
-                                    <div class="tile bg-red-2">
+                                    <div class="tile bg-brown">
                                         <div class="tile-body"><i class="icon-barcode"></i></div>
                                         <div class="tile-object"><div class="name">Tarif RC</div></div>
                                     </div>
                                 </a>
                                 <a href="tarifFrontiere.php">
-                                    <div class="tile bg-red">
+                                    <div class="tile bg-brown-2">
                                         <div class="tile-body"><i class="icon-plane"></i></div>
                                         <div class="tile-object"><div class="name">Tarif Frontière</div></div>
                                     </div>
                                 </a>
                                 <a href="fractionPrimeRC.php">
-                                    <div class="tile bg-maroon">
+                                    <div class="tile bg-brown-3">
                                         <div class="tile-body"><i class="icon-th"></i></div>
                                         <div class="tile-object"><div class="name">Fraction Prime RC</div></div>
                                     </div>
                                 </a>
                                 <a href="tierce.php">
-                                    <div class="tile bg-purple">
+                                    <div class="tile bg-red-2">
                                         <div class="tile-body"><i class="icon-reorder"></i></div>
                                         <div class="tile-object"><div class="name">Tierce</div></div>
                                     </div>
                                 </a>
                                 <a href="PTA.php">
-                                    <div class="tile bg-purple-2">
+                                    <div class="tile bg-red">
                                         <div class="tile-body"><i class="icon-road"></i></div>
                                         <div class="tile-object"><div class="name">PTA</div></div>
                                     </div>
                                 </a>
                                 <a href="vol.php">
-                                    <div class="tile bg-black">
+                                    <div class="tile bg-maroon">
                                         <div class="tile-body"><i class="icon-unlock"></i></div>
                                         <div class="tile-object"><div class="name">Vol</div></div>
                                     </div>
                                 </a>
                                 <a href="incendie.php">
-                                    <div class="tile bg-gray-2">
+                                    <div class="tile bg-light-purple">
                                         <div class="tile-body"><i class="icon-fire"></i></div>
                                         <div class="tile-object"><div class="name">Incendie</div></div>
                                     </div>
                                 </a>
                                 <a href="defenseRecours.php">
-                                    <div class="tile bg-gray-2">
+                                    <div class="tile bg-purple">
                                         <div class="tile-body"><i class="icon-legal"></i></div>
                                         <div class="tile-object"><div class="name">Défenses et Recours</div></div>
                                     </div>
                                 </a>
                                 <a href="dommageCollision.php">
-                                    <div class="tile bg-gray-2">
+                                    <div class="tile bg-purple-2">
                                         <div class="tile-body"><i class="icon-warning-sign"></i></div>
                                         <div class="tile-object"><div class="name">Dommage et Collision</div></div>
+                                    </div>
+                                </a>
+                                <a href="individuelConducteur.php">
+                                    <div class="tile bg-gray-2">
+                                        <div class="tile-body"><i class="icon-user"></i></div>
+                                        <div class="tile-object"><div class="name">Individuel Conducteur</div></div>
+                                    </div>
+                                </a>
+                                <a href="user.php">
+                                    <div class="tile bg-olive">
+                                        <div class="tile-body"><i class="icon-group"></i></div>
+                                        <div class="tile-object"><div class="name">Utilisateurs</div></div>
                                     </div>
                                 </a>
                             </div>

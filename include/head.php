@@ -15,4 +15,6 @@
 <link href="../assets/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
 <link href="../assets/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
 <link href="../assets/data-tables/DT_bootstrap.css" rel="stylesheet" />
+<link href="../assets/glyphicons/css/glyphicons.css" rel="stylesheet">
+<link href="../assets/glyphicons_halflings/css/halflings.css" rel="stylesheet">
 <link href="../favicon.ico" rel="shortcut icon" />

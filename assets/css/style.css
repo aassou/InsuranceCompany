@@ -138,6 +138,16 @@ General backgrounds
   background-color: #6a482d !important;
 }
 
+.bg-brown-2 {
+  background-image: none !important;
+  background-color: #b55c4b !important;
+}
+
+.bg-brown-3 {
+  background-image: none !important;
+  background-color: #b5434b !important;
+}
+
 .bg-light-purple {
   background-image: none !important;
   background-color: #6a485d !important;
@@ -160,7 +170,7 @@ General backgrounds
 
 .bg-dark-red {
   background-image: none !important;
-  background-color: #731531 !important;
+  background-color: #731535 !important;
 }
 
 .bg-dark-blue {

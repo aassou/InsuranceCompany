@@ -17,13 +17,11 @@ class ActiviteATActionController {
     public function actionMessage(){
         return $this->_actionMessage;
     }
-    
 
     public function typeMessage(){
         return $this->_typeMessage;
     }
     
-
     public function source(){
         return $this->_source;
     }
@@ -60,7 +58,6 @@ class ActiviteATActionController {
             $this->_source = "view/activiteAT";
         }
     }
-    
 
     public function update($activiteAT){
         $idActiviteAT = htmlentities($_POST['idActiviteAT']);
@@ -93,7 +90,6 @@ class ActiviteATActionController {
             $this->_source = "view/activiteAT";
         }
     }
-    
 
     public function delete($activiteAT){
         $idActiviteAT = htmlentities($activiteAT['idActiviteAT']);

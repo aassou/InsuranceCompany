@@ -15,6 +15,7 @@
 <script src="../assets/js/jquery.pulsate.min.js" type="text/javascript"></script>
 <script src="../assets/data-tables/jquery.dataTables.js" type="text/javascript"></script>
 <script src="../assets/data-tables/DT_bootstrap.js" type="text/javascript"></script>
+<script src="../assets/glyphicons/scripts/modernizr.js"></script>
 <!-- ie8 fixes -->
 <!--[if lt IE 9]>
 <script src="../assets/js/excanvas.js"></script>

@@ -27,25 +27,25 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <a href="caisse-group.php">
                                     <div class="tile bg-purple">
                                         <div class="tile-body"><i class="icon-money"></i></div>
-                                        <div class="tile-object"><div class="name">La caisse</div></div>
+                                        <div class="tile-object"><div class="name">Caisse</div></div>
                                     </div>
                                 </a>
                                 <a href="projets.php">
                                     <div class="tile bg-green">
                                         <div class="tile-body"><i class="icon-briefcase"></i></div>
-                                        <div class="tile-object"><div class="name">Les productions</div></div>
+                                        <div class="tile-object"><div class="name">Production</div></div>
                                     </div>
                                 </a>
                                 <a href="charges-communs-grouped.php">
                                     <div class="tile bg-grey">
                                         <div class="tile-body"><i class="icon-signal"></i></div>
-                                        <div class="tile-object"><div class="name">Les Charges</div></div>
+                                        <div class="tile-object"><div class="name">Charges</div></div>
                                     </div>
                                 </a>
                                 <a href="company-cheques.php?idSociete=3">
                                     <div class="tile bg-blue">
                                         <div class="tile-body"><i class="icon-envelope-alt"></i></div>
-                                        <div class="tile-object"><div class="name">Les chèques</div></div>
+                                        <div class="tile-object"><div class="name">Chèques</div></div>
                                     </div>
                                 </a>
                                 <a href="suivi-company.php">
@@ -60,10 +60,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Les états</div></div>
                                     </div>
                                 </a>
-                                <a href="annuaire.php">
+                                <a href="client.php">
                                     <div class="tile bg-dark-cyan">
-                                        <div class="tile-body"><i class="icon-phone-sign"></i></div>
-                                        <div class="tile-object"><div class="name">Annuaire</div></div>
+                                        <div class="tile-body"><i class="icon-group"></i></div>
+                                        <div class="tile-object"><div class="name">Clients</div></div>
                                     </div>
                                 </a>
                                 <a href="configuration.php">
@@ -149,7 +149,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         			                                                 <div class="desc">	
         				                                                <strong>Fournisseur</strong> : <?= "Mohamed Laamin" ?><br>
         				                                                <strong>Projet</strong> : <?= "Saada" ?><br>
-        				                                                <a href="" target="_blank">strong>Livraison</strong> : <?= 1200 ?></a>
+        				                                                <a href="" target="_blank"><strong>Livraison</strong> : <?= 1200 ?></a>
         			                                                 </div>
         		                                                  </div>
         	                                                   </div>
