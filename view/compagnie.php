@@ -2,8 +2,8 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $compagnies = $compagnieManager->getCompagnies();
+    $compagnieController = new CompagnieActionController('compagnie');
+    $compagnies = $compagnieController->getCompagnies();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

@@ -143,4 +143,8 @@ class CompagnieActionController {
         $this->_source = "view/compagnie";
     }
     
+    public function getCompagnies(){
+        return $this->_compagnieManager->getCompagnies();
+    }
+    
 }

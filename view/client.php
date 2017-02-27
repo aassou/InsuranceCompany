@@ -6,7 +6,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
     $clientManager = new ClientManager(PDOFactory::getMysqlConnection());
     //get objects
     $clients = $clientManager->getClients(); 
-    /*$clientsNumber = $clientManager->getClientsNumber(); 
+    $clientsNumber = $clientManager->getClientsNumber(); 
     $p = 1;
     if ( $clientsNumber != 0 ) {
         $clientPerPage = 20;
@@ -20,7 +20,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         $begin = ($p - 1) * $clientPerPage;
         $pagination = paginate('client.php', '?p=', $pageNumber, $p);
         $clients = $clientManager->getClientsByLimits($begin, $clientPerPage);
-    }*/ 
+    } 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -41,6 +41,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                         <div class="span12">
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
+                                <li><i class="icon-group"></i><a>Clients</a></li>
                             </ul>
                         </div>
                     </div>
@@ -64,13 +65,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">TypeClient</label>
+                                            <label class="control-label">Type Client</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="typeClient" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Civilite</label>
+                                            <label class="control-label">Civilité</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="civilite" />
                                             </div>
@@ -100,7 +101,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Activite</label>
+                                            <label class="control-label">Activité</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="activite" />
                                             </div>
@@ -142,7 +143,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">DatePermis</label>
+                                            <label class="control-label">Date Permis</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="datePermis" />
                                             </div>
@@ -154,31 +155,31 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">CodeRegion</label>
+                                            <label class="control-label">Code Region</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="codeRegion" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">CodeCommercial</label>
+                                            <label class="control-label">Code Commercial</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="codeCommercial" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">SituationFamiliale</label>
+                                            <label class="control-label">Situation Familiale</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="situationFamiliale" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Cin</label>
+                                            <label class="control-label">CIN</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="cin" />
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">DateNaissance</label>
+                                            <label class="control-label">Date Naissance</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="dateNaissance" />
                                             </div>
@@ -190,7 +191,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">NombreIncident</label>
+                                            <label class="control-label">Nombre Incident</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="nombreIncident" />
                                             </div>
@@ -225,38 +226,24 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </a>
                                         </div>
                                     </div>
-                                    <table class="table table-striped table-bordered table-hover" id="sample_2">
+                                    <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="t10 hidden-phone">Actions</th>
-                                                <th class="t10">CodeClient</th>
-                                                <th class="t10">TypeClient</th>
-                                                <th class="t10">Civilite</th>
                                                 <th class="t10">Nom</th>
-                                                <th class="t10">Adresse</th>
-                                                <th class="t10">Rue</th>
-                                                <th class="t10">Ville</th>
-                                                <th class="t10">Activite</th>
-                                                <th class="t10">Email</th>
-                                                <th class="t10">Debit</th>
-                                                <th class="t10">Credit</th>
-                                                <th class="t10">Tel1</th>
-                                                <th class="t10">Fax</th>
+                                                <th class="t10">CIN</th>
+                                                <th class="t10">Type</th>
+                                                <th class="t10">Activité</th>
+                                                <th class="t10">S.Famili</th>
+                                                <th class="t10">Tél</th>
                                                 <th class="t10">Permis</th>
-                                                <th class="t10">DatePermis</th>
-                                                <th class="t10">Tel2</th>
-                                                <th class="t10">CodeRegion</th>
-                                                <th class="t10">CodeCommercial</th>
-                                                <th class="t10">SituationFamiliale</th>
-                                                <th class="t10">Cin</th>
-                                                <th class="t10">DateNaissance</th>
-                                                <th class="t10">Solvabilite</th>
-                                                <th class="t10">NombreIncident</th>
+                                                <th class="t10">Solvabilité</th>
+                                                <th class="t10">NbrIncident</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            //if ( $clientsNumber != 0 ) { 
+                                            if ( $clientsNumber != 0 ) { 
                                             foreach ( $clients as $client ) {
                                             ?>
                                             <tr>
@@ -264,27 +251,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteClient<?= $client->id() ?>" data-toggle="modal" data-id="<?= $client->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateClient<?= $client->id() ?>" data-toggle="modal" data-id="<?= $client->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $client->codeClient() ?></td>
-                                                <td><?= $client->typeClient() ?></td>
-                                                <td><?= $client->civilite() ?></td>
                                                 <td><?= $client->nom() ?></td>
-                                                <td><?= $client->adresse() ?></td>
-                                                <td><?= $client->rue() ?></td>
-                                                <td><?= $client->ville() ?></td>
-                                                <td><?= $client->activite() ?></td>
-                                                <td><?= $client->email() ?></td>
-                                                <td><?= $client->debit() ?></td>
-                                                <td><?= $client->credit() ?></td>
-                                                <td><?= $client->tel1() ?></td>
-                                                <td><?= $client->fax() ?></td>
-                                                <td><?= $client->permis() ?></td>
-                                                <td><?= $client->datePermis() ?></td>
-                                                <td><?= $client->tel2() ?></td>
-                                                <td><?= $client->codeRegion() ?></td>
-                                                <td><?= $client->codeCommercial() ?></td>
-                                                <td><?= $client->situationFamiliale() ?></td>
                                                 <td><?= $client->cin() ?></td>
-                                                <td><?= $client->dateNaissance() ?></td>
+                                                <td><?= $client->typeClient() ?></td>
+                                                <td><?= $client->activite() ?></td>
+                                                <td><?= $client->situationFamiliale() ?></td>
+                                                <td><?= $client->tel1() ?></td>
+                                                <td><?= $client->permis() ?></td>
                                                 <td><?= $client->solvabilite() ?></td>
                                                 <td><?= $client->nombreIncident() ?></td>
                                             </tr> 
@@ -475,11 +448,11 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <!-- deleteClient box end --> 
                                             <?php 
                                             }//end foreach 
-                                            //}//end if
+                                            }//end if
                                             ?>
                                         </tbody>
                                     </table>
-                                    <?php /*if($clientsNumber != 0){ echo $pagination; }*/ ?><br>
+                                    <?php if($clientsNumber != 0){ echo $pagination; } ?><br>
                                 </div>
                             </div>
                         </div>

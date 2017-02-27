@@ -78,6 +78,7 @@ class UserActionController {
             $idUser = htmlentities($_POST['idUser']);
 			$login = htmlentities($user['login']);
 			$password = htmlentities($user['password']);
+            $password = password_hash($password, PASSWORD_DEFAULT);
 			$profil = htmlentities($user['profil']);
 			$status = htmlentities($user['status']);
 			$updatedBy = $_SESSION['userAxaAmazigh']->login();
