@@ -17,4 +17,5 @@
 <link href="../assets/data-tables/DT_bootstrap.css" rel="stylesheet" />
 <link href="../assets/glyphicons/css/glyphicons.css" rel="stylesheet">
 <link href="../assets/glyphicons_halflings/css/halflings.css" rel="stylesheet">
+<link href="../assets/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
 <link href="../favicon.ico" rel="shortcut icon" />

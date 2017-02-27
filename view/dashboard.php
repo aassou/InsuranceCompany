@@ -30,7 +30,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Caisse</div></div>
                                     </div>
                                 </a>
-                                <a href="projets.php">
+                                <a href="production.php">
                                     <div class="tile bg-green">
                                         <div class="tile-body"><i class="icon-briefcase"></i></div>
                                         <div class="tile-object"><div class="name">Production</div></div>

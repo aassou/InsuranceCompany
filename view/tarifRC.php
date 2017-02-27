@@ -119,6 +119,18 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
+                                            <label class="control-label">Nombre Place</label>
+                                            <div class="controls">
+                                                <input type="text" name="nombrePlace" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Tonnage</label>
+                                            <div class="controls">
+                                                <input type="text" name="tonnage" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
                                             <label class="control-label">Prime RC</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="primeRC" />
@@ -295,7 +307,19 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="control-group">
                                                             <label class="control-label">Puissance Fiscale</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="puissanceFiscale"  value="<?= $tarifRC->puissanceFiscale() ?>" />
+                                                                <input required="required" type="text" name="puissanceFiscale" value="<?= $tarifRC->puissanceFiscale() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">Nombre Place</label>
+                                                            <div class="controls">
+                                                                <input type="text" name="nombrePlace" value="<?= $tarifRC->nombrePlace() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">Tonnage</label>
+                                                            <div class="controls">
+                                                                <input type="text" name="tonnage" value="<?= $tarifRC->tonnage() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">

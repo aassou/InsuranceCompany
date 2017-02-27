@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS t_tarifrc (
 	codeSousClasse INT(12) DEFAULT NULL,
 	carburant VARCHAR(20) DEFAULT NULL,
 	puissanceFiscale INT(12) DEFAULT NULL,
+	nombrePlace INT(9) DEFAULT NULL,
+	tonnage DECIMAL(12,2) DEFAULT NULL,
 	primeRC DECIMAL(12,2) DEFAULT NULL,
 	majorationRemorque DECIMAL(12,2) DEFAULT NULL,
 	matiereInflamable DECIMAL(12,2) DEFAULT NULL,

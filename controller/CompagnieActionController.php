@@ -133,7 +133,6 @@ class CompagnieActionController {
             $this->_source = "view/compagnie";
         }
     }
-    
 
     public function delete($compagnie){
         $idCompagnie = htmlentities($compagnie['idCompagnie']);
@@ -143,8 +142,20 @@ class CompagnieActionController {
         $this->_source = "view/compagnie";
     }
     
+    public function getCompagnieById($id){
+        return $this->_compagnieManager->getCompagnieById($id);
+    }
+    
     public function getCompagnies(){
         return $this->_compagnieManager->getCompagnies();
     }
+    
+    public function getCompagniesByLimits($begin, $end){
+        return $this->_compagnieManager->getCompagniesByLimits($begin, $end);
+    }
+    
+    public function getLastId(){
+        return $this->_compagnieManager->getLastId();
+    } 
     
 }

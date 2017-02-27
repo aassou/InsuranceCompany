@@ -12,8 +12,8 @@ class TarifRCManager{
 	//BASIC CRUD OPERATIONS
 	public function add(TarifRC $tarifRC){
         $query = $this->_db->prepare(' INSERT INTO t_tarifrc (
-		codeCompagnie, codeUsage, codeClasse, codeSousClasse, carburant, puissanceFiscale, primeRC, majorationRemorque, matiereInflamable, transportPersonne, tauxCommission, tauxTPS, tauxTaxe, timbre, created, createdBy)
-		VALUES (:codeCompagnie, :codeUsage, :codeClasse, :codeSousClasse, :carburant, :puissanceFiscale, :primeRC, :majorationRemorque, :matiereInflamable, :transportPersonne, :tauxCommission, :tauxTPS, :tauxTaxe, :timbre, :created, :createdBy)')
+		codeCompagnie, codeUsage, codeClasse, codeSousClasse, carburant, puissanceFiscale, nombrePlace, tonnage, primeRC, majorationRemorque, matiereInflamable, transportPersonne, tauxCommission, tauxTPS, tauxTaxe, timbre, created, createdBy)
+		VALUES (:codeCompagnie, :codeUsage, :codeClasse, :codeSousClasse, :carburant, :puissanceFiscale, :nombrePlace, :tonnage, :primeRC, :majorationRemorque, :matiereInflamable, :transportPersonne, :tauxCommission, :tauxTPS, :tauxTaxe, :timbre, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':codeCompagnie', $tarifRC->codeCompagnie());
 		$query->bindValue(':codeUsage', $tarifRC->codeUsage());
@@ -21,6 +21,8 @@ class TarifRCManager{
 		$query->bindValue(':codeSousClasse', $tarifRC->codeSousClasse());
 		$query->bindValue(':carburant', $tarifRC->carburant());
 		$query->bindValue(':puissanceFiscale', $tarifRC->puissanceFiscale());
+        $query->bindValue(':nombrePlace', $tarifRC->nombrePlace());
+        $query->bindValue(':tonnage', $tarifRC->tonnage());
 		$query->bindValue(':primeRC', $tarifRC->primeRC());
 		$query->bindValue(':majorationRemorque', $tarifRC->majorationRemorque());
 		$query->bindValue(':matiereInflamable', $tarifRC->matiereInflamable());

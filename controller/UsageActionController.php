@@ -81,7 +81,6 @@ class UsageActionController {
             $this->_source = "view/usage";
         }
     }
-    
 
     public function delete($usage){
         $idUsage = htmlentities($usage['idUsage']);
@@ -91,4 +90,19 @@ class UsageActionController {
         $this->_source = "view/usage";
     }
     
+    public function getUsageById($id){
+        return $this->_usageManager->getUsageById($id);
+    }
+    
+    public function getUsages(){
+        return $this->_usageManager->getUsages();    
+    }    
+    
+    public function getUsagesByLimits($begin, $end){
+        return $this->_usageManager->getUsagesByLimits($begin, $end);
+    }
+    
+    public function getLastId(){
+        return $this->_usageManager->getLastId();
+    }
 }

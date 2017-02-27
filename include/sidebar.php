@@ -61,49 +61,53 @@
 		    $_SESSION['userAxaAmazigh']->profil() == "manager" ||
 		    $_SESSION['userAxaAmazigh']->profil() == "consultant" 
             ) { 
-			$gestionProjetClass="";
-			if($currentPage=="projet-list.php"
-			or $currentPage=="projets.php"
-			or $currentPage=="projet-details.php"
-			or $currentPage=="projet-charges.php"
-			or $currentPage=="projet-add.php"
-			or $currentPage=="suivi-projets.php"  
-			or $currentPage=="projet-update.php"
-			or $currentPage=="projet-search.php"
-			or $currentPage=="terrain.php"
-			or $currentPage=="locaux.php"
-			or $currentPage=="pieces-locaux.php"
-			or $currentPage=="appartements.php"
-			or $currentPage=="pieces-appartement.php"
-			or $currentPage=="syndique-group.php"
-			or $currentPage=="syndique-mois-annee.php"
-			or $currentPage=="clients-add.php"
-			or $currentPage=="contrats-add.php"
-			or $currentPage=="contrat.php"
-			or $currentPage=="contrats-list.php"
-			or $currentPage=="contrats-desistes-list.php"
-			or $currentPage=="contrat-details.php"
-			or $currentPage=="operations.php"
-			or $currentPage=="fournisseur-add.php"
-			or $currentPage=="fournisseur-reglement.php"
-			or $currentPage=="employes-projet.php"
-			or $currentPage=="employe-projet-profile.php"
-			or $currentPage=="fournisseurs-reglements.php"
-			or $currentPage=="appartement-detail.php"
-			or $currentPage=="locaux-detail.php"
-			or $currentPage=="projet-charges-grouped.php"
-			or $currentPage=="projet-charges-type.php"
-			or $currentPage=="projet-contrat-employe.php"
-			or $currentPage=="contrat-employe-detail.php"
+			$productionClass="";
+			if($currentPage=="production.php"
+			or $currentPage=="automobile.php"
+			or $currentPage=="divers.php"
+			or $currentPage=="attestation.php"
 			){
-				$gestionProjetClass = "active ";
+				$productionClass = "active ";
 			}
 		?> 
-		<li class="<?= $gestionProjetClass; ?>" >
-			<a href="projets.php">
+		<li class="<?= $productionClass ?> has-sub">
+			<a href="production.php">
 			<i class="icon-briefcase"></i> 
-			<span class="title">Gestion Projets</span>
+			<span class="title">Production</span>
 			</a>
+			<ul class="sub">
+                <?php
+                if ( 
+                    $_SESSION["userAxaAmazigh"]->profil() == "admin" ||
+                    $_SESSION['userAxaAmazigh']->profil() == "manager" ||
+                    $_SESSION['userAxaAmazigh']->profil() == "consultant" 
+                    ) {
+                ?>
+                <li <?php if($currentPage=="automobile.php"
+                            or $currentPage=="livraisons-fournisseur.php"
+                            ){
+                    ?> class="active" <?php } ?> >
+                    <a href="automobile.php">Automobile</a>
+                </li>
+                <?php
+                }
+                ?>
+                <?php
+                if ( 
+                    $_SESSION["userAxaAmazigh"]->profil() == "admin" ||
+                    $_SESSION["userAxaAmazigh"]->profil() == "user" ||
+                    $_SESSION['userAxaAmazigh']->profil() == "consultant" 
+                    ) {
+                ?>
+                <li <?php if($currentPage=="divers.php"
+                            or $currentPage=="autres.php"
+                            ){?> class="active" <?php } ?> >
+                    <a href="divers.php">Divers</a>
+                </li>
+                <?php
+                }
+                ?>
+            </ul>
 		</li>
 		<?php
 		}

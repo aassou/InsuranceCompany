@@ -9,6 +9,8 @@ class TarifRC{
 	private $_codeSousClasse;
 	private $_carburant;
 	private $_puissanceFiscale;
+    private $_nombrePlace;
+    private $_tonnage;
 	private $_primeRC;
 	private $_majorationRemorque;
 	private $_matiereInflamable;
@@ -64,6 +66,14 @@ class TarifRC{
 
 	public function setPuissanceFiscale($puissanceFiscale){
         $this->_puissanceFiscale = $puissanceFiscale;
+    }
+    
+    public function setNombrePlace($nombrePlace){
+        $this->_nombrePlace = $nombrePlace;
+    }
+    
+    public function setTonnage($tonnage){
+        $this->_tonnage = $tonnage;
     }
 
 	public function setPrimeRC($primeRC){
@@ -140,6 +150,14 @@ class TarifRC{
 
 	public function puissanceFiscale(){
         return $this->_puissanceFiscale;
+    }
+    
+    public function nombrePlace(){
+        return $this->_nombrePlace;
+    }
+    
+    public function tonnage(){
+        return $this->_tonnage;
     }
 
 	public function primeRC(){

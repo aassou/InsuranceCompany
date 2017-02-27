@@ -37,6 +37,8 @@ class TarifRCActionController {
 			$codeSousClasse = htmlentities($tarifRC['codeSousClasse']);
 			$carburant = htmlentities($tarifRC['carburant']);
 			$puissanceFiscale = htmlentities($tarifRC['puissanceFiscale']);
+            $nombrePlace = htmlentities($tarifRC['nombrePlace']);
+            $tonnage = htmlentities($tarifRC['tonnage']);
 			$primeRC = htmlentities($tarifRC['primeRC']);
 			$majorationRemorque = htmlentities($tarifRC['majorationRemorque']);
 			$matiereInflamable = htmlentities($tarifRC['matiereInflamable']);
@@ -55,6 +57,8 @@ class TarifRCActionController {
 				'codeSousClasse' => $codeSousClasse,
 				'carburant' => $carburant,
 				'puissanceFiscale' => $puissanceFiscale,
+				'nombrePlace' => $nombrePlace,
+                'tonnage' => $tonnage,
 				'primeRC' => $primeRC,
 				'majorationRemorque' => $majorationRemorque,
 				'matiereInflamable' => $matiereInflamable,
@@ -89,6 +93,8 @@ class TarifRCActionController {
 			$codeSousClasse = htmlentities($tarifRC['codeSousClasse']);
 			$carburant = htmlentities($tarifRC['carburant']);
 			$puissanceFiscale = htmlentities($tarifRC['puissanceFiscale']);
+            $nombrePlace = htmlentities($tarifRC['nombrePlace']);
+            $tonnage = htmlentities($tarifRC['tonnage']);
 			$primeRC = htmlentities($tarifRC['primeRC']);
 			$majorationRemorque = htmlentities($tarifRC['majorationRemorque']);
 			$matiereInflamable = htmlentities($tarifRC['matiereInflamable']);
@@ -107,6 +113,8 @@ class TarifRCActionController {
 				'codeSousClasse' => $codeSousClasse,
 				'carburant' => $carburant,
 				'puissanceFiscale' => $puissanceFiscale,
+				'nombrePlace' => $nombrePlace,
+				'tonnage' => $tonnage,
 				'primeRC' => $primeRC,
 				'majorationRemorque' => $majorationRemorque,
 				'matiereInflamable' => $matiereInflamable,
