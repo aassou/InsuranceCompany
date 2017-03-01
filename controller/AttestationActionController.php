@@ -50,9 +50,9 @@ class AttestationActionController {
             foreach ( $attestationsElements as $element ) {
                 //If the attestation serie's number does exist already in the DB incerement condition
                 if ( 
-                ( $numeroDebut >= $element->numeroDebut() and $numeroDebut <= $element->numeroFin() )
+                ( $element->numeroDebut() >= $numeroDebut and $element->numeroDebut() <= $numeroFin )
                 or
-                ( $numeroFin >= $element->numeroDebut() and $numeroFin <= $element->numeroFin() )
+                ( $element->numeroFin() >= $numeroDebut and $element->numeroFin() <= $numeroFin )
                 ) {
                     $attestationCondition++;        
                 }

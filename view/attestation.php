@@ -59,7 +59,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <div id="addAttestation" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter Attestation</h3>
+                                    <h3>Ajouter Stock Attestations</h3>
                                 </div>
                                 <form id="addAttestationForm" class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                     <div class="modal-body">
