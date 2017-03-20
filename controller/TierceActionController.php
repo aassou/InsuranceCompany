@@ -139,4 +139,24 @@ class TierceActionController {
         $this->_source = "view/tierce";
     }
     
+    public function getTierceById($id){
+        return $this->_tierceManager->getTierceById($id);
+    }
+
+    public function getTierces(){
+        return $this->_tierceManager->getTierces();
+    }
+
+    public function getTiercesByLimits($begin, $end){
+        return $this->_tierceManager->getTiercesByLimits($begin, $end);
+    }
+
+    public function getTiercesNumber(){
+        return $this->_tierceManager->getTiercesNumber();
+    }
+
+    public function getLastId(){
+        return $this->_tierceManager->getLastId();
+    }
+    
 }

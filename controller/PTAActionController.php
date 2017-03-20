@@ -130,5 +130,25 @@ class PTAActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/PTA";
     }
+
+    public function getPTAById($id){
+        return $this->_PTAManager->getPTAById($id);
+    }
+
+    public function getPTAs(){
+        return $this->_PTAManager->getPTAs();
+    }
+
+    public function getPTAsByLimits($begin, $end){
+        return $this->_PTAManager->getPTAsByLimits($begin, $end);
+    }
+
+    public function getPTAsNumber(){
+        return $this->_PTAManager->getPTAsNumber();
+    }
+
+    public function getLastId(){
+        return $this->_PTAManager->getLastId();
+    }
     
 }

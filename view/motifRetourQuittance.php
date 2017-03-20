@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $motifRetourQuittanceManager = new MotifRetourQuittanceManager(PDOFactory::getMysqlConnection());
-    $motifRetourQuittances = $motifRetourQuittanceManager->getMotifRetourQuittances(); 
+    //create Controllers
+    $motifRetourQuittanceActionController = new MotifRetourQuittanceActionController('motifRetourQuittance');
+    //objects and vars
+    $motifRetourQuittances = $motifRetourQuittanceActionController->getMotifRetourQuittances(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

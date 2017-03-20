@@ -127,4 +127,24 @@ class IndividuelConducteurActionController {
         $this->_source = "view/individuelConducteur";
     }
     
+    public function getIndividuelConducteurById($id){
+        return $this->_individuelConducteurManager->getIndividuelConducteurById($id);
+    }
+
+    public function getIndividuelConducteurs(){
+        return $this->_individuelConducteurManager->getIndividuelConducteurs();
+    }
+
+    public function getIndividuelConducteursByLimits($begin, $end){
+        return $this->_individuelConducteurManager->getIndividuelConducteursByLimits($begin, $end);
+    }
+
+    public function getIndividuelConducteursNumber(){
+        return $this->_individuelConducteurManager->getIndividuelConducteursNumber();
+    }
+
+    public function getLastId(){
+        return $this->_individuelConducteurManager->getLastId();
+    }
+    
 }

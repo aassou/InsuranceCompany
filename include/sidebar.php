@@ -64,6 +64,9 @@
 			$productionClass="";
 			if($currentPage=="production.php"
 			or $currentPage=="automobile.php"
+			or $currentPage=="automobile-test.php"
+			or $currentPage=="automobile-add-part-1.php"
+			or $currentPage=="automobile-add-part-2.php"
 			or $currentPage=="divers.php"
 			or $currentPage=="attestation.php"
 			){

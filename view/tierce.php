@@ -2,19 +2,19 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $tierceManager = new TierceManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get Objects
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses();
-    $sousClasses = $sousClasseManager->getSousClasses();
-    $tierces = $tierceManager->getTierces(); 
-    /*$tiercesNumber = $tierceManager->getTiercesNumber(); 
+    //create Controllers
+    $tierceActionController = new TierceActionController('tierce');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageActionController('usage');
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    $classes = $classeActionController->getClasses();
+    $sousClasses = $sousClasseActionController->getSousClasses();
+    $tierces = $tierceActionController->getTierces(); 
+    /*$tiercesNumber = $tierceActionController->getTiercesNumber(); 
     $p = 1;
     if ( $tiercesNumber != 0 ) {
         $tiercePerPage = 20;
@@ -27,7 +27,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $tiercePerPage;
         $pagination = paginate('tierce.php', '?p=', $pageNumber, $p);
-        $tierces = $tierceManager->getTiercesByLimits($begin, $tiercePerPage);
+        $tierces = $tierceActionController->getTiercesByLimits($begin, $tiercePerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

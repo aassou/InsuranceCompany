@@ -2,16 +2,16 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $tarifFrontiereManager = new TarifFrontiereManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $compagnies = $compagnieManager->getCompagnies();
-    $classes = $classeManager->getClasses(); 
-    $tarifFrontieres = $tarifFrontiereManager->getTarifFrontieres(); 
-    /*$tarifFrontieresNumber = $tarifFrontiereManager->getTarifFrontieresNumber(); 
+    //create Controllers
+    $tarifFrontiereActionController = new TarifFrontiereActionController('tarifFrontiere');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $compagnies = $compagnieActionController->getCompagnies();
+    $classes = $classeActionController->getClasses(); 
+    $tarifFrontieres = $tarifFrontiereActionController->getTarifFrontieres(); 
+    /*$tarifFrontieresNumber = $tarifFrontiereActionController->getTarifFrontieresNumber(); 
     $p = 1;
     if ( $tarifFrontieresNumber != 0 ) {
         $tarifFrontierePerPage = 20;
@@ -24,7 +24,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $tarifFrontierePerPage;
         $pagination = paginate('tarifFrontiere.php', '?p=', $pageNumber, $p);
-        $tarifFrontieres = $tarifFrontiereManager->getTarifFrontieresByLimits($begin, $tarifFrontierePerPage);
+        $tarifFrontieres = $tarifFrontiereActionController->getTarifFrontieresByLimits($begin, $tarifFrontierePerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

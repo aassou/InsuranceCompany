@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $classeATManager = new ClasseATManager(PDOFactory::getMysqlConnection());
-    $classeATs = $classeATManager->getClasseATs(); 
+    //create Controllers
+    $classeATActionController = new ClasseATActionController('classeAT');
+    //objects and vars
+    $classeATs = $classeATActionController->getClasseATs(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

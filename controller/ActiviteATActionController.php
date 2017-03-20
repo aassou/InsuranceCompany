@@ -98,5 +98,25 @@ class ActiviteATActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/activiteAT";
     }
+
+    public function getActiviteATById($id){
+        return $this->_activiteATManager->getActiviteATById($id);
+    }
+    
+    public function getActiviteATs(){
+        return $this->_activiteATManager->getActiviteATs();
+    }
+    
+    public function getActiviteATsByLimits($begin, $end){
+        return $this->_activiteATManager->getActiviteATsByLimits($begin, $end);
+    }
+    
+    public function getActiviteATsNumber(){
+        return $this->_activiteATManager->getActiviteATsNumber();
+    }
+    
+    public function getLastId(){
+        return $this->_activiteATManager->getLastId();
+    }
     
 }

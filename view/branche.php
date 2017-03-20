@@ -2,10 +2,12 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $brancheManager = new BrancheManager(PDOFactory::getMysqlConnection());
-    $branches = $brancheManager->getBranches();
-    $compagnies = $compagnieManager->getCompagnies();
+    //create Controllers
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $brancheActionController = new BrancheActionController('branche');
+    //objects and vars
+    $branches = $brancheActionController->getBranches();
+    $compagnies = $compagnieActionController->getCompagnies();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

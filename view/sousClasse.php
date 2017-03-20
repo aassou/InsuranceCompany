@@ -2,10 +2,12 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    $classes = $classeManager->getClasses();
-    $sousClasses = $sousClasseManager->getSousClasses();
+    //create Controllers
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $classes = $classeActionController->getClasses();
+    $sousClasses = $sousClasseActionController->getSousClasses();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

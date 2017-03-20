@@ -25,7 +25,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <li><i class="icon-briefcase"></i><a>Production</a></li>
                             </ul>
                             <div class="tiles">
-                                <a href="automobile.php">
+                                <a href="automobile-test.php">
                                     <div class="tile bg-black">
                                         <div class="tile-body"><i class="icon-truck"></i></div>
                                         <div class="tile-object"><div class="name">Automobile</div></div>

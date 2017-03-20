@@ -90,5 +90,21 @@ class RegionActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/region";
     }
+
+    public function getRegionById($id){
+        return $this->_regionManager->getRegionById($id);
+    }
+
+    public function getRegions(){
+        return $this->_regionManager->getRegions();
+    }
+
+    public function getRegionsByLimits($begin, $end){
+        return $this->_regionManager->getRegionsByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_regionManager->getLastId();
+    }
     
 }

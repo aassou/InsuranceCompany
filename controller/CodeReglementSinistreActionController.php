@@ -91,4 +91,20 @@ class CodeReglementSinistreActionController {
         $this->_source = "view/codeReglementSinistre";
     }
     
+    public function getCodeReglementSinistreById($id){
+        return $this->_codeReglementSinistreManager->getCodeReglementSinistreById($id);
+    }
+
+    public function getCodeReglementSinistres(){
+        return $this->_codeReglementSinistreManager->getCodeReglementSinistres();
+    }
+
+    public function getCodeReglementSinistresByLimits($begin, $end){
+        return $this->_codeReglementSinistreManager->getCodeReglementSinistresByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_codeReglementSinistreManager->getLastId();
+    }
+    
 }

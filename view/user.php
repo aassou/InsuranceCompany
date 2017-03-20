@@ -2,9 +2,9 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
+    //create Controllers
     $userController = new UserActionController('user');
-    //get objects
+    //objects and vars
     $users = $userController->getUsers();
 ?>
 <!DOCTYPE html>

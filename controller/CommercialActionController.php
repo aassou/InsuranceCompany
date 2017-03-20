@@ -115,4 +115,20 @@ class CommercialActionController {
         $this->_source = "view/commercial";
     }
     
+    public function getCommercialById($id){
+        return $this->_commercialManager->getCommercialById($id);
+    }
+
+    public function getCommercials(){
+        return $this->_commercialManager->getCommercials();
+    }
+
+    public function getCommercialsByLimits($begin, $end){
+        return $this->_commercialManager->getCommercialsByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_commercialManager->getLastId();
+    }
+    
 }

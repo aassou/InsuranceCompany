@@ -65,6 +65,15 @@ class UserManager{
         $query->execute();
         $query->closeCursor();
     }
+    
+    public function changePassword($newPassword, $login){
+        $query = $this->_db->prepare('UPDATE t_user SET password =:newPassword
+        WHERE login=:login') or die(print_r($this->_db->errorInfo()));;
+        $query->bindValue(':newPassword', $newPassword);
+        $query->bindValue(':login', $login);
+        $query->execute();
+        $query->closeCursor();
+    }
 
 	public function delete($id){
         $query = $this->_db->prepare(' DELETE FROM t_user WHERE id=:id')
@@ -136,30 +145,6 @@ class UserManager{
         return $data['status'];
     }
     
-    public function changePassword($newPassword, $idUser){
-        $query = $this->_db->prepare('UPDATE t_user SET password =:newPassword
-        WHERE id=:idUser') or die(print_r($this->_db->errorInfo()));;
-        $query->bindValue(':newPassword', $newPassword);
-        $query->bindValue(':idUser', $idUser);
-        $query->execute();
-        $query->closeCursor();
-    }
-    
-    public function exists($login, $password){
-        $query = $this->_db->prepare('SELECT COUNT(*) FROM t_user WHERE login=:login AND password=:password');
-        $query->bindValue(':login', $login);
-        $query->bindValue(':password', $password);
-        $query->execute();
-        return (bool) $query->fetchColumn();
-    }
-    
-    public function exist2($login){
-        $query = $this->_db->prepare('SELECT COUNT(*) FROM t_user WHERE login=:login');
-        $query->bindValue(':login', $login);
-        $query->execute();
-        return (bool) $query->fetchColumn();
-    }
-    
     public function getUserByLoginPassword($login, $password){
         $query = $this->_db->prepare('SELECT * FROM t_user WHERE login=:login AND password=:password');
         $query->bindValue(':login', $login);
@@ -187,5 +172,21 @@ class UserManager{
         $query->closeCursor();
         return $data['password'];
     }
+    
+    public function exists($login, $password){
+        $query = $this->_db->prepare('SELECT COUNT(*) FROM t_user WHERE login=:login AND password=:password');
+        $query->bindValue(':login', $login);
+        $query->bindValue(':password', $password);
+        $query->execute();
+        return (bool) $query->fetchColumn();
+    }
+    
+    public function exist2($login){
+        $query = $this->_db->prepare('SELECT COUNT(*) FROM t_user WHERE login=:login');
+        $query->bindValue(':login', $login);
+        $query->execute();
+        return (bool) $query->fetchColumn();
+    }
+    
 
 }

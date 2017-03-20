@@ -2,11 +2,11 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $clientManager = new ClientManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $clients = $clientManager->getClients(); 
-    $clientsNumber = $clientManager->getClientsNumber(); 
+    //create Controllers
+    $clientActionController = new ClientActionController('client');
+    //objects and vars
+    $clients = $clientActionController->getClients(); 
+    $clientsNumber = $clientActionController->getClientsNumber(); 
     $p = 1;
     if ( $clientsNumber != 0 ) {
         $clientPerPage = 20;
@@ -19,7 +19,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $clientPerPage;
         $pagination = paginate('client.php', '?p=', $pageNumber, $p);
-        $clients = $clientManager->getClientsByLimits($begin, $clientPerPage);
+        $clients = $clientActionController->getClientsByLimits($begin, $clientPerPage);
     } 
 ?>
 <!DOCTYPE html>

@@ -90,5 +90,21 @@ class ClasseActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/classe";
     }
+
+    public function getClasseById($id){
+        return $this->_classeManager->getClasseById($id);
+    }
+
+    public function getClasses(){
+        return $this->_classeManager->getClasses();
+    }
+
+    public function getClassesByLimits($begin, $end){
+        return $this->_classeManager->getClassesByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_classeManager->getLastId();
+    }
     
 }

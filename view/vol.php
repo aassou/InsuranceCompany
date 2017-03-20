@@ -2,18 +2,18 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $volManager = new VolManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $vols = $volManager->getVols(); 
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses();
-    /*$volsNumber = $volManager->getVolsNumber(); 
+    //create Controllers
+    $volActionController = new VolActionController('vol');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageActionController('usage');
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $vols = $volActionController->getVols(); 
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    $classes = $classeActionController->getClasses();
+    /*$volsNumber = $volActionController->getVolsNumber(); 
     $p = 1;
     if ( $volsNumber != 0 ) {
         $volPerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $volPerPage;
         $pagination = paginate('vol.php', '?p=', $pageNumber, $p);
-        $vols = $volManager->getVolsByLimits($begin, $volPerPage);
+        $vols = $volActionController->getVolsByLimits($begin, $volPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

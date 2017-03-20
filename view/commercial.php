@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $commercialManager = new CommercialManager(PDOFactory::getMysqlConnection());
-    $commercials = $commercialManager->getCommercials(); 
+    //create Controllers
+    $commercialActionController = new CommercialActionController('commercial');
+    //objects and vars
+    $commercials = $commercialActionController->getCommercials(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

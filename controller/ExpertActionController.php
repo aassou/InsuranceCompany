@@ -111,4 +111,20 @@ class ExpertActionController {
         $this->_source = "view/expert";
     }
     
+    public function getExpertById($id){
+        return $this->_expertManager->getExpertById($id);
+    }
+
+    public function getExperts(){
+        return $this->_expertManager->getExperts();
+    }
+
+    public function getExpertsByLimits($begin, $end){
+        return $this->_expertManager->getExpertsByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_expertManager->getLastId();
+    }
+    
 }

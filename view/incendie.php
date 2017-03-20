@@ -2,18 +2,18 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $incendieManager = new IncendieManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $incendies = $incendieManager->getIncendies(); 
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses();
-    /*$incendiesNumber = $incendieManager->getIncendiesNumber(); 
+    //create Controllers
+    $incendieActionController = new IncendieActionController('incendie');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageActionController('uage');
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $incendies = $incendieActionController->getIncendies(); 
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    $classes = $classeActionController->getClasses();
+    /*$incendiesNumber = $incendieActionController->getIncendiesNumber(); 
     $p = 1;
     if ( $incendiesNumber != 0 ) {
         $incendiePerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $incendiePerPage;
         $pagination = paginate('incendie.php', '?p=', $pageNumber, $p);
-        $incendies = $incendieManager->getIncendiesByLimits($begin, $incendiePerPage);
+        $incendies = $incendieActionController->getIncendiesByLimits($begin, $incendiePerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

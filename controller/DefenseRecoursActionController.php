@@ -126,5 +126,25 @@ class DefenseRecoursActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/defenseRecours";
     }
+
+    public function getDefenseRecoursById($id){
+        return $this->_defenseRecoursManager->getDefenseRecoursById($id);
+    }
+
+    public function getDefenseRecourss(){
+        return $this->_defenseRecoursManager->getDefenseRecourss();
+    }
+
+    public function getDefenseRecourssByLimits($begin, $end){
+        return $this->_defenseRecoursManager->getDefenseRecourssByLimits($begin, $end);
+    }
+
+    public function getDefenseRecourssNumber(){
+        return $this->_defenseRecoursManager->getDefenseRecourssNumber();
+    }
+
+    public function getLastId(){
+        return $this->_defenseRecoursManager->getLastId();
+    }
     
 }

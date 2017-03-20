@@ -94,5 +94,21 @@ class SousClasseActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/sousClasse";
     }
+
+    public function getSousClasseById($id){
+        return $this->_sousClasseManager->getSousClasseById($id);
+    }
+
+    public function getSousClasses(){
+        return $this->_sousClasseManager->getSousClasses();
+    }
+
+    public function getSousClassesByLimits($begin, $end){
+        return $this->_sousClasseManager->getSousClassesByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_sousClasseManager->getLastId();
+    }
     
 }

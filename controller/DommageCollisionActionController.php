@@ -138,5 +138,25 @@ class DommageCollisionActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/dommageCollision";
     }
+
+    public function getDommageCollisionById($id){
+        return $this->_dommageCollisionManager->getDommageCollisionById($id);
+    }
+
+    public function getDommageCollisions(){
+        return $this->_dommageCollisionManager->getDommageCollisions();
+    }
+
+    public function getDommageCollisionsByLimits($begin, $end){
+        return $this->_dommageCollisionManager->getDommageCollisionsByLimits($begin, $end);
+    }
+
+    public function getDommageCollisionsNumber(){
+        return $this->_dommageCollisionManager->getDommageCollisionsNumber();
+    }
+
+    public function getLastId(){
+        return $this->_dommageCollisionManager->getLastId();
+    }
     
 }

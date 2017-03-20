@@ -2,7 +2,9 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
+    //create Controllers
     $compagnieController = new CompagnieActionController('compagnie');
+    //objects and vars
     $compagnies = $compagnieController->getCompagnies();
 ?>
 <!DOCTYPE html>

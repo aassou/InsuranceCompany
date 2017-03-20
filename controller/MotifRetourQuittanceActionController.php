@@ -90,5 +90,21 @@ class MotifRetourQuittanceActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/motifRetourQuittance";
     }
+
+    public function getMotifRetourQuittanceById($id){
+        return $this->_motifRetourQuittanceManager->getMotifRetourQuittanceById($id);
+    }
+
+    public function getMotifRetourQuittances(){
+        return $this->_motifRetourQuittanceManager->getMotifRetourQuittances();
+    }
+
+    public function getMotifRetourQuittancesByLimits($begin, $end){
+        return $this->_motifRetourQuittanceManager->getMotifRetourQuittancesByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_motifRetourQuittanceManager->getLastId();
+    }
     
 }

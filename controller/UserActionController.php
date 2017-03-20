@@ -38,7 +38,7 @@ class UserActionController {
         ) {
             //test if the user exist
             if ( $this->_userManager->exist2($_POST['login']) ) {
-                $this->_actionMessage = "Opération Invalide : Un utilisateur avec ce nom existe déjà.";
+                $this->_actionMessage = "Opération Invalide : Un utilisateur existe déjà avec ce nom.";
                 $this->_typeMessage = "error";
                 $this->_source = "view/user";    
             }
@@ -151,6 +151,20 @@ class UserActionController {
             $this->_source = "view/user";
         }
     }
+    
+    public function changePassword($oldPassword, $newPassword, $retypeNewPassword, $login){
+        if ( !empty($oldPassword) and !empty($newPassword) and !empty($retypeNewPassword) ) {
+            if ( password_verify($oldPassword, $this->getPasswordByLogin($login)) 
+            and ( $newPassword == $retypePassword ) ) {
+                $this->_userManager->changePassword(password_hash($newPassword, PASSWORD_DEFAULT), $login);
+            }
+            else {
+                $this->_actionMessage = "Opération Invalide : Ancien Mot de passe est incorrecte.";
+                $this->_typeMessage = "error";
+                $this->_source = "view/user";    
+            }
+        }
+    }
 
     public function delete($user){
         if ( !empty($user['idUser']) ) {
@@ -167,10 +181,6 @@ class UserActionController {
         }
     }
     
-    public function getUsers(){
-        return $this->_userManager->getUsers();
-    }
-    
     public function login($user){
         //Test if the user credentials are set
         //Case 1 : Something missing
@@ -183,11 +193,9 @@ class UserActionController {
         else{
             $login = htmlspecialchars($user['login']);
             $password = htmlspecialchars($user['password']);
-            //$password =
-            $this->_userManager = new UserManager(PDOFactory::getMysqlConnection());
-            if ( $this->_userManager->exist2($login) && $this->_userManager->getStatus($login) != 0 ) {
-                if ( password_verify($password, $this->_userManager->getPasswordByLogin($login)) ) {
-                    $_SESSION['userAxaAmazigh'] = $this->_userManager->getUserByLogin($login);
+            if ( $this->exist2($login) && $this->getStatus($login) != 0 ) {
+                if ( password_verify($password, $this->getPasswordByLogin($login)) ) {
+                    $_SESSION['userAxaAmazigh'] = $this->getUserByLogin($login);
                     $this->_source = "view/dashboard";   
                 }
                 else{
@@ -202,5 +210,53 @@ class UserActionController {
                 $this->_source = "index";
             }
         }
-    }   
+    }
+    
+    public function getUserById($id){
+        return $this->_userManager->getUserById($id);
+    }
+
+    public function getUsers(){
+        return $this->_userManager->getUsers();
+    }
+
+    public function getUsersByLimits($begin, $end){
+        return $this->_userManager->getUsersByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_userManager->getLastId();
+    }
+    
+    public function getUsersNumber(){
+        return $this->_userManager->getUsersNumber();
+    }
+    
+    public function getStatus($login){
+        return $this->_userManager->getStatus($login);
+    }
+    
+    public function getStatusById($idUser){
+        return $this->_userManager->getStatusById($idUser);
+    }
+    
+    public function getUserByLoginPassword($login, $password){
+        return $this->_userManager->getUserByLoginPassword($login, $password);
+    }
+    
+    public function getUserByLogin($login){
+        return $this->_userManager->getUserByLogin($login);
+    }
+    
+    public function getPasswordByLogin($login){
+        return $this->_userManager->getPasswordByLogin($login);
+    }
+    
+    public function exists($login, $password){
+        return $this->_userManager->exists($login, $password);
+    }
+    
+    public function exist2($login){
+        return $this->_userManager->exist2($login);
+    }
 }

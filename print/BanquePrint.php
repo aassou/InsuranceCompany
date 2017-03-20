@@ -2,7 +2,7 @@
     require('../app/classLoad.php');
     require('../app/PDOFactory.php');
     session_start();
-    if (isset($_SESSION['userAxaAmazigh'])) {
+    if ( isset($_SESSION['userAxaAmazigh']) ) {
         ob_start();
     ?>
     <style type="text/css">p,h1,h2,h4{text-align: center;font-family : Arial;font-weight: 100;margin-bottom: 0px;} h1,h2{font-size: 16px;} table{border-collapse: collapse;width:100%;} table,th,td{border: 1px solid black;} td,th{padding : 5px;} th{background-color: grey;}</style>

@@ -112,14 +112,31 @@ class ClientManager{
 
 	public function getClientsByLimits($begin, $end){
         $clients = array();
-		$query = $this->_db->query('SELECT * FROM t_client
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->prepare('SELECT * FROM t_client
+        ORDER BY id DESC LIMIT :begin, :end');
+        $query->bindValue(':begin', $begin);
+        $query->bindValue(':end', $end);
+        $query->execute();      
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$clients[] = new Client($data);
 		}
 		$query->closeCursor();
 		return $clients;
 	}
+
+    public function getClientsByNom($nom){
+        $clients = array();
+        $keyword = "%".$nom."%";
+        $query = $this->_db->prepare('SELECT * FROM t_client
+        WHERE nom LIKE :keyword');
+        $query->bindValue(':keyword', $keyword);
+        $query->execute();      
+        while($data = $query->fetch(PDO::FETCH_ASSOC)){
+            $clients[] = new Client($data);
+        }
+        $query->closeCursor();
+        return $clients;
+    }
 
 	public function getClientsNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS clientsNumber FROM t_client');

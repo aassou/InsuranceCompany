@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $expertManager = new ExpertManager(PDOFactory::getMysqlConnection());
-    $experts = $expertManager->getExperts(); 
+    //create Controllers
+    $expertActionController = new ExpertActionController('expert');
+    //objects and vars
+    $experts = $expertActionController->getExperts(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

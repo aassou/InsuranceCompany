@@ -95,4 +95,24 @@ class FractionPrimeRCActionController {
         $this->_source = "view/fractionPrimeRC";
     }
     
+    public function getFractionPrimeRCById($id){
+        return $this->_fractionPrimeRCManager->getFractionPrimeRCById($id);
+    }
+
+    public function getFractionPrimeRCs(){
+        return $this->_fractionPrimeRCManager->getFractionPrimeRCs();
+    }
+
+    public function getFractionPrimeRCsByLimits($begin, $end){
+        return $this->_fractionPrimeRCManager->getFractionPrimeRCsByLimits($begin, $end);
+    }
+
+    public function getFractionPrimeRCsNumber(){
+        return $this->_fractionPrimeRCManager->getFractionPrimeRCsNumber();
+    }
+
+    public function getLastId(){
+        return $this->_fractionPrimeRCManager->getLastId();
+    }
+    
 }

@@ -2,18 +2,18 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $dommageCollisionManager = new DommageCollisionManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $dommageCollisions = $dommageCollisionManager->getDommageCollisions();
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses();  
-    /*$dommageCollisionsNumber = $dommageCollisionManager->getDommageCollisionsNumber(); 
+    //create Controllers
+    $dommageCollisionActionController = new DommageCollisionActionController('dommageCollision');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageActionController('usage');
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $dommageCollisions = $dommageCollisionActionController->getDommageCollisions();
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    $classes = $classeActionController->getClasses();  
+    /*$dommageCollisionsNumber = $dommageCollisionActionController->getDommageCollisionsNumber(); 
     $p = 1;
     if ( $dommageCollisionsNumber != 0 ) {
         $dommageCollisionPerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $dommageCollisionPerPage;
         $pagination = paginate('dommageCollision.php', '?p=', $pageNumber, $p);
-        $dommageCollisions = $dommageCollisionManager->getDommageCollisionsByLimits($begin, $dommageCollisionPerPage);
+        $dommageCollisions = $dommageCollisionActionController->getDommageCollisionsByLimits($begin, $dommageCollisionPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

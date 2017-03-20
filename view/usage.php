@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    $usages = $usageManager->getUsages();
+    //create Controllers
+    $usageActionController = new UsageActionController('usage');
+    //objects and vars
+    $usages = $usageActionController->getUsages();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

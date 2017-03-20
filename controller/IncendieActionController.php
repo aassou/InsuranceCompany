@@ -143,4 +143,24 @@ class IncendieActionController {
         $this->_source = "view/incendie";
     }
     
+    public function getIncendieById($id){
+        return $this->_incendieManager->getIncendieById($id);
+    }
+
+    public function getIncendies(){
+        return $this->_incendieManager->getIncendies();
+    }
+
+    public function getIncendiesByLimits($begin, $end){
+        return $this->_incendieManager->getIncendiesByLimits($begin, $end);
+    }
+
+    public function getIncendiesNumber(){
+        return $this->_incendieManager->getIncendiesNumber();
+    }
+
+    public function getLastId(){
+        return $this->_incendieManager->getLastId();
+    }
+    
 }

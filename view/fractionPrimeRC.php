@@ -2,13 +2,13 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $fractionPrimeRCManager = new FractionPrimeRCManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $compagnies = $compagnieManager->getCompagnies();
-    $fractionPrimeRCs = $fractionPrimeRCManager->getFractionPrimeRCs(); 
-    /*$fractionPrimeRCsNumber = $fractionPrimeRCManager->getFractionPrimeRCsNumber(); 
+    //create Controllers
+    $fractionPrimeRCActionController = new FractionPrimeRCActionController('fractionPrimeRC');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    //objects and vars
+    $compagnies = $compagnieActionController->getCompagnies();
+    $fractionPrimeRCs = $fractionPrimeRCActionController->getFractionPrimeRCs(); 
+    /*$fractionPrimeRCsNumber = $fractionPrimeRCActionController->getFractionPrimeRCsNumber(); 
     $p = 1;
     if ( $fractionPrimeRCsNumber != 0 ) {
         $fractionPrimeRCPerPage = 20;
@@ -21,7 +21,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $fractionPrimeRCPerPage;
         $pagination = paginate('fractionPrimeRC.php', '?p=', $pageNumber, $p);
-        $fractionPrimeRCs = $fractionPrimeRCManager->getFractionPrimeRCsByLimits($begin, $fractionPrimeRCPerPage);
+        $fractionPrimeRCs = $fractionPrimeRCActionController->getFractionPrimeRCsByLimits($begin, $fractionPrimeRCPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

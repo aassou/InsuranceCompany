@@ -2,15 +2,15 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $individuelConducteurManager = new IndividuelConducteurManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $individuelConducteurs = $individuelConducteurManager->getIndividuelConducteurs(); 
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    /*$individuelConducteursNumber = $individuelConducteurManager->getIndividuelConducteursNumber(); 
+    //create Controllers
+    $individuelConducteurActionController = new IndividuelConducteurActionController('individuelConducteur');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageManager('usage');
+    //objects and vars
+    $individuelConducteurs = $individuelConducteurActionController->getIndividuelConducteurs(); 
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    /*$individuelConducteursNumber = $individuelConducteurActionController->getIndividuelConducteursNumber(); 
     $p = 1;
     if ( $individuelConducteursNumber != 0 ) {
         $individuelConducteurPerPage = 20;
@@ -23,7 +23,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $individuelConducteurPerPage;
         $pagination = paginate('individuelConducteur.php', '?p=', $pageNumber, $p);
-        $individuelConducteurs = $individuelConducteurManager->getIndividuelConducteursByLimits($begin, $individuelConducteurPerPage);
+        $individuelConducteurs = $individuelConducteurActionController->getIndividuelConducteursByLimits($begin, $individuelConducteurPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

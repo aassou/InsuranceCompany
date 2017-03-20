@@ -2,11 +2,12 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $activiteATManager = new ActiviteATManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    //$activiteATs = $activiteATManager->getActiviteATs(); 
-    $compagnies = $compagnieManager->getCompagnies();
-    $activiteATNumber = $activiteATManager->getActiviteATsNumber(); 
+    //create Controllers
+    $activiteATActionController = new ActiviteATActionController('activiteAT');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    //objects and vars
+    $compagnies = $compagnieActionController->getCompagnies();
+    $activiteATNumber = $activiteATActionController->getActiviteATsNumber(); 
     $p = 1;
     if ( $activiteATNumber != 0 ) {
         $activiteATPerPage = 20;
@@ -19,7 +20,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $activiteATPerPage;
         $pagination = paginate('activiteAT.php', '?p=', $pageNumber, $p);
-        $activiteATs = $activiteATManager->getActiviteATsByLimits($begin, $activiteATPerPage);
+        $activiteATs = $activiteATActionController->getActiviteATsByLimits($begin, $activiteATPerPage);
     } 
 ?>
 <!DOCTYPE html>

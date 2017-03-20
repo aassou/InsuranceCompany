@@ -146,5 +146,25 @@ class TarifRCActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/tarifRC";
     }
+
+    public function getTarifRCById($id){
+        return $this->_tarifRCManager->getTarifRCById($id);
+    }
+
+    public function getTarifRCs(){
+        return $this->_tarifRCManager->getTarifRCs();
+    }
+
+    public function getTarifRCsByLimits($begin, $end){
+        return $this->_tarifRCManager->getTarifRCsByLimits($begin, $end);
+    }
+    
+    public function getTarifRCsNumber(){
+        return $this->_tarifRCManager->getTarifRCsNumber();
+    }
+
+    public function getLastId(){
+        return $this->_tarifRCManager->getLastId();
+    }
     
 }

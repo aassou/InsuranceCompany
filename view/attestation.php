@@ -2,7 +2,7 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //create Controller
+    //create Controllers
     $attestationActionController = new AttestationActionController('attestation');
     $usageActionController = new UsageActionController('usage');
     $compagnieActionController = new CompagnieActionController('compagnie');

@@ -2,18 +2,18 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $tarifRCManager = new TarifRCManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses();
+    //create Controllers
+    $tarifRCActionController = new TarifRCActionController('tarifRC');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageActionController('usage');
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    $classes = $classeActionController->getClasses();
     //set pagination
-    $tarifRCNumber = $tarifRCManager->getTarifRCsNumber(); 
+    $tarifRCNumber = $tarifRCActionController->getTarifRCsNumber(); 
     $p = 1;
     if($tarifRCNumber!=0){
         $tarifRCPerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $tarifRCPerPage;
         $pagination = paginate('tarifRC.php', '?p=', $pageNumber, $p);
-        $tarifRCs = $tarifRCManager->getTarifRCsByLimits($begin, $tarifRCPerPage);
+        $tarifRCs = $tarifRCActionController->getTarifRCsByLimits($begin, $tarifRCPerPage);
     } 
 ?>
 <!DOCTYPE html>

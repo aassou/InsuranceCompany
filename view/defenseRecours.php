@@ -2,18 +2,18 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //get Managers
-    $defenseRecoursManager = new DefenseRecoursManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
-    $classeManager = new ClasseManager(PDOFactory::getMysqlConnection());
-    $sousClasseManager = new SousClasseManager(PDOFactory::getMysqlConnection());
-    //get objects
-    $defenseRecourss = $defenseRecoursManager->getDefenseRecourss();
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $classes = $classeManager->getClasses(); 
-    /*$defenseRecourssNumber = $defenseRecoursManager->getDefenseRecourssNumber(); 
+    //create Controllers
+    $defenseRecoursActionController = new DefenseRecoursActionController('defenseRecours');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageActionController('usage');
+    $classeActionController = new ClasseActionController('classe');
+    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    //objects and vars
+    $defenseRecourss = $defenseRecoursActionController->getDefenseRecourss();
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    $classes = $classeActionController->getClasses(); 
+    /*$defenseRecourssNumber = $defenseRecoursActionController->getDefenseRecourssNumber(); 
     $p = 1;
     if ( $defenseRecourssNumber != 0 ) {
         $defenseRecoursPerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $defenseRecoursPerPage;
         $pagination = paginate('defenseRecours.php', '?p=', $pageNumber, $p);
-        $defenseRecourss = $defenseRecoursManager->getDefenseRecourssByLimits($begin, $defenseRecoursPerPage);
+        $defenseRecourss = $defenseRecoursActionController->getDefenseRecourssByLimits($begin, $defenseRecoursPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $codeReglementSinistreManager = new CodeReglementSinistreManager(PDOFactory::getMysqlConnection());
-    $codeReglementSinistres = $codeReglementSinistreManager->getCodeReglementSinistres(); 
+    //create Controllers
+    $codeReglementSinistreActionController = new CodeReglementSinistreActionController('codeReglementSinistre');
+    //objects and vars
+    $codeReglementSinistres = $codeReglementSinistreActionController->getCodeReglementSinistres(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

@@ -138,5 +138,25 @@ class VolActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/vol";
     }
+
+    public function getVolById($id){
+        return $this->_volManager->getVolById($id);
+    }
+
+    public function getVols(){
+        return $this->_volManager->getVols();
+    }
+
+    public function getVolsByLimits($begin, $end){
+        return $this->_volManager->getVolsByLimits($begin, $end);
+    }
+
+    public function getVolsNumber(){
+        return $this->_volManager->getVolsNumber();
+    }
+
+    public function getLastId(){
+        return $this->_volManager->getLastId();
+    }
     
 }

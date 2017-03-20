@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $regionManager = new RegionManager(PDOFactory::getMysqlConnection());
-    $regions = $regionManager->getRegions();
+    //create Controllers
+    $regionActionController = new RegionActionController('region');
+    //objects and vars
+    $regions = $regionActionController->getRegions();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

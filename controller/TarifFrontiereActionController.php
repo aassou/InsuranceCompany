@@ -142,5 +142,25 @@ class TarifFrontiereActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/tarifFrontiere";
     }
+
+    public function getTarifFrontiereById($id){
+        return $this->_tarifFrontiereManager->getTarifFrontiereById($id);
+    }
+
+    public function getTarifFrontieres(){
+        return $this->_tarifFrontiereManager->getTarifFrontieres();
+    }
+
+    public function getTarifFrontieresByLimits($begin, $end){
+        return $this->_tarifFrontiereManager->getTarifFrontieresByLimits($begin, $end);
+    }
+
+    public function getTarifFrontieresNumber(){
+        return $this->_tarifFrontiereManager->getTarifFrontieresNumber();
+    }
+
+    public function getLastId(){
+        return $this->_tarifFrontiereManager->getLastId();
+    }
     
 }

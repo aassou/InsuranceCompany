@@ -106,5 +106,21 @@ class BrancheActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/branche";
     }
+
+    public function getBrancheById($id){
+        return $this->_brancheManager->getBrancheById($id);
+    }
+
+    public function getBranches(){
+        return $this->_brancheManager->getBranches();
+    }
+
+    public function getBranchesByLimits($begin, $end){
+        return $this->_brancheManager->getBranchesByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_brancheManager->getLastId();
+    }
     
 }

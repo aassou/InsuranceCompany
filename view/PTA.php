@@ -2,15 +2,15 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    //getManagers
-    $PTAManager = new PTAManager(PDOFactory::getMysqlConnection());
-    $compagnieManager = new CompagnieManager(PDOFactory::getMysqlConnection());
-    $usageManager = new UsageManager(PDOFactory::getMysqlConnection());
+    //create Controllers
+    $PTAActionController = new PTAActionController('PTA');
+    $compagnieActionController = new CompagnieActionController('compagnie');
+    $usageActionController = new UsageManager('usage');
     //get objects
-    $compagnies = $compagnieManager->getCompagnies();
-    $usages = $usageManager->getUsages();
-    $PTAs = $PTAManager->getPTAs(); 
-    /*$PTAsNumber = $PTAManager->getPTAsNumber(); 
+    $compagnies = $compagnieActionController->getCompagnies();
+    $usages = $usageActionController->getUsages();
+    $PTAs = $PTAActionController->getPTAs(); 
+    /*$PTAsNumber = $PTAActionController->getPTAsNumber(); 
     $p = 1;
     if ( $PTAsNumber != 0 ) {
         $PTAPerPage = 20;
@@ -23,7 +23,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $PTAPerPage;
         $pagination = paginate('PTA.php', '?p=', $pageNumber, $p);
-        $PTAs = $PTAManager->getPTAsByLimits($begin, $PTAPerPage);
+        $PTAs = $PTAActionController->getPTAsByLimits($begin, $PTAPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>

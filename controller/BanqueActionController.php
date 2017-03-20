@@ -119,4 +119,20 @@ class BanqueActionController {
         $this->_source = "view/banque";
     }
     
+    public function getBanqueById($id){
+        return $this->_banqueManager->getBanqueById($id);
+    }
+    
+    public function getBanques(){
+        return $this->_banqueManager->getBanques();
+    }
+    
+    public function getBanquesByLimits($begin, $end){
+        return $this->_banqueManager->getBanquesByLimits($begin, $end);
+    }
+    
+    public function getLastId(){
+        return $this->_banqueManager->getLastId();
+    }
+    
 }

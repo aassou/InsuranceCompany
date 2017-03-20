@@ -174,5 +174,29 @@ class ClientActionController {
         $this->_typeMessage = "success";
         $this->_source = "view/client";
     }
+
+    public function getClientById($id){
+        return $this->_clientManager->getClientById($id);
+    }
+
+    public function getClients(){
+        return $this->_clientManager->getClients();
+    }
+
+    public function getClientsByLimits($begin, $end){
+        return $this->_clientManager->getClientsByLimits($begin, $end);
+    }
+    
+    public function getClientsByNom($nom){
+        return $this->_clientManager->getClientsByNom($nom);
+    }
+
+    public function getClientsNumber(){
+        return $this->_clientManager->getClientsNumber();
+    }
+
+    public function getLastId(){
+        return $this->_clientManager->getLastId();
+    }
     
 }

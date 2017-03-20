@@ -2,8 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $banqueManager = new BanqueManager(PDOFactory::getMysqlConnection());
-    $banques = $banqueManager->getBanques();
+    //create Controllers
+    $banqueActionController = new BanqueActionController('banque');
+    //objects and vars
+    $banques = $banqueActionController->getBanques();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
