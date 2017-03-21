@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieManager->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -229,7 +229,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteIncendie<?= $incendie->id() ?>" data-toggle="modal" data-id="<?= $incendie->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateIncendie<?= $incendie->id() ?>" data-toggle="modal" data-id="<?= $incendie->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $incendie->codeCompagnie().": ".$compagnieManager->getCompagnieById($incendie->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->codeCompagnie().": ".$compagnieActionController->getCompagnieById($incendie->codeCompagnie())->raisonSocialeAbrege() ?></td>
                                                 <td class="hidden-phone"><?= $incendie->codeUsage() ?></td>
                                                 <td><?= $incendie->codeClasse() ?></td>
                                                 <td><?= $incendie->codeSousClasse() ?></td>
@@ -256,7 +256,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $incendie->codeCompagnie() ?>"><?= $incendie->codeCompagnie()." : ".$compagnieManager->getCompagnieById($incendie->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $incendie->codeCompagnie() ?>"><?= $incendie->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($incendie->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>

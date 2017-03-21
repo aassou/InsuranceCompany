@@ -5,7 +5,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $individuelConducteurActionController = new IndividuelConducteurActionController('individuelConducteur');
     $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageManager('usage');
+    $usageActionController = new UsageActionController('usage');
     //objects and vars
     $individuelConducteurs = $individuelConducteurActionController->getIndividuelConducteurs(); 
     $compagnies = $compagnieActionController->getCompagnies();
@@ -68,7 +68,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieManager->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>

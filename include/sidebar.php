@@ -318,6 +318,7 @@
         or $currentPage=="PTA.php"
         or $currentPage=="vol.php"
         or $currentPage=="incendie.php"
+        or $currentPage=="tierce.php"
         or $currentPage=="defenseRecours.php"
         or $currentPage=="dommageCollision.php"
         or $currentPage=="individuelConducteur.php"

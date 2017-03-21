@@ -222,7 +222,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateTarifFrontiere<?= $tarifFrontiere->id() ?>" data-toggle="modal" data-id="<?= $tarifFrontiere->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $tarifFrontiere->codeCompagnie().": ".$compagnieManager->getCompagnieById($tarifFrontiere->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td class="hidden-phone"><?= $tarifFrontiere->codeCompagnie().": ".$compagnieActionController->getCompagnieById($tarifFrontiere->codeCompagnie())->raisonSocialeAbrege() ?></td>
                                                 <td><?= $tarifFrontiere->codeClasse() ?></td>
                                                 <td class="hidden-phone"><?= $tarifFrontiere->codeSousClasse() ?></td>
                                                 <td><?= $tarifFrontiere->designation() ?></td>
@@ -249,7 +249,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                <option value="<?= $tarifFrontiere->codeCompagnie() ?>"><?= $tarifFrontiere->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifFrontiere->codeCompagnie())->raisonSociale() ?></option>
+                                                                <option value="<?= $tarifFrontiere->codeCompagnie() ?>"><?= $tarifFrontiere->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($tarifFrontiere->codeCompagnie())->raisonSociale() ?></option>
                                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                 <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                 <?php } ?>

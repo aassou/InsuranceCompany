@@ -91,4 +91,20 @@ class ClasseATActionController {
         $this->_source = "view/classeAT";
     }
     
+    public function getClasseATById($id){
+        return $this->_classeATManager->getClasseATById($id);
+    }
+
+    public function getClasseATs(){
+        return $this->_classeATManager->getClasseATs();
+    }
+
+    public function getClasseATsByLimits($begin, $end){
+        return $this->_classeATManager->getClasseATsByLimits($begin, $end);
+    }
+
+    public function getLastId(){
+        return $this->_classeATManager->getLastId();
+    }
+    
 }

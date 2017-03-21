@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieManager->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -223,7 +223,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteDommageCollision<?= $dommageCollision->id() ?>" data-toggle="modal" data-id="<?= $dommageCollision->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateDommageCollision<?= $dommageCollision->id() ?>" data-toggle="modal" data-id="<?= $dommageCollision->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $dommageCollision->codeCompagnie().": ".$compagnieManager->getCompagnieById($dommageCollision->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td><?= $dommageCollision->codeCompagnie().": ".$compagnieActionController->getCompagnieById($dommageCollision->codeCompagnie())->raisonSocialeAbrege() ?></td>
                                                 <td><?= $dommageCollision->codeUsage() ?></td>
                                                 <td><?= $dommageCollision->codeClasse() ?></td>
                                                 <td><?= $dommageCollision->codeSousClasse() ?></td>
@@ -250,7 +250,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $dommageCollision->codeCompagnie() ?>"><?= $dommageCollision->codeCompagnie()." : ".$compagnieManager->getCompagnieById($dommageCollision->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $dommageCollision->codeCompagnie() ?>"><?= $dommageCollision->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($dommageCollision->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>

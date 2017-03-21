@@ -163,7 +163,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $activiteAT->codeCompagnie() ?>"><?= $activiteAT->codeCompagnie()." : ".$compagnieManager->getCompagnieById($activiteAT->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $activiteAT->codeCompagnie() ?>"><?= $activiteAT->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($activiteAT->codeCompagnie())->raisonSociale() ?></option>
                                                                     <option disabled="disabled">----------------------------------------------</option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>    

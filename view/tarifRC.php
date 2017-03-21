@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieManager->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -235,7 +235,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $tarifRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></td>
+                                                <td class="hidden-phone"><?= $tarifRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></td>
                                                 <td><?= $tarifRC->codeUsage() ?></td>
                                                 <td><?= $tarifRC->codeClasse() ?></td>
                                                 <td class="hidden-phone"><?= $tarifRC->codeSousClasse() ?></td>
@@ -259,7 +259,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $tarifRC->codeCompagnie() ?>"><?= $tarifRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $tarifRC->codeCompagnie() ?>"><?= $tarifRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>

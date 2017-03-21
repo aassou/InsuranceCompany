@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieManager->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -202,7 +202,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteDefenseRecours<?= $defenseRecours->id() ?>" data-toggle="modal" data-id="<?= $defenseRecours->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateDefenseRecours<?= $defenseRecours->id() ?>" data-toggle="modal" data-id="<?= $defenseRecours->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $defenseRecours->codeCompagnie().": ".$compagnieManager->getCompagnieById($defenseRecours->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td><?= $defenseRecours->codeCompagnie().": ".$compagnieActionController->getCompagnieById($defenseRecours->codeCompagnie())->raisonSocialeAbrege() ?></td>
                                                 <td><?= $defenseRecours->codeUsage() ?></td>
                                                 <td><?= $defenseRecours->codeClasse() ?></td>
                                                 <td><?= $defenseRecours->codeSousClasse() ?></td>
@@ -226,7 +226,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $defenseRecours->codeCompagnie() ?>"><?= $defenseRecours->codeCompagnie()." : ".$compagnieManager->getCompagnieById($defenseRecours->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $defenseRecours->codeCompagnie() ?>"><?= $defenseRecours->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($defenseRecours->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>

@@ -132,7 +132,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteFractionPrimeRC<?= $fractionPrimeRC->id() ?>" data-toggle="modal" data-id="<?= $fractionPrimeRC->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateFractionPrimeRC<?= $fractionPrimeRC->id() ?>" data-toggle="modal" data-id="<?= $fractionPrimeRC->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></td>
+                                                <td><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></td>
                                                 <td><?= $fractionPrimeRC->nombreMois() ?></td>
                                                 <td><?= number_format($fractionPrimeRC->tauxMois(), 2, ',', ' ') ?></td>
                                             </tr> 
@@ -148,7 +148,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">CodeCompagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                <option value="<?= $fractionPrimeRC->codeCompagnie() ?>"><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieManager->getCompagnieById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></option>
+                                                                <option value="<?= $fractionPrimeRC->codeCompagnie() ?>"><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></option>
                                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                 <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                 <?php } ?>
