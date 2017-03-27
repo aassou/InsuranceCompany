@@ -40,7 +40,7 @@ function setItemClient(item1, item2, item3, item4, item5, item6, item7, item8, i
 	$('#permis').val(item16);
 	$('#datePermis').val(item17);
 	$('#solvabilite').val(item18);
-	$('#nombreIncidents').val(item19);
+	$('#nombreIncident').val(item19);
 	$('#codeClient').val(item20);
 	$('#idClient').val(item21);
 	// hide proposition list
