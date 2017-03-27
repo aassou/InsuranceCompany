@@ -3,17 +3,17 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $volActionController = new VolActionController('vol');
-    $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageActionController('usage');
-    $classeActionController = new ClasseActionController('classe');
-    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    $volActionController = new AppController('vol');
+    $compagnieActionController = new AppController('compagnie');
+    $usageActionController = new AppController('usage');
+    $classeActionController = new AppController('classe');
+    $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
-    $vols = $volActionController->getVols(); 
-    $compagnies = $compagnieActionController->getCompagnies();
-    $usages = $usageActionController->getUsages();
-    $classes = $classeActionController->getClasses();
-    /*$volsNumber = $volActionController->getVolsNumber(); 
+    $vols = $volActionController->getAll(); 
+    $compagnies = $compagnieActionController->getAll();
+    $usages = $usageActionController->getAll();
+    $classes = $classeActionController->getAll();
+    /*$volsNumber = $volActionController->getAllNumber(); 
     $p = 1;
     if ( $volsNumber != 0 ) {
         $volPerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $volPerPage;
         $pagination = paginate('vol.php', '?p=', $pageNumber, $p);
-        $vols = $volActionController->getVolsByLimits($begin, $volPerPage);
+        $vols = $volActionController->getAllByLimits($begin, $volPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getOneById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -223,7 +223,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteVol<?= $vol->id() ?>" data-toggle="modal" data-id="<?= $vol->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateVol<?= $vol->id() ?>" data-toggle="modal" data-id="<?= $vol->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $vol->codeCompagnie().": ".$compagnieActionController->getCompagnieById($vol->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td class="hidden-phone"><?= $vol->codeCompagnie().": ".$compagnieActionController->getOneById($vol->codeCompagnie())->raisonSocialeAbrege() ?></td>
                                                 <td class="hidden-phone"><?= $vol->codeUsage() ?></td>
                                                 <td><?= $vol->codeClasse() ?></td>
                                                 <td><?= $vol->codeSousClasse() ?></td>
@@ -250,7 +250,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $vol->codeCompagnie() ?>"><?= $vol->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($vol->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $vol->codeCompagnie() ?>"><?= $vol->codeCompagnie()." : ".$compagnieActionController->getOneById($vol->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>
@@ -353,7 +353,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idVol" value="<?= $vol->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $vol->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="vol" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -377,7 +377,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idVol" value="<?= $vol->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $vol->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="vol" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

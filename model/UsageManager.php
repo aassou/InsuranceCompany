@@ -46,7 +46,7 @@ class UsageManager{
 		$query->closeCursor();
 	}
 
-	public function getUsageById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_usage
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -57,7 +57,7 @@ class UsageManager{
 		return new Usage($data);
 	}
 
-	public function getUsages(){
+	public function getAll(){
         $usages = array();
 		$query = $this->_db->query('SELECT * FROM t_usage
         ORDER BY code ASC');
@@ -68,7 +68,7 @@ class UsageManager{
 		return $usages;
 	}
 
-	public function getUsagesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $usages = array();
 		$query = $this->_db->query('SELECT * FROM t_usage
         ORDER BY id DESC LIMIT '.$begin.', '.$end);

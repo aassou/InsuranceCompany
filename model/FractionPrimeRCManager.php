@@ -48,7 +48,7 @@ class FractionPrimeRCManager{
 		$query->closeCursor();
 	}
 
-	public function getFractionPrimeRCById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_fractionprimerc
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -59,7 +59,7 @@ class FractionPrimeRCManager{
 		return new FractionPrimeRC($data);
 	}
 
-	public function getFractionPrimeRCs(){
+	public function getAll(){
         $fractionPrimeRCs = array();
 		$query = $this->_db->query('SELECT * FROM t_fractionprimerc
         ORDER BY codeCompagnie ASC, nombreMois ASC');
@@ -70,7 +70,7 @@ class FractionPrimeRCManager{
 		return $fractionPrimeRCs;
 	}
 
-	public function getFractionPrimeRCsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $fractionPrimeRCs = array();
 		$query = $this->_db->query('SELECT * FROM t_fractionprimerc
         ORDER BY codeCompagnie ASC, nombreMois ASC LIMIT '.$begin.', '.$end);
@@ -81,7 +81,7 @@ class FractionPrimeRCManager{
 		return $fractionPrimeRCs;
 	}
 
-	public function getFractionPrimeRCsNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS fractionPrimeRCsNumber FROM t_fractionprimerc');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $fractionPrimeRC = $data['fractionPrimeRCsNumber'];

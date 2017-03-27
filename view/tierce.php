@@ -3,18 +3,18 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $tierceActionController = new TierceActionController('tierce');
-    $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageActionController('usage');
-    $classeActionController = new ClasseActionController('classe');
-    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    $tierceActionController = new AppController('tierce');
+    $compagnieActionController = new AppController('compagnie');
+    $usageActionController = new AppController('usage');
+    $classeActionController = new AppController('classe');
+    $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
-    $compagnies = $compagnieActionController->getCompagnies();
-    $usages = $usageActionController->getUsages();
-    $classes = $classeActionController->getClasses();
-    $sousClasses = $sousClasseActionController->getSousClasses();
-    $tierces = $tierceActionController->getTierces(); 
-    /*$tiercesNumber = $tierceActionController->getTiercesNumber(); 
+    $compagnies = $compagnieActionController->getAll();
+    $usages = $usageActionController->getAll();
+    $classes = $classeActionController->getAll();
+    $sousClasses = $sousClasseActionController->getAll();
+    $tierces = $tierceActionController->getAll(); 
+    /*$tiercesNumber = $tierceActionController->getAllNumber(); 
     $p = 1;
     if ( $tiercesNumber != 0 ) {
         $tiercePerPage = 20;
@@ -27,7 +27,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $tiercePerPage;
         $pagination = paginate('tierce.php', '?p=', $pageNumber, $p);
-        $tierces = $tierceActionController->getTiercesByLimits($begin, $tiercePerPage);
+        $tierces = $tierceActionController->getAllByLimits($begin, $tiercePerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -72,7 +72,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getOneById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -335,7 +335,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTierce" value="<?= $tierce->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $tierce->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="tierce" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -359,7 +359,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTierce" value="<?= $tierce->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $tierce->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="tierce" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

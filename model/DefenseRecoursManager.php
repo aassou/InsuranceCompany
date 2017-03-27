@@ -12,8 +12,10 @@ class DefenseRecoursManager{
 	//BASIC CRUD OPERATIONS
 	public function add(DefenseRecours $defenseRecours){
         $query = $this->_db->prepare(' INSERT INTO t_defenserecours (
-		codeCompagnie, codeUsage, codeClasse, codeSousClasse, puissanceFiscale, typeDefense, valeurDefense, formuleDefense, tauxCommission, tauxTPS, tauxTaxe, created, createdBy)
-		VALUES (:codeCompagnie, :codeUsage, :codeClasse, :codeSousClasse, :puissanceFiscale, :typeDefense, :valeurDefense, :formuleDefense, :tauxCommission, :tauxTPS, :tauxTaxe, :created, :createdBy)')
+		codeCompagnie, codeUsage, codeClasse, codeSousClasse, puissanceFiscale, typeDefense, valeurDefense, 
+		formuleDefense, tauxCommission, tauxTPS, tauxTaxe, created, createdBy)
+		VALUES (:codeCompagnie, :codeUsage, :codeClasse, :codeSousClasse, :puissanceFiscale, :typeDefense, 
+        :valeurDefense, :formuleDefense, :tauxCommission, :tauxTPS, :tauxTaxe, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':codeCompagnie', $defenseRecours->codeCompagnie());
 		$query->bindValue(':codeUsage', $defenseRecours->codeUsage());
@@ -34,7 +36,10 @@ class DefenseRecoursManager{
 
 	public function update(DefenseRecours $defenseRecours){
         $query = $this->_db->prepare(' UPDATE t_defenserecours SET 
-		codeCompagnie=:codeCompagnie, codeUsage=:codeUsage, codeClasse=:codeClasse, codeSousClasse=:codeSousClasse, puissanceFiscale=:puissanceFiscale, typeDefense=:typeDefense, valeurDefense=:valeurDefense, formuleDefense=:formuleDefense, tauxCommission=:tauxCommission, tauxTPS=:tauxTPS, tauxTaxe=:tauxTaxe, updated=:updated, updatedBy=:updatedBy
+		codeCompagnie=:codeCompagnie, codeUsage=:codeUsage, codeClasse=:codeClasse, 
+		codeSousClasse=:codeSousClasse, puissanceFiscale=:puissanceFiscale, typeDefense=:typeDefense, 
+		valeurDefense=:valeurDefense, formuleDefense=:formuleDefense, tauxCommission=:tauxCommission, 
+		tauxTPS=:tauxTPS, tauxTaxe=:tauxTaxe, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $defenseRecours->id());
@@ -56,17 +61,15 @@ class DefenseRecoursManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_defenserecours
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_defenserecours WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getDefenseRecoursById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_defenserecours
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare('SELECT * FROM t_defenserecours WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -75,10 +78,9 @@ class DefenseRecoursManager{
 		return new DefenseRecours($data);
 	}
 
-	public function getDefenseRecourss(){
+	public function getAll(){
         $defenseRecourss = array();
-		$query = $this->_db->query('SELECT * FROM t_defenserecours
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_defenserecours ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$defenseRecourss[] = new DefenseRecours($data);
 		}
@@ -86,10 +88,9 @@ class DefenseRecoursManager{
 		return $defenseRecourss;
 	}
 
-	public function getDefenseRecourssByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $defenseRecourss = array();
-		$query = $this->_db->query('SELECT * FROM t_defenserecours
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_defenserecours ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$defenseRecourss[] = new DefenseRecours($data);
 		}
@@ -97,7 +98,7 @@ class DefenseRecoursManager{
 		return $defenseRecourss;
 	}
 
-	public function getDefenseRecourssNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS defenseRecourssNumber FROM t_defenserecours');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $defenseRecours = $data['defenseRecourssNumber'];
@@ -105,8 +106,7 @@ class DefenseRecoursManager{
     }
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_defenserecours
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_defenserecours ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

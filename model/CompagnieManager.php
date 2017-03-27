@@ -72,7 +72,7 @@ class CompagnieManager{
 		$query->closeCursor();
 	}
 
-	public function getCompagnieById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_compagnie
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -83,7 +83,7 @@ class CompagnieManager{
 		return new Compagnie($data);
 	}
 
-	public function getCompagnies(){
+	public function getAll(){
         $compagnies = array();
 		$query = $this->_db->query('SELECT * FROM t_compagnie
         ORDER BY id ASC');
@@ -94,7 +94,7 @@ class CompagnieManager{
 		return $compagnies;
 	}
 
-	public function getCompagniesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $compagnies = array();
 		$query = $this->_db->query('SELECT * FROM t_compagnie
         ORDER BY id DESC LIMIT '.$begin.', '.$end);

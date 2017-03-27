@@ -72,7 +72,7 @@ class TarifFrontiereManager{
 		$query->closeCursor();
 	}
 
-	public function getTarifFrontiereById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_tariffrontiere
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -83,7 +83,7 @@ class TarifFrontiereManager{
 		return new TarifFrontiere($data);
 	}
 
-	public function getTarifFrontieres(){
+	public function getAll(){
         $tarifFrontieres = array();
 		$query = $this->_db->query('SELECT * FROM t_tariffrontiere
         ORDER BY id ASC');
@@ -94,7 +94,7 @@ class TarifFrontiereManager{
 		return $tarifFrontieres;
 	}
 
-	public function getTarifFrontieresByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $tarifFrontieres = array();
 		$query = $this->_db->query('SELECT * FROM t_tariffrontiere
         ORDER BY id ASC LIMIT '.$begin.', '.$end);
@@ -105,7 +105,7 @@ class TarifFrontiereManager{
 		return $tarifFrontieres;
 	}
 
-	public function getTarifFrontieresNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS tarifFrontieresNumber FROM t_tariffrontiere');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $tarifFrontiere = $data['tarifFrontieresNumber'];

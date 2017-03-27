@@ -72,7 +72,7 @@ class IncendieManager{
 		$query->closeCursor();
 	}
 
-	public function getIncendieById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_incendie
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -83,7 +83,7 @@ class IncendieManager{
 		return new Incendie($data);
 	}
 
-	public function getIncendies(){
+	public function getAll(){
         $incendies = array();
 		$query = $this->_db->query('SELECT * FROM t_incendie
         ORDER BY id ASC');
@@ -94,7 +94,7 @@ class IncendieManager{
 		return $incendies;
 	}
 
-	public function getIncendiesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $incendies = array();
 		$query = $this->_db->query('SELECT * FROM t_incendie
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
@@ -105,7 +105,7 @@ class IncendieManager{
 		return $incendies;
 	}
 
-	public function getIncendiesNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS incendiesNumber FROM t_incendie');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $incendie = $data['incendiesNumber'];

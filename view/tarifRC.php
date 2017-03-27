@@ -3,17 +3,17 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $tarifRCActionController = new TarifRCActionController('tarifRC');
-    $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageActionController('usage');
-    $classeActionController = new ClasseActionController('classe');
-    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    $tarifRCActionController = new AppController('tarifRC');
+    $compagnieActionController = new AppController('compagnie');
+    $usageActionController = new AppController('usage');
+    $classeActionController = new AppController('classe');
+    $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
-    $compagnies = $compagnieActionController->getCompagnies();
-    $usages = $usageActionController->getUsages();
-    $classes = $classeActionController->getClasses();
+    $compagnies = $compagnieActionController->getAll();
+    $usages = $usageActionController->getAll();
+    $classes = $classeActionController->getAll();
     //set pagination
-    $tarifRCNumber = $tarifRCActionController->getTarifRCsNumber(); 
+    $tarifRCNumber = $tarifRCActionController->getAllNumber(); 
     $p = 1;
     if($tarifRCNumber!=0){
         $tarifRCPerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $tarifRCPerPage;
         $pagination = paginate('tarifRC.php', '?p=', $pageNumber, $p);
-        $tarifRCs = $tarifRCActionController->getTarifRCsByLimits($begin, $tarifRCPerPage);
+        $tarifRCs = $tarifRCActionController->getAllByLimits($begin, $tarifRCPerPage);
     } 
 ?>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getOneById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -235,7 +235,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateTarifRC<?= $tarifRC->id() ?>" data-toggle="modal" data-id="<?= $tarifRC->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $tarifRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></td>
+                                                <td class="hidden-phone"><?= $tarifRC->codeCompagnie()." : ".$compagnieActionController->getOneById($tarifRC->codeCompagnie())->raisonSociale() ?></td>
                                                 <td><?= $tarifRC->codeUsage() ?></td>
                                                 <td><?= $tarifRC->codeClasse() ?></td>
                                                 <td class="hidden-phone"><?= $tarifRC->codeSousClasse() ?></td>
@@ -259,7 +259,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $tarifRC->codeCompagnie() ?>"><?= $tarifRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($tarifRC->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $tarifRC->codeCompagnie() ?>"><?= $tarifRC->codeCompagnie()." : ".$compagnieActionController->getOneById($tarifRC->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>
@@ -374,7 +374,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTarifRC" value="<?= $tarifRC->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $tarifRC->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="tarifRC" />
                                                                 <input type="hidden" name="pageNumber" value="<?= $p ?>" />     
@@ -399,7 +399,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idTarifRC" value="<?= $tarifRC->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $tarifRC->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="tarifRC" />    
                                                                 <input type="hidden" name="pageNumber" value="<?= $p ?>" />     

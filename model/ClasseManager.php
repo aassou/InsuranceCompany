@@ -24,7 +24,7 @@ class ClasseManager{
 	}
 
 	public function update(Classe $classe){
-        $query = $this->_db->prepare(' UPDATE t_classe SET 
+        $query = $this->_db->prepare('UPDATE t_classe SET 
 		code=:code, designation=:designation, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -38,17 +38,15 @@ class ClasseManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_classe
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_classe WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getClasseById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_classe
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare(' SELECT * FROM t_classe WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -57,10 +55,9 @@ class ClasseManager{
 		return new Classe($data);
 	}
 
-	public function getClasses(){
+	public function getAll(){
         $classes = array();
-		$query = $this->_db->query('SELECT * FROM t_classe
-        ORDER BY code ASC');
+		$query = $this->_db->query('SELECT * FROM t_classe ORDER BY code ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$classes[] = new Classe($data);
 		}
@@ -68,10 +65,9 @@ class ClasseManager{
 		return $classes;
 	}
 
-	public function getClassesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $classes = array();
-		$query = $this->_db->query('SELECT * FROM t_classe
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_classe ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$classes[] = new Classe($data);
 		}
@@ -80,8 +76,7 @@ class ClasseManager{
 	}
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_classe
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_classe ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

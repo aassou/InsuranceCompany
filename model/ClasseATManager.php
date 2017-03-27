@@ -38,17 +38,15 @@ class ClasseATManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_classeat
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_classeat WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getClasseATById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_classeat
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare('SELECT * FROM t_classeat WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -57,10 +55,9 @@ class ClasseATManager{
 		return new ClasseAT($data);
 	}
 
-	public function getClasseATs(){
+	public function getAll(){
         $classeATs = array();
-		$query = $this->_db->query('SELECT * FROM t_classeat
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_classeat ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$classeATs[] = new ClasseAT($data);
 		}
@@ -68,10 +65,9 @@ class ClasseATManager{
 		return $classeATs;
 	}
 
-	public function getClasseATsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $classeATs = array();
-		$query = $this->_db->query('SELECT * FROM t_classeat
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_classeat ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$classeATs[] = new ClasseAT($data);
 		}
@@ -80,8 +76,7 @@ class ClasseATManager{
 	}
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_classeat
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_classeat ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

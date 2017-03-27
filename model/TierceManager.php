@@ -70,7 +70,7 @@ class TierceManager{
 		$query->closeCursor();
 	}
 
-	public function getTierceById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_tierce
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -81,7 +81,7 @@ class TierceManager{
 		return new Tierce($data);
 	}
 
-	public function getTierces(){
+	public function getAll(){
         $tierces = array();
 		$query = $this->_db->query('SELECT * FROM t_tierce
         ORDER BY id ASC');
@@ -92,7 +92,7 @@ class TierceManager{
 		return $tierces;
 	}
 
-	public function getTiercesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $tierces = array();
 		$query = $this->_db->query('SELECT * FROM t_tierce
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
@@ -103,7 +103,7 @@ class TierceManager{
 		return $tierces;
 	}
 
-	public function getTiercesNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS tiercesNumber FROM t_tierce');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $tierce = $data['tiercesNumber'];

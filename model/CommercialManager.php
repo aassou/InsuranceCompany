@@ -31,7 +31,8 @@ class CommercialManager{
 
 	public function update(Commercial $commercial){
         $query = $this->_db->prepare(' UPDATE t_commercial SET 
-		code=:code, raisonSocial=:raisonSocial, nomContact=:nomContact, Adresse=:Adresse, Rue=:Rue, tel1=:tel1, tel2=:tel2, email=:email, updated=:updated, updatedBy=:updatedBy
+		code=:code, raisonSocial=:raisonSocial, nomContact=:nomContact, Adresse=:Adresse, Rue=:Rue, 
+		tel1=:tel1, tel2=:tel2, email=:email, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $commercial->id());
@@ -58,9 +59,8 @@ class CommercialManager{
 		$query->closeCursor();
 	}
 
-	public function getCommercialById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_commercial
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare('SELECT * FROM t_commercial WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -69,10 +69,9 @@ class CommercialManager{
 		return new Commercial($data);
 	}
 
-	public function getCommercials(){
+	public function getAll(){
         $commercials = array();
-		$query = $this->_db->query('SELECT * FROM t_commercial
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_commercial ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$commercials[] = new Commercial($data);
 		}
@@ -80,10 +79,9 @@ class CommercialManager{
 		return $commercials;
 	}
 
-	public function getCommercialsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $commercials = array();
-		$query = $this->_db->query('SELECT * FROM t_commercial
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_commercial ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$commercials[] = new Commercial($data);
 		}
@@ -92,8 +90,7 @@ class CommercialManager{
 	}
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_commercial
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_commercial ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

@@ -3,9 +3,9 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $usageActionController = new UsageActionController('usage');
+    $usageActionController = new AppController('usage');
     //objects and vars
-    $usages = $usageActionController->getUsages();
+    $usages = $usageActionController->getAll();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -126,7 +126,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="modal-footer">
                                                             <div class="control-group">
                                                                 <div class="controls">
-                                                                    <input type="hidden" name="idUsage" value="<?= $usage->id() ?>" />
+                                                                    <input type="hidden" name="id" value="<?= $usage->id() ?>" />
                                                                     <input type="hidden" name="action" value="update" />
                                                                     <input type="hidden" name="source" value="usage" />    
                                                                     <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
@@ -150,7 +150,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="modal-footer">
                                                             <div class="control-group">
                                                                 <div class="controls">
-                                                                    <input type="hidden" name="idUsage" value="<?= $usage->id() ?>" />
+                                                                    <input type="hidden" name="id" value="<?= $usage->id() ?>" />
                                                                     <input type="hidden" name="action" value="delete" />
                                                                     <input type="hidden" name="source" value="usage" />    
                                                                     <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>

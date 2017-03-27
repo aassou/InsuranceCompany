@@ -12,8 +12,11 @@ class DommageCollisionManager{
 	//BASIC CRUD OPERATIONS
 	public function add(DommageCollision $dommageCollision){
         $query = $this->_db->prepare(' INSERT INTO t_dommagecollision (
-		codeCompagnie, codeUsage, codeClasse, codeSousClasse, carburant, puissanceFiscale, formuleCollision, primeFixe, franchise, plafond, tauxCommission, tauxTPS, tauxTaxe, observation, created, createdBy)
-		VALUES (:codeCompagnie, :codeUsage, :codeClasse, :codeSousClasse, :carburant, :puissanceFiscale, :formuleCollision, :primeFixe, :franchise, :plafond, :tauxCommission, :tauxTPS, :tauxTaxe, :observation, :created, :createdBy)')
+		codeCompagnie, codeUsage, codeClasse, codeSousClasse, carburant, puissanceFiscale, formuleCollision, 
+		primeFixe, franchise, plafond, tauxCommission, tauxTPS, tauxTaxe, observation, created, createdBy)
+		VALUES (:codeCompagnie, :codeUsage, :codeClasse, :codeSousClasse, :carburant, :puissanceFiscale, 
+        :formuleCollision, :primeFixe, :franchise, :plafond, :tauxCommission, :tauxTPS, :tauxTaxe, 
+        :observation, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':codeCompagnie', $dommageCollision->codeCompagnie());
 		$query->bindValue(':codeUsage', $dommageCollision->codeUsage());
@@ -37,7 +40,11 @@ class DommageCollisionManager{
 
 	public function update(DommageCollision $dommageCollision){
         $query = $this->_db->prepare(' UPDATE t_dommagecollision SET 
-		codeCompagnie=:codeCompagnie, codeUsage=:codeUsage, codeClasse=:codeClasse, codeSousClasse=:codeSousClasse, carburant=:carburant, puissanceFiscale=:puissanceFiscale, formuleCollision=:formuleCollision, primeFixe=:primeFixe, franchise=:franchise, plafond=:plafond, tauxCommission=:tauxCommission, tauxTPS=:tauxTPS, tauxTaxe=:tauxTaxe, observation=:observation, updated=:updated, updatedBy=:updatedBy
+		codeCompagnie=:codeCompagnie, codeUsage=:codeUsage, codeClasse=:codeClasse, 
+		codeSousClasse=:codeSousClasse, carburant=:carburant, puissanceFiscale=:puissanceFiscale, 
+		formuleCollision=:formuleCollision, primeFixe=:primeFixe, franchise=:franchise, plafond=:plafond, 
+		tauxCommission=:tauxCommission, tauxTPS=:tauxTPS, tauxTaxe=:tauxTaxe, observation=:observation, 
+		updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $dommageCollision->id());
@@ -62,17 +69,15 @@ class DommageCollisionManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_dommagecollision
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_dommagecollision WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getDommageCollisionById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_dommagecollision
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare('SELECT * FROM t_dommagecollision WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -81,10 +86,9 @@ class DommageCollisionManager{
 		return new DommageCollision($data);
 	}
 
-	public function getDommageCollisions(){
+	public function getAll(){
         $dommageCollisions = array();
-		$query = $this->_db->query('SELECT * FROM t_dommagecollision
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_dommagecollision ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$dommageCollisions[] = new DommageCollision($data);
 		}
@@ -92,10 +96,9 @@ class DommageCollisionManager{
 		return $dommageCollisions;
 	}
 
-	public function getDommageCollisionsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $dommageCollisions = array();
-		$query = $this->_db->query('SELECT * FROM t_dommagecollision
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_dommagecollision ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$dommageCollisions[] = new DommageCollision($data);
 		}
@@ -103,7 +106,7 @@ class DommageCollisionManager{
 		return $dommageCollisions;
 	}
 
-	public function getDommageCollisionsNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS dommageCollisionsNumber FROM t_dommagecollision');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $dommageCollision = $data['dommageCollisionsNumber'];
@@ -111,8 +114,7 @@ class DommageCollisionManager{
     }
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_dommagecollision
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_dommagecollision ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

@@ -3,14 +3,14 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $individuelConducteurActionController = new IndividuelConducteurActionController('individuelConducteur');
-    $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageActionController('usage');
+    $individuelConducteurActionController = new AppController('individuelConducteur');
+    $compagnieActionController = new AppController('compagnie');
+    $usageActionController = new AppController('usage');
     //objects and vars
-    $individuelConducteurs = $individuelConducteurActionController->getIndividuelConducteurs(); 
-    $compagnies = $compagnieActionController->getCompagnies();
-    $usages = $usageActionController->getUsages();
-    /*$individuelConducteursNumber = $individuelConducteurActionController->getIndividuelConducteursNumber(); 
+    $individuelConducteurs = $individuelConducteurActionController->getAll(); 
+    $compagnies = $compagnieActionController->getAll();
+    $usages = $usageActionController->getAll();
+    /*$individuelConducteursNumber = $individuelConducteurActionController->getAllNumber(); 
     $p = 1;
     if ( $individuelConducteursNumber != 0 ) {
         $individuelConducteurPerPage = 20;
@@ -23,7 +23,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $individuelConducteurPerPage;
         $pagination = paginate('individuelConducteur.php', '?p=', $pageNumber, $p);
-        $individuelConducteurs = $individuelConducteurActionController->getIndividuelConducteursByLimits($begin, $individuelConducteurPerPage);
+        $individuelConducteurs = $individuelConducteurActionController->getAllByLimits($begin, $individuelConducteurPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getOneById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -295,7 +295,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idIndividuelConducteur" value="<?= $individuelConducteur->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $individuelConducteur->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="individuelConducteur" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -319,7 +319,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idIndividuelConducteur" value="<?= $individuelConducteur->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $individuelConducteur->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="individuelConducteur" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

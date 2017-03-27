@@ -3,12 +3,12 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $fractionPrimeRCActionController = new FractionPrimeRCActionController('fractionPrimeRC');
-    $compagnieActionController = new CompagnieActionController('compagnie');
+    $fractionPrimeRCActionController = new AppController('fractionPrimeRC');
+    $compagnieActionController = new AppController('compagnie');
     //objects and vars
-    $compagnies = $compagnieActionController->getCompagnies();
-    $fractionPrimeRCs = $fractionPrimeRCActionController->getFractionPrimeRCs(); 
-    /*$fractionPrimeRCsNumber = $fractionPrimeRCActionController->getFractionPrimeRCsNumber(); 
+    $compagnies = $compagnieActionController->getAll();
+    $fractionPrimeRCs = $fractionPrimeRCActionController->getAll(); 
+    /*$fractionPrimeRCsNumber = $fractionPrimeRCActionController->getAllNumber(); 
     $p = 1;
     if ( $fractionPrimeRCsNumber != 0 ) {
         $fractionPrimeRCPerPage = 20;
@@ -21,7 +21,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $fractionPrimeRCPerPage;
         $pagination = paginate('fractionPrimeRC.php', '?p=', $pageNumber, $p);
-        $fractionPrimeRCs = $fractionPrimeRCActionController->getFractionPrimeRCsByLimits($begin, $fractionPrimeRCPerPage);
+        $fractionPrimeRCs = $fractionPrimeRCActionController->getAllByLimits($begin, $fractionPrimeRCPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -132,7 +132,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteFractionPrimeRC<?= $fractionPrimeRC->id() ?>" data-toggle="modal" data-id="<?= $fractionPrimeRC->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateFractionPrimeRC<?= $fractionPrimeRC->id() ?>" data-toggle="modal" data-id="<?= $fractionPrimeRC->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></td>
+                                                <td><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieActionController->getOneById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></td>
                                                 <td><?= $fractionPrimeRC->nombreMois() ?></td>
                                                 <td><?= number_format($fractionPrimeRC->tauxMois(), 2, ',', ' ') ?></td>
                                             </tr> 
@@ -148,7 +148,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">CodeCompagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                <option value="<?= $fractionPrimeRC->codeCompagnie() ?>"><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></option>
+                                                                <option value="<?= $fractionPrimeRC->codeCompagnie() ?>"><?= $fractionPrimeRC->codeCompagnie()." : ".$compagnieActionController->getOneById($fractionPrimeRC->codeCompagnie())->raisonSociale() ?></option>
                                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                 <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                 <?php } ?>
@@ -171,7 +171,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idFractionPrimeRC" value="<?= $fractionPrimeRC->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $fractionPrimeRC->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="fractionPrimeRC" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -195,7 +195,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idFractionPrimeRC" value="<?= $fractionPrimeRC->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $fractionPrimeRC->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="fractionPrimeRC" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

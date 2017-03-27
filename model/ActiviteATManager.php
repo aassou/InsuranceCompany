@@ -52,7 +52,7 @@ class ActiviteATManager{
 		$query->closeCursor();
 	}
 
-	public function getActiviteATById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_activiteat
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -63,7 +63,7 @@ class ActiviteATManager{
 		return new ActiviteAT($data);
 	}
 
-	public function getActiviteATs(){
+	public function getAll(){
         $activiteATs = array();
 		$query = $this->_db->query('SELECT * FROM t_activiteat
         ORDER BY id ASC');
@@ -74,7 +74,7 @@ class ActiviteATManager{
 		return $activiteATs;
 	}
 
-	public function getActiviteATsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $activiteATs = array();
 		$query = $this->_db->query('SELECT * FROM t_activiteat
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
@@ -85,7 +85,7 @@ class ActiviteATManager{
 		return $activiteATs;
 	}
     
-    public function getActiviteATsNumber(){
+    public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS activiteATsNumber FROM t_activiteat');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $tarifRCNumber = $data['activiteATsNumber'];

@@ -70,7 +70,7 @@ class VolManager{
 		$query->closeCursor();
 	}
 
-	public function getVolById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_vol
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -81,7 +81,7 @@ class VolManager{
 		return new Vol($data);
 	}
 
-	public function getVols(){
+	public function getAll(){
         $vols = array();
 		$query = $this->_db->query('SELECT * FROM t_vol
         ORDER BY id ASC');
@@ -92,7 +92,7 @@ class VolManager{
 		return $vols;
 	}
 
-	public function getVolsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $vols = array();
 		$query = $this->_db->query('SELECT * FROM t_vol
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
@@ -103,7 +103,7 @@ class VolManager{
 		return $vols;
 	}
 
-	public function getVolsNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS volsNumber FROM t_vol');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $vol = $data['volsNumber'];

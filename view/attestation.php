@@ -3,14 +3,14 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $attestationActionController = new AttestationActionController('attestation');
-    $usageActionController = new UsageActionController('usage');
-    $compagnieActionController = new CompagnieActionController('compagnie');
+    $attestationActionController = new AppController('attestation');
+    $usageActionController = new AppController('usage');
+    $compagnieActionController = new AppController('compagnie');
     //get objects
-    $attestations = $attestationActionController->getAttestations(); 
-    $usages = $usageActionController->getUsages();
-    $compagnies = $compagnieActionController->getCompagnies();
-    /*$attestationsNumber = $attestationActionController->getAttestationsNumber(); 
+    $attestations = $attestationActionController->getAll(); 
+    $usages = $usageActionController->getAll();
+    $compagnies = $compagnieActionController->getAll();
+    /*$attestationsNumber = $attestationActionController->getAllNumber(); 
     $p = 1;
     if ( $attestationsNumber != 0 ) {
         $attestationPerPage = 20;
@@ -23,7 +23,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $attestationPerPage;
         $pagination = paginate('attestation.php', '?p=', $pageNumber, $p);
-        $attestations = $attestationActionController->getAttestationsByLimits($begin, $attestationPerPage);
+        $attestations = $attestationActionController->getAllByLimits($begin, $attestationPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -164,7 +164,6 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <tr>
                                                 <td class="hidden-phone">
                                                     <a href="#deleteAttestation<?= $attestation->id() ?>" data-toggle="modal" data-id="<?= $attestation->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                    <a href="#updateAttestation<?= $attestation->id() ?>" data-toggle="modal" data-id="<?= $attestation->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
                                                 <td><?= $attestation->codeCompagnie() ?></td>
                                                 <td><?= $attestation->codeUsage() ?></td>
@@ -173,72 +172,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <td><?= date('d/m/Y', strtotime($attestation->dateReception())) ?></td>
                                                 <td><?= $attestation->nombreAttestation() ?></td>
                                                 <td><?= $attestation->nombreUtilise() ?></td>
-                                            </tr> 
-                                            <!-- updateAttestation box begin -->
-                                            <div id="updateAttestation<?= $attestation->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Modifier Info Attestation</h3>
-                                                </div>
-                                                <form class="form-inline" action="../app/Dispatcher.php" method="post">
-                                                    <div class="modal-body">
-                                                        <div class="control-group">
-                                                            <label class="control-label">CodeCompagnie</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="codeCompagnie"  value="<?= $attestation->codeCompagnie() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">CodeUsage</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="codeUsage"  value="<?= $attestation->codeUsage() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">DateReception</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="dateReception"  value="<?= $attestation->dateReception() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">NumeroDebut</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="numeroDebut"  value="<?= $attestation->numeroDebut() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">NumeroFin</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="numeroFin"  value="<?= $attestation->numeroFin() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">NombreAttestation</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="nombreAttestation"  value="<?= $attestation->nombreAttestation() ?>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">NombreUtilise</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="nombreUtilise"  value="<?= $attestation->nombreUtilise() ?>" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div class="control-group">
-                                                            <div class="controls">
-                                                                <input type="hidden" name="idAttestation" value="<?= $attestation->id() ?>" />
-                                                                <input type="hidden" name="action" value="update" />
-                                                                <input type="hidden" name="source" value="attestation" />    
-                                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
-                                                                <button type="submit" class="btn red" aria-hidden="true">Oui</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <!-- updateAttestation box end --> 
+                                            </tr>
                                             <!-- deleteAttestation box begin -->
                                             <div id="deleteAttestation<?= $attestation->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
@@ -252,7 +186,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idAttestation" value="<?= $attestation->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $attestation->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="attestation" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

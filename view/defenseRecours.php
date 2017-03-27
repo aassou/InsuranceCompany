@@ -3,17 +3,17 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $defenseRecoursActionController = new DefenseRecoursActionController('defenseRecours');
-    $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageActionController('usage');
-    $classeActionController = new ClasseActionController('classe');
-    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    $defenseRecoursActionController = new AppController('defenseRecours');
+    $compagnieActionController = new AppController('compagnie');
+    $usageActionController = new AppController('usage');
+    $classeActionController = new AppController('classe');
+    $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
-    $defenseRecourss = $defenseRecoursActionController->getDefenseRecourss();
-    $compagnies = $compagnieActionController->getCompagnies();
-    $usages = $usageActionController->getUsages();
-    $classes = $classeActionController->getClasses(); 
-    /*$defenseRecourssNumber = $defenseRecoursActionController->getDefenseRecourssNumber(); 
+    $defenseRecourss = $defenseRecoursActionController->getAll();
+    $compagnies = $compagnieActionController->getAll();
+    $usages = $usageActionController->getAll();
+    $classes = $classeActionController->getAll(); 
+    /*$defenseRecourssNumber = $defenseRecoursActionController->getAllNumber(); 
     $p = 1;
     if ( $defenseRecourssNumber != 0 ) {
         $defenseRecoursPerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $defenseRecoursPerPage;
         $pagination = paginate('defenseRecours.php', '?p=', $pageNumber, $p);
-        $defenseRecourss = $defenseRecoursActionController->getDefenseRecourssByLimits($begin, $defenseRecoursPerPage);
+        $defenseRecourss = $defenseRecoursActionController->getAllByLimits($begin, $defenseRecoursPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getOneById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -202,7 +202,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteDefenseRecours<?= $defenseRecours->id() ?>" data-toggle="modal" data-id="<?= $defenseRecours->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateDefenseRecours<?= $defenseRecours->id() ?>" data-toggle="modal" data-id="<?= $defenseRecours->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $defenseRecours->codeCompagnie().": ".$compagnieActionController->getCompagnieById($defenseRecours->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td><?= $defenseRecours->codeCompagnie().": ".$compagnieActionController->getOneById($defenseRecours->codeCompagnie())->raisonSocialeAbrege() ?></td>
                                                 <td><?= $defenseRecours->codeUsage() ?></td>
                                                 <td><?= $defenseRecours->codeClasse() ?></td>
                                                 <td><?= $defenseRecours->codeSousClasse() ?></td>
@@ -226,7 +226,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $defenseRecours->codeCompagnie() ?>"><?= $defenseRecours->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($defenseRecours->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $defenseRecours->codeCompagnie() ?>"><?= $defenseRecours->codeCompagnie()." : ".$compagnieActionController->getOneById($defenseRecours->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>
@@ -311,7 +311,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idDefenseRecours" value="<?= $defenseRecours->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $defenseRecours->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="defenseRecours" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -335,7 +335,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idDefenseRecours" value="<?= $defenseRecours->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $defenseRecours->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="defenseRecours" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

@@ -64,7 +64,7 @@ class IndividuelConducteurManager{
 		$query->closeCursor();
 	}
 
-	public function getIndividuelConducteurById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_individuelConducteur
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -75,7 +75,7 @@ class IndividuelConducteurManager{
 		return new IndividuelConducteur($data);
 	}
 
-	public function getIndividuelConducteurs(){
+	public function getAll(){
         $individuelConducteurs = array();
 		$query = $this->_db->query('SELECT * FROM t_individuelConducteur
         ORDER BY id ASC');
@@ -86,7 +86,7 @@ class IndividuelConducteurManager{
 		return $individuelConducteurs;
 	}
 
-	public function getIndividuelConducteursByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $individuelConducteurs = array();
 		$query = $this->_db->query('SELECT * FROM t_individuelConducteur
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
@@ -97,7 +97,7 @@ class IndividuelConducteurManager{
 		return $individuelConducteurs;
 	}
 
-	public function getIndividuelConducteursNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS individuelConducteursNumber FROM t_individuelConducteur');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $individuelConducteur = $data['individuelConducteursNumber'];

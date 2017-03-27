@@ -38,17 +38,15 @@ class CodeReglementSinistreManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_codereglementsinistre
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_codereglementsinistre WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getCodeReglementSinistreById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_codereglementsinistre
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare(' SELECT * FROM t_codereglementsinistre WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -57,10 +55,9 @@ class CodeReglementSinistreManager{
 		return new CodeReglementSinistre($data);
 	}
 
-	public function getCodeReglementSinistres(){
+	public function getAll(){
         $codeReglementSinistres = array();
-		$query = $this->_db->query('SELECT * FROM t_codereglementsinistre
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_codereglementsinistre ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$codeReglementSinistres[] = new CodeReglementSinistre($data);
 		}
@@ -68,10 +65,9 @@ class CodeReglementSinistreManager{
 		return $codeReglementSinistres;
 	}
 
-	public function getCodeReglementSinistresByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $codeReglementSinistres = array();
-		$query = $this->_db->query('SELECT * FROM t_codereglementsinistre
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_codereglementsinistre ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$codeReglementSinistres[] = new CodeReglementSinistre($data);
 		}
@@ -80,8 +76,7 @@ class CodeReglementSinistreManager{
 	}
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_codereglementsinistre
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_codereglementsinistre ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

@@ -56,7 +56,7 @@ class AttestationManager{
 		$query->closeCursor();
 	}
 
-	public function getAttestationById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_attestation
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -67,7 +67,7 @@ class AttestationManager{
 		return new Attestation($data);
 	}
 
-	public function getAttestations(){
+	public function getAll(){
         $attestations = array();
 		$query = $this->_db->query('SELECT * FROM t_attestation
         ORDER BY id ASC');
@@ -78,7 +78,7 @@ class AttestationManager{
 		return $attestations;
 	}
 
-	public function getAttestationsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $attestations = array();
 		$query = $this->_db->query('SELECT * FROM t_attestation
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
@@ -89,7 +89,7 @@ class AttestationManager{
 		return $attestations;
 	}
 
-	public function getAttestationsNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS attestationsNumber FROM t_attestation');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $attestation = $data['attestationsNumber'];

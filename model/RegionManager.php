@@ -46,7 +46,7 @@ class RegionManager{
 		$query->closeCursor();
 	}
 
-	public function getRegionById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_region
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -57,7 +57,7 @@ class RegionManager{
 		return new Region($data);
 	}
 
-	public function getRegions(){
+	public function getAll(){
         $regions = array();
 		$query = $this->_db->query('SELECT * FROM t_region
         ORDER BY id ASC');
@@ -68,7 +68,7 @@ class RegionManager{
 		return $regions;
 	}
 
-	public function getRegionsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $regions = array();
 		$query = $this->_db->query('SELECT * FROM t_region
         ORDER BY id DESC LIMIT '.$begin.', '.$end);

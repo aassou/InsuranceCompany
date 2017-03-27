@@ -76,7 +76,7 @@ class TarifRCManager{
 		$query->closeCursor();
 	}
 
-	public function getTarifRCById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_tarifrc
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -87,7 +87,7 @@ class TarifRCManager{
 		return new TarifRC($data);
 	}
 
-	public function getTarifRCs(){
+	public function getAll(){
         $tarifRCs = array();
 		$query = $this->_db->query('SELECT * FROM t_tarifrc
         ORDER BY id ASC');
@@ -98,7 +98,7 @@ class TarifRCManager{
 		return $tarifRCs;
 	}
 
-	public function getTarifRCsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $tarifRCs = array();
 		$query = $this->_db->query('SELECT * FROM t_tarifrc
         ORDER BY id ASC LIMIT '.$begin.', '.$end);
@@ -109,7 +109,7 @@ class TarifRCManager{
 		return $tarifRCs;
 	}
     
-    public function getTarifRCsNumber(){
+    public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS tarifRCsNumber FROM t_tarifrc');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $tarifRCNumber = $data['tarifRCsNumber'];

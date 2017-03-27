@@ -3,14 +3,14 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $PTAActionController = new PTAActionController('PTA');
-    $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageActionController('usage');
+    $PTAActionController = new AppController('PTA');
+    $compagnieActionController = new AppController('compagnie');
+    $usageActionController = new AppController('usage');
     //get objects
-    $compagnies = $compagnieActionController->getCompagnies();
-    $usages = $usageActionController->getUsages();
-    $PTAs = $PTAActionController->getPTAs(); 
-    /*$PTAsNumber = $PTAActionController->getPTAsNumber(); 
+    $compagnies = $compagnieActionController->getAll();
+    $usages = $usageActionController->getAll();
+    $PTAs = $PTAActionController->getAll(); 
+    /*$PTAsNumber = $PTAActionController->getAllNumber(); 
     $p = 1;
     if ( $PTAsNumber != 0 ) {
         $PTAPerPage = 20;
@@ -23,7 +23,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $PTAPerPage;
         $pagination = paginate('PTA.php', '?p=', $pageNumber, $p);
-        $PTAs = $PTAActionController->getPTAsByLimits($begin, $PTAPerPage);
+        $PTAs = $PTAActionController->getAllByLimits($begin, $PTAPerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getOneById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -308,7 +308,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idPTA" value="<?= $PTA->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $PTA->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="PTA" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -332,7 +332,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idPTA" value="<?= $PTA->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $PTA->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="PTA" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

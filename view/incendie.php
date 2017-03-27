@@ -3,17 +3,17 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $incendieActionController = new IncendieActionController('incendie');
-    $compagnieActionController = new CompagnieActionController('compagnie');
-    $usageActionController = new UsageActionController('uage');
-    $classeActionController = new ClasseActionController('classe');
-    $sousClasseActionController = new SousClasseActionController('sousClasse');
+    $incendieActionController = new AppController('incendie');
+    $compagnieActionController = new AppController('compagnie');
+    $usageActionController = new AppController('uage');
+    $classeActionController = new AppController('classe');
+    $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
-    $incendies = $incendieActionController->getIncendies(); 
-    $compagnies = $compagnieActionController->getCompagnies();
-    $usages = $usageActionController->getUsages();
-    $classes = $classeActionController->getClasses();
-    /*$incendiesNumber = $incendieActionController->getIncendiesNumber(); 
+    $incendies = $incendieActionController->getAll(); 
+    $compagnies = $compagnieActionController->getAll();
+    $usages = $usageActionController->getAll();
+    $classes = $classeActionController->getAll();
+    /*$incendiesNumber = $incendieActionController->getAllNumber(); 
     $p = 1;
     if ( $incendiesNumber != 0 ) {
         $incendiePerPage = 20;
@@ -26,7 +26,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $incendiePerPage;
         $pagination = paginate('incendie.php', '?p=', $pageNumber, $p);
-        $incendies = $incendieActionController->getIncendiesByLimits($begin, $incendiePerPage);
+        $incendies = $incendieActionController->getAllByLimits($begin, $incendiePerPage);
     }*/ 
 ?>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <select name="codeCompagnie">
                                                 <?php foreach ( $compagnies as $compagnie ) { ?>
-                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getCompagnieById($compagnie->id())->raisonSociale() ?></option>
+                                                <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnieActionController->getOneById($compagnie->id())->raisonSociale() ?></option>
                                                 <?php } ?>
                                                 </select>
                                             </div>
@@ -229,7 +229,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteIncendie<?= $incendie->id() ?>" data-toggle="modal" data-id="<?= $incendie->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateIncendie<?= $incendie->id() ?>" data-toggle="modal" data-id="<?= $incendie->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td class="hidden-phone"><?= $incendie->codeCompagnie().": ".$compagnieActionController->getCompagnieById($incendie->codeCompagnie())->raisonSocialeAbrege() ?></td>
+                                                <td class="hidden-phone"><?= $incendie->codeCompagnie().": ".$compagnieActionController->getOneById($incendie->codeCompagnie())->raisonSocialeAbrege() ?></td>
                                                 <td class="hidden-phone"><?= $incendie->codeUsage() ?></td>
                                                 <td><?= $incendie->codeClasse() ?></td>
                                                 <td><?= $incendie->codeSousClasse() ?></td>
@@ -256,7 +256,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $incendie->codeCompagnie() ?>"><?= $incendie->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($incendie->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $incendie->codeCompagnie() ?>"><?= $incendie->codeCompagnie()." : ".$compagnieActionController->getOneById($incendie->codeCompagnie())->raisonSociale() ?></option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                     <?php } ?>
@@ -365,7 +365,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idIncendie" value="<?= $incendie->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $incendie->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="incendie" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -389,7 +389,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idIncendie" value="<?= $incendie->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $incendie->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="incendie" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

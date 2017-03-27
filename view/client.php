@@ -3,10 +3,10 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $clientActionController = new ClientActionController('client');
+    $clientActionController = new AppController('client');
     //objects and vars
-    $clients = $clientActionController->getClients(); 
-    $clientsNumber = $clientActionController->getClientsNumber(); 
+    $clients = $clientActionController->getAll(); 
+    $clientsNumber = $clientActionController->getAllNumber(); 
     $p = 1;
     if ( $clientsNumber != 0 ) {
         $clientPerPage = 20;
@@ -19,7 +19,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $clientPerPage;
         $pagination = paginate('client.php', '?p=', $pageNumber, $p);
-        $clients = $clientActionController->getClientsByLimits($begin, $clientPerPage);
+        $clients = $clientActionController->getAllByLimits($begin, $clientPerPage);
     } 
 ?>
 <!DOCTYPE html>
@@ -411,7 +411,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idClient" value="<?= $client->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $client->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="client" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -435,7 +435,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idClient" value="<?= $client->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $client->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="client" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

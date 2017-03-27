@@ -66,7 +66,7 @@ class PTAManager{
 		$query->closeCursor();
 	}
 
-	public function getPTAById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_pta
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -77,7 +77,7 @@ class PTAManager{
 		return new PTA($data);
 	}
 
-	public function getPTAs(){
+	public function getAll(){
         $PTAs = array();
 		$query = $this->_db->query('SELECT * FROM t_pta
         ORDER BY id ASC');
@@ -88,7 +88,7 @@ class PTAManager{
 		return $PTAs;
 	}
 
-	public function getPTAsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $PTAs = array();
 		$query = $this->_db->query('SELECT * FROM t_pta
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
@@ -99,7 +99,7 @@ class PTAManager{
 		return $PTAs;
 	}
 
-	public function getPTAsNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS PTAsNumber FROM t_pta');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $PTA = $data['PTAsNumber'];

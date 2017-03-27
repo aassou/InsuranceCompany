@@ -3,9 +3,9 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $classeATActionController = new ClasseATActionController('classeAT');
+    $classeATActionController = new AppController('classeAT');
     //objects and vars
-    $classeATs = $classeATActionController->getClasseATs(); 
+    $classeATs = $classeATActionController->getAll(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -128,7 +128,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idClasseAT" value="<?= $classeAT->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $classeAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="classeAT" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -152,7 +152,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idClasseAT" value="<?= $classeAT->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $classeAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="classeAT" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

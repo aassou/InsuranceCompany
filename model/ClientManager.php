@@ -12,8 +12,12 @@ class ClientManager{
 	//BASIC CRUD OPERATIONS
 	public function add(Client $client){
         $query = $this->_db->prepare(' INSERT INTO t_client (
-		codeClient, typeClient, civilite, nom, adresse, rue, ville, activite, email, debit, credit, tel1, fax, permis, datePermis, tel2, codeRegion, codeCommercial, situationFamiliale, cin, dateNaissance, solvabilite, nombreIncident, created, createdBy)
-		VALUES (:codeClient, :typeClient, :civilite, :nom, :adresse, :rue, :ville, :activite, :email, :debit, :credit, :tel1, :fax, :permis, :datePermis, :tel2, :codeRegion, :codeCommercial, :situationFamiliale, :cin, :dateNaissance, :solvabilite, :nombreIncident, :created, :createdBy)')
+		codeClient, typeClient, civilite, nom, adresse, rue, ville, activite, email, debit, credit, tel1, 
+		fax, permis, datePermis, tel2, codeRegion, codeCommercial, situationFamiliale, cin, dateNaissance, 
+		solvabilite, nombreIncident, created, createdBy)
+		VALUES (:codeClient, :typeClient, :civilite, :nom, :adresse, :rue, :ville, :activite, :email, :debit, 
+        :credit, :tel1, :fax, :permis, :datePermis, :tel2, :codeRegion, :codeCommercial, :situationFamiliale, 
+        :cin, :dateNaissance, :solvabilite, :nombreIncident, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':codeClient', $client->codeClient());
 		$query->bindValue(':typeClient', $client->typeClient());
@@ -46,7 +50,12 @@ class ClientManager{
 
 	public function update(Client $client){
         $query = $this->_db->prepare(' UPDATE t_client SET 
-		codeClient=:codeClient, typeClient=:typeClient, civilite=:civilite, nom=:nom, adresse=:adresse, rue=:rue, ville=:ville, activite=:activite, email=:email, debit=:debit, credit=:credit, tel1=:tel1, fax=:fax, permis=:permis, datePermis=:datePermis, tel2=:tel2, codeRegion=:codeRegion, codeCommercial=:codeCommercial, situationFamiliale=:situationFamiliale, cin=:cin, dateNaissance=:dateNaissance, solvabilite=:solvabilite, nombreIncident=:nombreIncident, updated=:updated, updatedBy=:updatedBy
+		codeClient=:codeClient, typeClient=:typeClient, civilite=:civilite, nom=:nom, adresse=:adresse, 
+		rue=:rue, ville=:ville, activite=:activite, email=:email, debit=:debit, credit=:credit, tel1=:tel1, 
+		fax=:fax, permis=:permis, datePermis=:datePermis, tel2=:tel2, codeRegion=:codeRegion, 
+		codeCommercial=:codeCommercial, situationFamiliale=:situationFamiliale, cin=:cin, 
+		dateNaissance=:dateNaissance, solvabilite=:solvabilite, nombreIncident=:nombreIncident, 
+		updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $client->id());
@@ -80,17 +89,15 @@ class ClientManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_client
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_client WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getClientById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_client
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare('SELECT * FROM t_client WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -99,10 +106,9 @@ class ClientManager{
 		return new Client($data);
 	}
 
-	public function getClients(){
+	public function getAll(){
         $clients = array();
-		$query = $this->_db->query('SELECT * FROM t_client
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_client ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$clients[] = new Client($data);
 		}
@@ -110,10 +116,9 @@ class ClientManager{
 		return $clients;
 	}
 
-	public function getClientsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $clients = array();
-		$query = $this->_db->prepare('SELECT * FROM t_client
-        ORDER BY id DESC LIMIT :begin, :end');
+		$query = $this->_db->prepare('SELECT * FROM t_client ORDER BY id DESC LIMIT :begin, :end');
         $query->bindValue(':begin', $begin);
         $query->bindValue(':end', $end);
         $query->execute();      
@@ -124,11 +129,10 @@ class ClientManager{
 		return $clients;
 	}
 
-    public function getClientsByNom($nom){
+    public function getOneByNom($nom){
         $clients = array();
         $keyword = "%".$nom."%";
-        $query = $this->_db->prepare('SELECT * FROM t_client
-        WHERE nom LIKE :keyword');
+        $query = $this->_db->prepare('SELECT * FROM t_client WHERE nom LIKE :keyword');
         $query->bindValue(':keyword', $keyword);
         $query->execute();      
         while($data = $query->fetch(PDO::FETCH_ASSOC)){
@@ -138,7 +142,7 @@ class ClientManager{
         return $clients;
     }
 
-	public function getClientsNumber(){
+	public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS clientsNumber FROM t_client');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $client = $data['clientsNumber'];
@@ -146,8 +150,7 @@ class ClientManager{
     }
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_client
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_client ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

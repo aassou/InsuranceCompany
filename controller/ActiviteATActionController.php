@@ -28,7 +28,7 @@ class ActiviteATActionController {
     
     //actions
     public function add($activiteAT){
-        if( !empty($_POST['codeCompagnie']) ){
+        if( !empty($activiteAT['codeCompagnie']) ){
 			$codeCompagnie = htmlentities($activiteAT['codeCompagnie']);
 			$codeClasse = htmlentities($activiteAT['codeClasse']);
 			$codeActivite = htmlentities($activiteAT['codeActivite']);

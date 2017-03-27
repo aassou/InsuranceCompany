@@ -3,9 +3,9 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $motifRetourQuittanceActionController = new MotifRetourQuittanceActionController('motifRetourQuittance');
+    $motifRetourQuittanceActionController = new AppController('motifRetourQuittance');
     //objects and vars
-    $motifRetourQuittances = $motifRetourQuittanceActionController->getMotifRetourQuittances(); 
+    $motifRetourQuittances = $motifRetourQuittanceActionController->getAll(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -128,7 +128,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idMotifRetourQuittance" value="<?= $motifRetourQuittance->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $motifRetourQuittance->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="motifRetourQuittance" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -152,7 +152,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idMotifRetourQuittance" value="<?= $motifRetourQuittance->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $motifRetourQuittance->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="motifRetourQuittance" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

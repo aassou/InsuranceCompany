@@ -46,7 +46,7 @@ class MotifRetourQuittanceManager{
 		$query->closeCursor();
 	}
 
-	public function getMotifRetourQuittanceById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_motifretourquittance
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -57,7 +57,7 @@ class MotifRetourQuittanceManager{
 		return new MotifRetourQuittance($data);
 	}
 
-	public function getMotifRetourQuittances(){
+	public function getAll(){
         $motifRetourQuittances = array();
 		$query = $this->_db->query('SELECT * FROM t_motifretourquittance
         ORDER BY id ASC');
@@ -68,7 +68,7 @@ class MotifRetourQuittanceManager{
 		return $motifRetourQuittances;
 	}
 
-	public function getMotifRetourQuittancesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $motifRetourQuittances = array();
 		$query = $this->_db->query('SELECT * FROM t_motifretourquittance
         ORDER BY id DESC LIMIT '.$begin.', '.$end);

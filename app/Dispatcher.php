@@ -12,7 +12,7 @@ if ( isset($_POST['pageNumber']) ) { $pageNumber = "?p=".htmlentities($_POST['pa
 $component = ucfirst($source);
 $componentController = ucfirst($component)."ActionController";
 //Step 2 : Create new components
-$componentController = new $componentController($source);
+$componentController = new AppController($source);
 $componentController->$action($_POST);
 $source = $componentController->source();
 //Step 3 : Send response

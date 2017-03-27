@@ -142,8 +142,8 @@ class CompagnieActionController {
         $this->_source = "view/compagnie";
     }
     
-    public function getCompagnieById($id){
-        return $this->_compagnieManager->getCompagnieById($id);
+    public function getOneById($id){
+        return $this->_compagnieManager->getOneById($id);
     }
     
     public function getCompagnies(){

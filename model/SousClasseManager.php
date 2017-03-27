@@ -48,7 +48,7 @@ class SousClasseManager{
 		$query->closeCursor();
 	}
 
-	public function getSousClasseById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_sousclasse
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -59,7 +59,7 @@ class SousClasseManager{
 		return new SousClasse($data);
 	}
 
-	public function getSousClasses(){
+	public function getAll(){
         $sousClasses = array();
 		$query = $this->_db->query('SELECT * FROM t_sousclasse
         ORDER BY id ASC');
@@ -70,7 +70,7 @@ class SousClasseManager{
 		return $sousClasses;
 	}
 
-	public function getSousClassesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $sousClasses = array();
 		$query = $this->_db->query('SELECT * FROM t_sousclasse
         ORDER BY id DESC LIMIT '.$begin.', '.$end);

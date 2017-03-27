@@ -3,9 +3,9 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $expertActionController = new ExpertActionController('expert');
+    $expertActionController = new AppController('expert');
     //objects and vars
-    $experts = $expertActionController->getExperts(); 
+    $experts = $expertActionController->getAll(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -198,7 +198,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idExpert" value="<?= $expert->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $expert->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="expert" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -222,7 +222,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idExpert" value="<?= $expert->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $expert->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="expert" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

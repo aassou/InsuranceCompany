@@ -3,11 +3,11 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $activiteATActionController = new ActiviteATActionController('activiteAT');
-    $compagnieActionController = new CompagnieActionController('compagnie');
+    $activiteATActionController = new AppController('activiteAT');
+    $compagnieActionController = new AppController('compagnie');
     //objects and vars
-    $compagnies = $compagnieActionController->getCompagnies();
-    $activiteATNumber = $activiteATActionController->getActiviteATsNumber(); 
+    $compagnies = $compagnieActionController->getAll();
+    $activiteATNumber = $activiteATActionController->getAllNumber(); 
     $p = 1;
     if ( $activiteATNumber != 0 ) {
         $activiteATPerPage = 20;
@@ -20,7 +20,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         }
         $begin = ($p - 1) * $activiteATPerPage;
         $pagination = paginate('activiteAT.php', '?p=', $pageNumber, $p);
-        $activiteATs = $activiteATActionController->getActiviteATsByLimits($begin, $activiteATPerPage);
+        $activiteATs = $activiteATActionController->getAllByLimits($begin, $activiteATPerPage);
     } 
 ?>
 <!DOCTYPE html>
@@ -100,7 +100,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="control-group">
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="activiteAT" />    
+                                                <input type="hidden" name="source" value="activiteAT" />
+                                                <input type="hidden" name="pageNumber" value="<?= $p ?>" />    
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -163,7 +164,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <label class="control-label">Compagnie</label>
                                                             <div class="controls">
                                                                 <select name="codeCompagnie">
-                                                                    <option value="<?= $activiteAT->codeCompagnie() ?>"><?= $activiteAT->codeCompagnie()." : ".$compagnieActionController->getCompagnieById($activiteAT->codeCompagnie())->raisonSociale() ?></option>
+                                                                    <option value="<?= $activiteAT->codeCompagnie() ?>"><?= $activiteAT->codeCompagnie()." : ".$compagnieActionController->getOneById($activiteAT->codeCompagnie())->raisonSociale() ?></option>
                                                                     <option disabled="disabled">----------------------------------------------</option>
                                                                     <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                     <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>    
@@ -199,7 +200,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idActiviteAT" value="<?= $activiteAT->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $activiteAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="activiteAT" />    
                                                                 <input type="hidden" name="pageNumber" value="<?= $p ?>" />     
@@ -224,7 +225,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idActiviteAT" value="<?= $activiteAT->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $activiteAT->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="activiteAT" />
                                                                 <input type="hidden" name="pageNumber" value="<?= $p ?>" />         

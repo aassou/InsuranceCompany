@@ -83,7 +83,7 @@ class UserManager{
 		$query->closeCursor();
 	}
 
-	public function getUserById($id){
+	public function getOneById($id){
         $query = $this->_db->prepare(' SELECT * FROM t_user WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
@@ -93,7 +93,7 @@ class UserManager{
 		return new User($data);
 	}
 
-	public function getUsers(){
+	public function getAll(){
         $users = array();
 		$query = $this->_db->query('SELECT * FROM t_user ORDER BY id DESC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
@@ -103,7 +103,7 @@ class UserManager{
 		return $users;
 	}
 
-	public function getUsersByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $users = array();
 		$query = $this->_db->query('SELECT * FROM t_user ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
@@ -120,7 +120,7 @@ class UserManager{
 		return $id;
 	}
     
-    public function getUsersNumber(){
+    public function getAllNumber(){
         $query = $this->_db->query('SELECT COUNT(*) AS userNumbers FROM t_user');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $query->closeCursor();

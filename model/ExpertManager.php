@@ -29,8 +29,8 @@ class ExpertManager{
 	}
 
 	public function update(Expert $expert){
-        $query = $this->_db->prepare(' UPDATE t_expert SET 
-		code=:code, nom=:nom, adresse=:adresse, ville=:ville, tel1=:tel1, tel2=:tel2, fax=:fax, updated=:updated, updatedBy=:updatedBy
+        $query = $this->_db->prepare('UPDATE t_expert SET code=:code, nom=:nom, adresse=:adresse, 
+        ville=:ville, tel1=:tel1, tel2=:tel2, fax=:fax, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $expert->id());
@@ -48,17 +48,15 @@ class ExpertManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_expert
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_expert WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getExpertById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_expert
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare('SELECT * FROM t_expert WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -67,10 +65,9 @@ class ExpertManager{
 		return new Expert($data);
 	}
 
-	public function getExperts(){
+	public function getAll(){
         $experts = array();
-		$query = $this->_db->query('SELECT * FROM t_expert
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_expert ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$experts[] = new Expert($data);
 		}
@@ -78,10 +75,9 @@ class ExpertManager{
 		return $experts;
 	}
 
-	public function getExpertsByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $experts = array();
-		$query = $this->_db->query('SELECT * FROM t_expert
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_expert ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$experts[] = new Expert($data);
 		}
@@ -90,8 +86,7 @@ class ExpertManager{
 	}
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_expert
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_expert ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;

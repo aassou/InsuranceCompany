@@ -3,9 +3,9 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $compagnieController = new CompagnieActionController('compagnie');
+    $compagnieController = new AppController('compagnie');
     //objects and vars
-    $compagnies = $compagnieController->getCompagnies();
+    $compagnies = $compagnieController->getAll();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -172,7 +172,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="modal-footer">
                                                             <div class="control-group">
                                                                 <div class="controls">
-                                                                    <input type="hidden" name="idCompagnie" value="<?= $compagnie->id() ?>" />
+                                                                    <input type="hidden" name="id" value="<?= $compagnie->id() ?>" />
                                                                     <input type="hidden" name="action" value="update" />
                                                                     <input type="hidden" name="source" value="compagnie" />    
                                                                     <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
@@ -196,7 +196,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="modal-footer">
                                                             <div class="control-group">
                                                                 <div class="controls">
-                                                                    <input type="hidden" name="idCompagnie" value="<?= $compagnie->id() ?>" />
+                                                                    <input type="hidden" name="id" value="<?= $compagnie->id() ?>" />
                                                                     <input type="hidden" name="action" value="delete" />
                                                                     <input type="hidden" name="source" value="compagnie" />    
                                                                     <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>

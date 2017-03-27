@@ -3,9 +3,9 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $banqueActionController = new BanqueActionController('banque');
+    $banqueActionController = new AppController('banque');
     //objects and vars
-    $banques = $banqueActionController->getBanques();
+    $banques = $banqueActionController->getAll();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -214,7 +214,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="modal-footer">
                                                             <div class="control-group">
                                                                 <div class="controls">
-                                                                    <input type="hidden" name="idBanque" value="<?= $banque->id() ?>" />
+                                                                    <input type="hidden" name="id" value="<?= $banque->id() ?>" />
                                                                     <input type="hidden" name="action" value="update" />
                                                                     <input type="hidden" name="source" value="banque" />    
                                                                     <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>
@@ -238,7 +238,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="modal-footer">
                                                             <div class="control-group">
                                                                 <div class="controls">
-                                                                    <input type="hidden" name="idBanque" value="<?= $banque->id() ?>" />
+                                                                    <input type="hidden" name="id" value="<?= $banque->id() ?>" />
                                                                     <input type="hidden" name="action" value="delete" />
                                                                     <input type="hidden" name="source" value="banque" />    
                                                                     <button class="btn" data-dismiss="modal"aria-hidden="true">Non</button>

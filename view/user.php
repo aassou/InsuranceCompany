@@ -3,9 +3,9 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $userController = new UserActionController('user');
+    $userController = new AppController('user');
     //objects and vars
-    $users = $userController->getUsers();
+    $users = $userController->getAll();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -79,7 +79,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <div class="controls">
                                                 <input type="hidden" name="action" value="add" />
                                                 <input type="hidden" name="source" value="user" />
-                                                <input type="hidden" name="status" value="1" />    
+                                                <input type="hidden" name="status" value="1" />  
+                                                <input type="hidden" name="created" value="<?= date('Y-m-d') ?>" />
+                                                <input type="hidden" name="createdBy" value="<?= $_SESSION['userAxaAmazigh']->login() ?>" />        
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                             </div>
@@ -163,7 +165,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idUser" value="<?= $user->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $user->id() ?>" />
                                                                 <input type="hidden" name="action" value="updateProfil" />
                                                                 <input type="hidden" name="source" value="user" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -187,7 +189,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idUser" value="<?= $user->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $user->id() ?>" />
                                                                 <input type="hidden" name="status" value="<?= $changeStatusTo ?>" />
                                                                 <input type="hidden" name="action" value="updateStatus" />
                                                                 <input type="hidden" name="source" value="user" />    
@@ -212,7 +214,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idUser" value="<?= $user->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $user->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="user" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

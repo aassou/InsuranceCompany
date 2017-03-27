@@ -11,9 +11,10 @@ class BanqueManager{
 
 	//BASIC CRUD OPERATIONS
 	public function add(Banque $banque){
-        $query = $this->_db->prepare(' INSERT INTO t_banque (
+        $query = $this->_db->prepare('INSERT INTO t_banque (
 		code, raisonSociale, nomContact, tel1, tel2, fax, email, adresse, rue, created, createdBy)
-		VALUES (:code, :raisonSociale, :nomContact, :tel1, :tel2, :fax, :email, :adresse, :rue, :created, :createdBy)')
+		VALUES (:code, :raisonSociale, :nomContact, :tel1, :tel2, :fax, :email, :adresse, :rue, 
+        :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':code', $banque->code());
 		$query->bindValue(':raisonSociale', $banque->raisonSociale());
@@ -31,8 +32,9 @@ class BanqueManager{
 	}
 
 	public function update(Banque $banque){
-        $query = $this->_db->prepare(' UPDATE t_banque SET 
-		code=:code, raisonSociale=:raisonSociale, nomContact=:nomContact, tel1=:tel1, tel2=:tel2, fax=:fax, email=:email, adresse=:adresse, rue=:rue, updated=:updated, updatedBy=:updatedBy
+        $query = $this->_db->prepare('UPDATE t_banque SET 
+		code=:code, raisonSociale=:raisonSociale, nomContact=:nomContact, tel1=:tel1, tel2=:tel2, 
+		fax=:fax, email=:email, adresse=:adresse, rue=:rue, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $banque->id());
@@ -52,17 +54,15 @@ class BanqueManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_banque
-		WHERE id=:id')
+        $query = $this->_db->prepare('DELETE FROM t_banque WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();
 		$query->closeCursor();
 	}
 
-	public function getBanqueById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_banque
-		WHERE id=:id')
+	public function getOneById($id){
+        $query = $this->_db->prepare('SELECT * FROM t_banque WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
 		$query->execute();		
@@ -71,10 +71,9 @@ class BanqueManager{
 		return new Banque($data);
 	}
 
-	public function getBanques(){
+	public function getAll(){
         $banques = array();
-		$query = $this->_db->query('SELECT * FROM t_banque
-        ORDER BY id ASC');
+		$query = $this->_db->query('SELECT * FROM t_banque ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$banques[] = new Banque($data);
 		}
@@ -82,10 +81,9 @@ class BanqueManager{
 		return $banques;
 	}
 
-	public function getBanquesByLimits($begin, $end){
+	public function getAllByLimits($begin, $end){
         $banques = array();
-		$query = $this->_db->query('SELECT * FROM t_banque
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->query('SELECT * FROM t_banque ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$banques[] = new Banque($data);
 		}
@@ -94,8 +92,7 @@ class BanqueManager{
 	}
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_banque
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_banque ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;
