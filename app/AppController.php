@@ -97,6 +97,10 @@ class AppController{
         return $this->_manager->getAllByLimits($begin, $end);
     }
     
+    public function getAllByNom($nom){
+        return $this->_manager->getAllByNom($nom);
+    }
+    
     public function getAllNumber(){
         return $this->_manager->getAllNumber();
     }

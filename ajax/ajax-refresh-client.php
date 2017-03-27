@@ -1,10 +1,10 @@
 <?php
 require('../app/classLoad.php');
 //Create Controller
-$clientActionController = new ClientActionController('client');
+$clientActionController = new AppController('client');
 $keyword = '%'.$_POST['keyword'].'%';
 //get object
-$clients = $clientActionController->getClientsByNom($keyword);
+$clients = $clientActionController->getAllByNom($keyword);
 foreach ($clients as $client) {
 	// put in bold the written text
 	$nom = str_replace($_POST['keyword'], '<b>'.$_POST['keyword'].'</b>', $client->nom());

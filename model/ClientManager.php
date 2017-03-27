@@ -129,7 +129,7 @@ class ClientManager{
 		return $clients;
 	}
 
-    public function getOneByNom($nom){
+    public function getAllByNom($nom){
         $clients = array();
         $keyword = "%".$nom."%";
         $query = $this->_db->prepare('SELECT * FROM t_client WHERE nom LIKE :keyword');
