@@ -3,11 +3,11 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controller
-    $regionActionController = new RegionActionController('region');
-    $commercialActionController = new CommercialActionController('commercial');
+    $regionActionController = new AppController('region');
+    $commercialActionController = new AppController('commercial');
     //get objects
-    $commercials = $commercialActionController->getCommercials();
-    $regions = $regionActionController->getRegions();  
+    $commercials = $commercialActionController->getAll();
+    $regions = $regionActionController->getAll();  
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
