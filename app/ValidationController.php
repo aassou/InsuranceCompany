@@ -4,6 +4,7 @@ class ValidationController {
     //attributes
     protected $_message;
     protected $_source;
+    protected $_target;
     protected $_manager;
     
     //constructor
@@ -18,6 +19,10 @@ class ValidationController {
     
     public function getSource(){
         return $this->_source;
+    }
+    
+    public function getTarget(){
+        return $this->_target;
     }
     
     //methods
@@ -52,7 +57,8 @@ class ValidationController {
                 //If the attestationCondition attribute is different than 0, an error should be handeled
                 if ( $attestationCondition != 0 ) {
                     $this->_message = "Opération Invalide: Cette série de numéro existe déjà";
-                    return false;
+                    $this->_target = $this->_source.".php";
+                    return 0;
                 }
                 //Else, add the new attestation serie's number to our DB
                 else {
@@ -65,12 +71,14 @@ class ValidationController {
                     else if ( $action == "delete" ) {
                         $this->_message = "Opération Valide: Ligne suprimmée avec succès";    
                     }
-                    return true;
+                    $this->_target = $this->_source.".php";
+                    return 1;
                 }
             }
             else {
                 $this->_message = "Opération Invalide: Veuillez remplir les champs obligatoires";
-                return false;
+                $this->_target = $this->_source.".php";
+                return 0;
             }     
         }       
         //Attestation Object Test Validation Ends
@@ -91,16 +99,19 @@ class ValidationController {
                     //test if the user exist
                     if ( $this->_manager->exist2($formInputs['login']) ) {
                         $this->_message = "Opération Invalide : Un utilisateur existe déjà avec ce nom.";
-                        return false;    
+                        $this->_target = $this->_source.".php";
+                        return 0;    
                     }
                     else {
                         $this->_message = "Opération Valide : User Ajouté(e) avec succès.";
-                        return true;    
+                        $this->_target = $this->_source.".php";
+                        return 1;    
                     }
                 }
                 else{
                     $this->_message = "Opération Invalide : Vous devez remplir tous les champs correctement.";
-                    return false;
+                    $this->_target = $this->_source.".php";
+                    return 0;
                 }
             }
             //Action add Ends
@@ -110,7 +121,8 @@ class ValidationController {
                 //Case 1 : Something missing
                 if ( empty($formInputs['login']) || empty($formInputs['password']) ) {
                     $this->_message = "Opération Invalide : Tous les champs sont obligatoires.";
-                    return false;
+                    $this->_target = $this->_source.".php";
+                    return 0;
                 }
                 //Case 2 : User's credentials are set
                 else{
@@ -118,16 +130,19 @@ class ValidationController {
                     $password = htmlspecialchars($formInputs['password']);
                     if ( $this->_manager->exist2($login) && $this->_manager->getStatus($login) != 0 ) {
                         if ( password_verify($password, $this->_manager->getPasswordByLogin($login)) ) {
-                            return true;
+                            $this->_target = "dashboard.php";
+                            return 1;
                         }
                         else{
                             $this->_message = "Opération Invalide : Mot de passe incorrecte.";
-                            return false;
+                            $this->_target = $this->_source.".php";
+                            return 0;
                         }
                     }
                     else{
                         $this->_message = "Opération Invalide : Login invalide ou compte inactif.";
-                        return false;
+                        $this->_target = $this->_source.".php";
+                        return 0;
                     }
                 }
             }
@@ -136,11 +151,13 @@ class ValidationController {
             else if ( $action == "updateProfil" ) {
                 if ( !empty($formInputs['id']) && !empty($formInputs['profil']) ) {
                     $this->_message = "Opération Valide : Profil User Modifié(e) avec succès.";
-                    return true;
+                    $this->_target = $this->_source.".php";
+                    return 1;
                 }
                 else{
                     $this->_message = "Opération Invalide : Profil inexistant.";
-                    return false;
+                    $this->_target = $this->_source.".php";
+                    return 0;
                 }
             }
             //Action updateProfil Ends
@@ -148,11 +165,13 @@ class ValidationController {
             else if ( $action == "updateStatus" ) {
                 if ( !empty($formInputs['id']) ) {
                     $this->_message = "Opération Valide : Status Modifié avec succès.";
-                    return true;
+                    $this->_target = $this->_source.".php";
+                    return 1;
                 }
                 else{
                     $this->_message = "Opération Invalide : Utilisateur inexistant.";
-                    return false;
+                    $this->_target = $this->_source.".php";
+                    return 0;
                 }
             } 
             //Action updateStatus Ends 
@@ -164,21 +183,71 @@ class ValidationController {
                     if ( password_verify($formInputs['oldPassword'], $this->_manager->getPasswordByLogin($formInputs['login'])) 
                     and ( $formInputs['newPassword'] == $formInputs['retypePassword'] ) ) {
                         $this->_message = "Opération Valide : Mot de passe modifié avec succès.";
-                        return true;
+                        $this->_target = $this->_source.".php";
+                        return 1;
                     }
                     else {
                         $this->_message = "Opération Invalide : Ancien Mot de passe est incorrecte.";
-                        return false;    
+                        $this->_target = $this->_source.".php";
+                        return 0;    
                     }
                 }    
             }
             //Action changePassword Ends
         }
         //User Object Test Validation Ends
+        //Client Object Test Validation Begins
+        else if ( $this->_source == "client" ){
+            $manager = ucfirst($this->_source).'Manager';
+            $this->_manager = new $manager(PDOFactory::getMysqlConnection());
+            if($action == "add") {
+                $codeClient = "";
+                $client = "";
+                //if the client exists in the database, we load its information from db,
+                //and send them to the next url : automobile-add-part-2
+                if( !empty($formInputs['idClient']) ){
+                    $idClient = htmlentities($formInputs['idClient']);
+                    $client = $this->_manager->getOneById($idClient);
+                    $generatedCode = $client->generatedCode();
+                    $this->_message = "<strong>Opération Valide : </strong>Client Récuperé avec succès.";
+                    $this->_target = "automobile-add-part-2.php?generatedCode=".$generatedCode;
+                    return 2;
+                }
+                //if we don't get any customer information from the clients-add.php page, 
+                //then there is one of two cases to treat
+                else if ( empty($formInputs['idClient']) ) {
+                    //Case 1 :  if we try to force the creation of an existing customer
+                    //we get an error message indicating that we do have a customer with that name 
+                    if( !empty($formInputs['codeClient'])){
+                        $codeClient = htmlentities($formInputs['codeClient']);
+                        if( $this->_manager->exist($codeClient) ){
+                            $this->_message = "<strong>Erreur Création Client : </strong>Un client existe déjà avec ce code : <strong>".$codeClient."</strong>.";
+                            $this->_target = "automobile-add-part-1.php";
+                            return 0;
+                        }
+                        //Case 2 :  The customer doesn't exist, so we add it to our database, 
+                        //and then send its generated code to the next url   
+                        else{
+                            $this->_message = "<strong>Opération Valide : </strong>Client Ajouté avec succès.";
+                            $this->_target = "automobile-add-part-2.php?generatedCode=".$generatedCode;
+                            return 1;
+                        }
+                    }
+                    //This is a simple form validation, the field Nom should not be empty
+                    else{
+                        $this->_message = "<strong>Erreur Création Client : </strong>Vous devez remplir au moins le champ <strong>&lt;Nom&gt;</strong>.";
+                        $this->_target = $this->_source.".php";
+                        return 0;
+                    }   
+                }
+            }
+        }
+        //Client Object Test Validation Ends
         //Other Object Test Validation Begins
         else {
             $this->_message = "Opération Valide: Ligne ajoutée avec succès";
-            return true;
+            $this->_target = $this->_source.".php";
+            return 1;
         }
         //Other Object Test Validation Ends 
     }

@@ -35,9 +35,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                     </div>
                     <div class="row-fluid">
                         <div class="span12">
+                            <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
+                            <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
+                            <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Nouvelle Contart Assurance Automobile : Informations Client</h4>
+                                    <h4>Création Contart Assurance Automobile : Informations Client (étape 1/2)</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="reload"></a>
                                     </div>
@@ -144,7 +147,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="region">Région</label>
                                                     <div class="controls">
-                                                        <select required="required" id="region" name="region" class="m-wrap span12">
+                                                        <select required="required" id="region" name="codeRegion" class="m-wrap span12">
                                                             <?php foreach ( $regions as $region ) { ?>    
                                                             <option value="<?= $region->code() ?>"><?= $region->designation() ?></option>
                                                             <?php } ?>
@@ -213,7 +216,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="permis">Permis</label>
                                                     <div class="controls">
-                                                        <input type="email" id="permis" name="permis" class="m-wrap span12">
+                                                        <input type="text" id="permis" name="permis" class="m-wrap span12">
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,7 +235,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="solvabilite">Solvabilité</label>
                                                     <div class="controls">
-                                                        <input type="email" id="solvabilite" name="solvabilite" class="m-wrap span12">
+                                                        <input type="text" id="solvabilite" name="solvabilite" class="m-wrap span12">
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,15 +243,16 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="nombreIncident">Nombre Incidents</label>
                                                     <div class="controls">
-                                                        <input type="email" id="nombreIncident" name="nombreIncident" class="m-wrap span12">
+                                                        <input type="text" id="nombreIncident" name="nombreIncident" class="m-wrap span12">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-actions">
                                             <input type="hidden" name="action" value="add">
+                                            <input type="hidden" name="source" value="client">
                                             <input type="hidden" id="idClient" name="idClient" value="">
-                                            <input type="hidden" id="generatedCode" name="generatedCode" value="">
+                                            <input type="hidden" id="generatedCode" name="generatedCode" value="<?= uniqid().date('YmdHis') ?>">
                                             <a class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
                                             <button type="submit" class="btn blue">Continuer <i class="m-icon-swapright m-icon-white"></i></button>
                                         </div>

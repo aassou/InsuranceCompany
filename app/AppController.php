@@ -40,19 +40,23 @@ class AppController{
         //object is the object (bean) itself - Ex : $object = new Classe(array(....)) 
         $object = new $objectName($formInputs);
         //If validation goes well, then add the object to our db
-        if ( $this->_validation->validate($formInputs, $this->_action) ) {
+        if ( $this->_validation->validate($formInputs, $this->_action) == 1 ) {
             $this->_manager->add($object);
-            //$this->_actionMessage = $this->_validation->getMessage();
-            //$testAppManager = new AppManager(PDOFactory::getMysqlConnection(), $this->_source);
             $this->_actionMessage = $this->_validation->getMessage();    
             $this->_typeMessage = "success";
-            $this->_source = "view/$this->_source";    
+            $this->_source = "view/".$this->_validation->getTarget();    
         }
+        //If validation goes well, but we need only to load the object instead of create a new one
+        else if ( $this->_validation->validate($formInputs, $this->_action) == 2 ) {
+            $this->_actionMessage = $this->_validation->getMessage();    
+            $this->_typeMessage = "success";
+            $this->_source = "view/".$this->_validation->getTarget();    
+        } 
         //Else throw an error
-        else {
+        else if ( $this->_validation->validate($formInputs, $this->_action) == 0 ) {
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "error";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
     }
 
@@ -63,17 +67,17 @@ class AppController{
         //object is the object (bean) itself - Ex : $object = new Classe(array(....)) 
         $object = new $objectName($formInputs);
         //If validation goes well, then add the object to our db
-        if ( $this->_validation->validate($formInputs, $this->_action) ) {
+        if ( $this->_validation->validate($formInputs, $this->_action) == 1 ) {
             $this->_manager->update($object);
             $this->_actionMessage = $this->_manager->update($object);  
             $this->_typeMessage = "success";
-            $this->_source = "view/$this->_source";    
+            $this->_source = "view/".$this->_validation->getTarget();
         }
         //Else throw an error
-        else {
+        else if ( $this->_validation->validate($formInputs, $this->_action) == 0 ) {
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "error";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
     }
 
@@ -87,6 +91,10 @@ class AppController{
     
     public function getOneById($id){
         return $this->_manager->getOneById($id);
+    }
+    
+    public function getOneByCode($code){
+        return $this->_manager->getOneByCode($code);
     }
     
     public function getAll(){
@@ -109,19 +117,23 @@ class AppController{
         return $this->_manager->getLastId();
     }
     
+    public function exist($element){
+        return $this->_manager->exist($element);
+    }
+    
     //These methods are used for users management : login, change passwords, activate/deactivate accounts...     
     public function login($formInputs){
         $this->_formInputs = $formInputs;
         $this->_action = "login";    
         if ( $this->_validation->validate($formInputs, $this->_action) ) {
             $_SESSION['userAxaAmazigh'] = $this->_manager->getUserByLogin($this->_formInputs['login']);
-            $this->_source = "view/dashboard";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
         //Else throw an error
         else {
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "error";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
     }
     
@@ -136,12 +148,12 @@ class AppController{
             $this->_manager->updateProfil($object);
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "success";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
         else{
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "error";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
     }
     
@@ -156,18 +168,18 @@ class AppController{
             $this->_manager->updateStatus($object);
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "success";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
         else{
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "error";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
     }
     
     public function changePassword($formInputs){
         $this->_formInputs = $formInputs;
-        $this->_action = "updateStatus";    
+        $this->_action = "changePassword";    
         //objectName is a variable where we store the object (bean) name -Ex : Client, Classe, PTA...
         $objectName = ucfirst($this->_source);
         //object is the object (bean) itself - Ex : $object = new Classe(array(....)) 
@@ -176,12 +188,12 @@ class AppController{
             $this->_manager->changePassword($object);
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "success";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
         else{
             $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "error";
-            $this->_source = "view/$this->_source";
+            $this->_source = "view/".$this->_validation->getTarget();
         }
     }
 }

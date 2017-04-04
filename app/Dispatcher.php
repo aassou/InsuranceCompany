@@ -18,4 +18,4 @@ $source = $componentController->source();
 //Step 3 : Send response
 $_SESSION['actionMessage'] = $componentController->actionMessage();
 $_SESSION['typeMessage'] = $componentController->typeMessage();
-header('Location:../'.$source.".php".$pageNumber);
+header('Location:../'.$source.$pageNumber);

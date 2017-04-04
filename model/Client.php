@@ -4,6 +4,7 @@ class Client{
 	//attributes
 	private $_id;
 	private $_codeClient;
+    private $_generatedCode;
 	private $_typeClient;
 	private $_civilite;
 	private $_nom;
@@ -53,6 +54,10 @@ class Client{
     }
 	public function setCodeClient($codeClient){
         $this->_codeClient = $codeClient;
+    }
+    
+    public function setGeneratedCode($generatedCode){
+        $this->_generatedCode = $generatedCode;
     }
 
 	public function setTypeClient($typeClient){
@@ -163,8 +168,13 @@ class Client{
 	public function id(){
         return $this->_id;
     }
+	
 	public function codeClient(){
         return $this->_codeClient;
+    }
+    
+    public function generatedCode(){
+        return $this->_generatedCode;
     }
 
 	public function typeClient(){

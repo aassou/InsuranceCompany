@@ -11,15 +11,16 @@ class ClientManager{
 
 	//BASIC CRUD OPERATIONS
 	public function add(Client $client){
-        $query = $this->_db->prepare(' INSERT INTO t_client (
-		codeClient, typeClient, civilite, nom, adresse, rue, ville, activite, email, debit, credit, tel1, 
-		fax, permis, datePermis, tel2, codeRegion, codeCommercial, situationFamiliale, cin, dateNaissance, 
-		solvabilite, nombreIncident, created, createdBy)
-		VALUES (:codeClient, :typeClient, :civilite, :nom, :adresse, :rue, :ville, :activite, :email, :debit, 
-        :credit, :tel1, :fax, :permis, :datePermis, :tel2, :codeRegion, :codeCommercial, :situationFamiliale, 
-        :cin, :dateNaissance, :solvabilite, :nombreIncident, :created, :createdBy)')
+        $query = $this->_db->prepare('INSERT INTO t_client (
+		codeClient, generatedCode, typeClient, civilite, nom, adresse, rue, ville, activite, email, 
+		debit, credit, tel1, fax, permis, datePermis, tel2, codeRegion, codeCommercial, situationFamiliale, 
+		cin, dateNaissance, solvabilite, nombreIncident, created, createdBy)
+		VALUES (:codeClient, :generatedCode, :typeClient, :civilite, :nom, :adresse, :rue, :ville, :activite, 
+        :email, :debit, :credit, :tel1, :fax, :permis, :datePermis, :tel2, :codeRegion, :codeCommercial, 
+        :situationFamiliale, :cin, :dateNaissance, :solvabilite, :nombreIncident, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':codeClient', $client->codeClient());
+        $query->bindValue(':generatedCode', $client->generatedCode());
 		$query->bindValue(':typeClient', $client->typeClient());
 		$query->bindValue(':civilite', $client->civilite());
 		$query->bindValue(':nom', $client->nom());
@@ -49,17 +50,18 @@ class ClientManager{
 	}
 
 	public function update(Client $client){
-        $query = $this->_db->prepare(' UPDATE t_client SET 
-		codeClient=:codeClient, typeClient=:typeClient, civilite=:civilite, nom=:nom, adresse=:adresse, 
-		rue=:rue, ville=:ville, activite=:activite, email=:email, debit=:debit, credit=:credit, tel1=:tel1, 
-		fax=:fax, permis=:permis, datePermis=:datePermis, tel2=:tel2, codeRegion=:codeRegion, 
-		codeCommercial=:codeCommercial, situationFamiliale=:situationFamiliale, cin=:cin, 
-		dateNaissance=:dateNaissance, solvabilite=:solvabilite, nombreIncident=:nombreIncident, 
+        $query = $this->_db->prepare('UPDATE t_client SET 
+		codeClient=:codeClient, generatedCode=:generatedCode,typeClient=:typeClient, civilite=:civilite, 
+		nom=:nom, adresse=:adresse, rue=:rue, ville=:ville, activite=:activite, email=:email, debit=:debit, 
+		credit=:credit, tel1=:tel1, fax=:fax, permis=:permis, datePermis=:datePermis, tel2=:tel2, 
+		codeRegion=:codeRegion, codeCommercial=:codeCommercial, situationFamiliale=:situationFamiliale, 
+		cin=:cin, dateNaissance=:dateNaissance, solvabilite=:solvabilite, nombreIncident=:nombreIncident, 
 		updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $client->id());
 		$query->bindValue(':codeClient', $client->codeClient());
+        $query->bindValue(':generatedCode', $client->generatedCode());
 		$query->bindValue(':typeClient', $client->typeClient());
 		$query->bindValue(':civilite', $client->civilite());
 		$query->bindValue(':nom', $client->nom());
@@ -88,6 +90,36 @@ class ClientManager{
 		$query->closeCursor();
 	}
 
+    public function update2($id, $nom, $adresse, $rue, $ville, $activite, $tel1, $fax, $permis, $tel2, $cin){
+        $query = $this->_db->prepare('UPDATE t_client SET  
+        nom=:nom, adresse=:adresse, rue=:rue, ville=:ville, activite=:activite, 
+        tel1=:tel1, fax=:fax, permis=:permis, tel2=:tel2, cin=:cin
+        WHERE id=:id')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':id', $id);
+        $query->bindValue(':nom', $nom);
+        $query->bindValue(':adresse', $adresse);
+        $query->bindValue(':rue', $rue);
+        $query->bindValue(':ville', $ville);
+        $query->bindValue(':activite', $activite);
+        $query->bindValue(':tel1', $tel1);
+        $query->bindValue(':fax', $fax);
+        $query->bindValue(':permis', $permis);
+        $query->bindValue(':tel2', $tel2);
+        $query->bindValue(':cin', $cin);
+        $query->execute();
+        $query->closeCursor();
+    }
+
+    public function setGeneratedCode($id, $code){
+        $query = $this->_db->prepare('UPDATE t_client SET generatedCode=:generatedCode WHERE id=:id')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':id', $id);
+        $query->bindValue(':generatedCode', $code);
+        $query->execute();
+        $query->closeCursor();
+    }
+
 	public function delete($id){
         $query = $this->_db->prepare('DELETE FROM t_client WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -105,6 +137,16 @@ class ClientManager{
 		$query->closeCursor();
 		return new Client($data);
 	}
+    
+    public function getOneByCode($code){
+        $query = $this->_db->prepare('SELECT * FROM t_client WHERE generatedCode=:code')
+        or die (print_r($this->_db->errorInfo()));
+        $query->bindValue(':code', $code);
+        $query->execute();      
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+        return new Client($data);
+    }
 
 	public function getAll(){
         $clients = array();
@@ -150,10 +192,17 @@ class ClientManager{
     }
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_client ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query('SELECT id AS last_id FROM t_client ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;
 	}
+    
+    public function exist($element){
+        $query = $this->_db->prepare("SELECT COUNT(*) FROM t_client WHERE REPLACE(codeClient, ' ', '') LIKE REPLACE(:codeClient, ' ', '') ");
+        $query->bindValue(':codeClient', $element);
+        $query->execute();
+        return $query->fetchColumn();
+    }
 
 }
