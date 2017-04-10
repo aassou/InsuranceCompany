@@ -4,9 +4,9 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $fractionPrimeRCActionController = new AppController('fractionPrimeRC');
-    $compagnieActionController = new AppController('compagnie');
+    $compagnieActionController       = new AppController('compagnie');
     //objects and vars
-    $compagnies = $compagnieActionController->getAll();
+    $compagnies       = $compagnieActionController->getAll();
     $fractionPrimeRCs = $fractionPrimeRCActionController->getAll(); 
     /*$fractionPrimeRCsNumber = $fractionPrimeRCActionController->getAllNumber(); 
     $p = 1;

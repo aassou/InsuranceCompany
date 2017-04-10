@@ -4,15 +4,15 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $defenseRecoursActionController = new AppController('defenseRecours');
-    $compagnieActionController = new AppController('compagnie');
-    $usageActionController = new AppController('usage');
-    $classeActionController = new AppController('classe');
-    $sousClasseActionController = new AppController('sousClasse');
+    $compagnieActionController      = new AppController('compagnie');
+    $usageActionController          = new AppController('usage');
+    $classeActionController         = new AppController('classe');
+    $sousClasseActionController     = new AppController('sousClasse');
     //objects and vars
     $defenseRecourss = $defenseRecoursActionController->getAll();
-    $compagnies = $compagnieActionController->getAll();
-    $usages = $usageActionController->getAll();
-    $classes = $classeActionController->getAll(); 
+    $compagnies      = $compagnieActionController->getAll();
+    $usages          = $usageActionController->getAll();
+    $classes         = $classeActionController->getAll(); 
     /*$defenseRecourssNumber = $defenseRecoursActionController->getAllNumber(); 
     $p = 1;
     if ( $defenseRecourssNumber != 0 ) {

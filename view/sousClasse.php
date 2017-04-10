@@ -3,10 +3,10 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $classeActionController = new AppController('classe');
+    $classeActionController     = new AppController('classe');
     $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
-    $classes = $classeActionController->getAll();
+    $classes     = $classeActionController->getAll();
     $sousClasses = $sousClasseActionController->getAll();
 ?>
 <!DOCTYPE html>

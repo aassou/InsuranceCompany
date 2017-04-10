@@ -4,9 +4,9 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $activiteATActionController = new AppController('activiteAT');
-    $compagnieActionController = new AppController('compagnie');
+    $compagnieActionController  = new AppController('compagnie');
     //objects and vars
-    $compagnies = $compagnieActionController->getAll();
+    $compagnies       = $compagnieActionController->getAll();
     $activiteATNumber = $activiteATActionController->getAllNumber(); 
     $p = 1;
     if ( $activiteATNumber != 0 ) {

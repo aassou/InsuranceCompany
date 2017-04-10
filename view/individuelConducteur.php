@@ -4,12 +4,12 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $individuelConducteurActionController = new AppController('individuelConducteur');
-    $compagnieActionController = new AppController('compagnie');
-    $usageActionController = new AppController('usage');
+    $compagnieActionController            = new AppController('compagnie');
+    $usageActionController                = new AppController('usage');
     //objects and vars
     $individuelConducteurs = $individuelConducteurActionController->getAll(); 
-    $compagnies = $compagnieActionController->getAll();
-    $usages = $usageActionController->getAll();
+    $compagnies            = $compagnieActionController->getAll();
+    $usages                = $usageActionController->getAll();
     /*$individuelConducteursNumber = $individuelConducteurActionController->getAllNumber(); 
     $p = 1;
     if ( $individuelConducteursNumber != 0 ) {

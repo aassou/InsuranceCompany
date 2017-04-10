@@ -3,15 +3,15 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $tarifRCActionController = new AppController('tarifRC');
-    $compagnieActionController = new AppController('compagnie');
-    $usageActionController = new AppController('usage');
-    $classeActionController = new AppController('classe');
+    $tarifRCActionController    = new AppController('tarifRC');
+    $compagnieActionController  = new AppController('compagnie');
+    $usageActionController      = new AppController('usage');
+    $classeActionController     = new AppController('classe');
     $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
     $compagnies = $compagnieActionController->getAll();
-    $usages = $usageActionController->getAll();
-    $classes = $classeActionController->getAll();
+    $usages     = $usageActionController->getAll();
+    $classes    = $classeActionController->getAll();
     //set pagination
     $tarifRCNumber = $tarifRCActionController->getAllNumber(); 
     $p = 1;

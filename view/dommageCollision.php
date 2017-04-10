@@ -4,15 +4,15 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $dommageCollisionActionController = new AppController('dommageCollision');
-    $compagnieActionController = new AppController('compagnie');
-    $usageActionController = new AppController('usage');
-    $classeActionController = new AppController('classe');
-    $sousClasseActionController = new AppController('sousClasse');
+    $compagnieActionController        = new AppController('compagnie');
+    $usageActionController            = new AppController('usage');
+    $classeActionController           = new AppController('classe');
+    $sousClasseActionController       = new AppController('sousClasse');
     //objects and vars
     $dommageCollisions = $dommageCollisionActionController->getAll();
-    $compagnies = $compagnieActionController->getAll();
-    $usages = $usageActionController->getAll();
-    $classes = $classeActionController->getAll();  
+    $compagnies        = $compagnieActionController->getAll();
+    $usages            = $usageActionController->getAll();
+    $classes           = $classeActionController->getAll();  
     /*$dommageCollisionsNumber = $dommageCollisionActionController->getAllNumber(); 
     $p = 1;
     if ( $dommageCollisionsNumber != 0 ) {

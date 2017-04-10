@@ -3,13 +3,13 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $PTAActionController = new AppController('PTA');
+    $PTAActionController       = new AppController('PTA');
     $compagnieActionController = new AppController('compagnie');
-    $usageActionController = new AppController('usage');
+    $usageActionController     = new AppController('usage');
     //get objects
     $compagnies = $compagnieActionController->getAll();
-    $usages = $usageActionController->getAll();
-    $PTAs = $PTAActionController->getAll(); 
+    $usages     = $usageActionController->getAll();
+    $PTAs       = $PTAActionController->getAll(); 
     /*$PTAsNumber = $PTAActionController->getAllNumber(); 
     $p = 1;
     if ( $PTAsNumber != 0 ) {

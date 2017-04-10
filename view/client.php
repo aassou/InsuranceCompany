@@ -5,7 +5,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $clientActionController = new AppController('client');
     //objects and vars
-    $clients = $clientActionController->getAll(); 
+    $clients       = $clientActionController->getAll(); 
     $clientsNumber = $clientActionController->getAllNumber(); 
     $p = 1;
     if ( $clientsNumber != 0 ) {

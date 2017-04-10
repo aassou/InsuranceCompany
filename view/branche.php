@@ -4,9 +4,9 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $compagnieActionController = new AppController('compagnie');
-    $brancheActionController = new AppController('branche');
+    $brancheActionController   = new AppController('branche');
     //objects and vars
-    $branches = $brancheActionController->getAll();
+    $branches   = $brancheActionController->getAll();
     $compagnies = $compagnieActionController->getAll();
 ?>
 <!DOCTYPE html>

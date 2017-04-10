@@ -4,12 +4,12 @@ session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
     $tarifFrontiereActionController = new AppController('tarifFrontiere');
-    $compagnieActionController = new AppController('compagnie');
-    $classeActionController = new AppController('classe');
-    $sousClasseActionController = new AppController('sousClasse');
+    $compagnieActionController      = new AppController('compagnie');
+    $classeActionController         = new AppController('classe');
+    $sousClasseActionController     = new AppController('sousClasse');
     //objects and vars
-    $compagnies = $compagnieActionController->getAll();
-    $classes = $classeActionController->getAll(); 
+    $compagnies      = $compagnieActionController->getAll();
+    $classes         = $classeActionController->getAll(); 
     $tarifFrontieres = $tarifFrontiereActionController->getAll(); 
     /*$tarifFrontieresNumber = $tarifFrontiereActionController->getAllNumber(); 
     $p = 1;

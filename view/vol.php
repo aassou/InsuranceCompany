@@ -3,16 +3,16 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controllers
-    $volActionController = new AppController('vol');
-    $compagnieActionController = new AppController('compagnie');
-    $usageActionController = new AppController('usage');
-    $classeActionController = new AppController('classe');
+    $volActionController        = new AppController('vol');
+    $compagnieActionController  = new AppController('compagnie');
+    $usageActionController      = new AppController('usage');
+    $classeActionController     = new AppController('classe');
     $sousClasseActionController = new AppController('sousClasse');
     //objects and vars
-    $vols = $volActionController->getAll(); 
+    $vols       = $volActionController->getAll(); 
     $compagnies = $compagnieActionController->getAll();
-    $usages = $usageActionController->getAll();
-    $classes = $classeActionController->getAll();
+    $usages     = $usageActionController->getAll();
+    $classes    = $classeActionController->getAll();
     /*$volsNumber = $volActionController->getAllNumber(); 
     $p = 1;
     if ( $volsNumber != 0 ) {
