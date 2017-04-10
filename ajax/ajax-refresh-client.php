@@ -2,7 +2,7 @@
 require('../app/classLoad.php');
 //Create Controller
 $clientActionController = new AppController('client');
-$keyword = '%'.$_POST['keyword'].'%';
+$keyword = htmlentities($_POST['keyword']);
 //get object
 $clients = $clientActionController->getAllByNom($keyword);
 foreach ($clients as $client) {

@@ -174,7 +174,7 @@ class ClientManager{
     public function getAllByNom($nom){
         $clients = array();
         $keyword = "%".$nom."%";
-        $query = $this->_db->prepare('SELECT * FROM t_client WHERE nom LIKE :keyword');
+        $query = $this->_db->prepare('SELECT * FROM t_client WHERE nom LIKE (:keyword) ORDER BY id ASC LIMIT 0, 10');
         $query->bindValue(':keyword', $keyword);
         $query->execute();      
         while($data = $query->fetch(PDO::FETCH_ASSOC)){
