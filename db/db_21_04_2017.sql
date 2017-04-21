@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `t_activiteat` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=644 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=644 ;
 
 --
 -- Contenu de la table `t_activiteat`
@@ -710,7 +710,7 @@ CREATE TABLE IF NOT EXISTS `t_attestation` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=81 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=81 ;
 
 --
 -- Contenu de la table `t_attestation`
@@ -750,7 +750,7 @@ CREATE TABLE IF NOT EXISTS `t_banque` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `t_banque`
@@ -778,7 +778,7 @@ CREATE TABLE IF NOT EXISTS `t_branche` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=285 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=285 ;
 
 --
 -- Contenu de la table `t_branche`
@@ -1085,7 +1085,7 @@ CREATE TABLE IF NOT EXISTS `t_classe` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
 
 --
 -- Contenu de la table `t_classe`
@@ -1135,7 +1135,7 @@ CREATE TABLE IF NOT EXISTS `t_classeat` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `t_classeat`
@@ -1198,7 +1198,7 @@ CREATE TABLE IF NOT EXISTS `t_client` (
   FULLTEXT KEY `adresse` (`adresse`),
   FULLTEXT KEY `nom_4` (`nom`),
   FULLTEXT KEY `generatedCode_3` (`generatedCode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7677 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7677 ;
 
 --
 -- Contenu de la table `t_client`
@@ -8898,7 +8898,7 @@ CREATE TABLE IF NOT EXISTS `t_codereglementsinistre` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `t_codereglementsinistre`
@@ -8940,7 +8940,7 @@ CREATE TABLE IF NOT EXISTS `t_commercial` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `t_commercial`
@@ -8978,7 +8978,7 @@ CREATE TABLE IF NOT EXISTS `t_compagnie` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `t_compagnie`
@@ -9050,7 +9050,7 @@ CREATE TABLE IF NOT EXISTS `t_contratauto` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `t_contratauto`
@@ -9083,7 +9083,7 @@ CREATE TABLE IF NOT EXISTS `t_defenserecours` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `t_defenserecours`
@@ -9129,7 +9129,7 @@ CREATE TABLE IF NOT EXISTS `t_dommagecollision` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `t_dommagecollision`
@@ -9159,7 +9159,7 @@ CREATE TABLE IF NOT EXISTS `t_expert` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `t_expert`
@@ -9193,7 +9193,7 @@ CREATE TABLE IF NOT EXISTS `t_fractionprimerc` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 --
 -- Contenu de la table `t_fractionprimerc`
@@ -9257,7 +9257,7 @@ CREATE TABLE IF NOT EXISTS `t_incendie` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Contenu de la table `t_incendie`
@@ -9331,7 +9331,7 @@ CREATE TABLE IF NOT EXISTS `t_individuelconducteur` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Contenu de la table `t_individuelconducteur`
@@ -9386,7 +9386,7 @@ CREATE TABLE IF NOT EXISTS `t_motifretourquittance` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `t_motifretourquittance`
@@ -9422,7 +9422,7 @@ CREATE TABLE IF NOT EXISTS `t_pta` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 --
 -- Contenu de la table `t_pta`
@@ -9470,7 +9470,7 @@ CREATE TABLE IF NOT EXISTS `t_region` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `t_region`
@@ -9496,7 +9496,7 @@ CREATE TABLE IF NOT EXISTS `t_sousclasse` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
 
 --
 -- Contenu de la table `t_sousclasse`
@@ -9583,7 +9583,7 @@ CREATE TABLE IF NOT EXISTS `t_tariffrontiere` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Contenu de la table `t_tariffrontiere`
@@ -9651,7 +9651,7 @@ CREATE TABLE IF NOT EXISTS `t_tarifrc` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2469 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2469 ;
 
 --
 -- Contenu de la table `t_tarifrc`
@@ -10699,7 +10699,7 @@ CREATE TABLE IF NOT EXISTS `t_tierce` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=162 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=162 ;
 
 --
 -- Contenu de la table `t_tierce`
@@ -10835,7 +10835,7 @@ CREATE TABLE IF NOT EXISTS `t_usage` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `t_usage`
@@ -10868,7 +10868,7 @@ CREATE TABLE IF NOT EXISTS `t_user` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `t_user`
@@ -10907,7 +10907,7 @@ CREATE TABLE IF NOT EXISTS `t_vol` (
   `updated` datetime DEFAULT NULL,
   `updatedBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=179 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=179 ;
 
 --
 -- Contenu de la table `t_vol`
