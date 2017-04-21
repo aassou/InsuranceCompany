@@ -72,8 +72,10 @@ class SousClasseManager{
 
 	public function getAllByLimits($begin, $end){
         $sousClasses = array();
-		$query = $this->_db->query('SELECT * FROM t_sousclasse
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->prepare('SELECT * FROM t_sousclasse ORDER BY id DESC LIMIT :begin, :end');
+        $query->bindValue(':begin', $begin, PDO::PARAM_INT);
+        $query->bindValue(':end', $end, PDO::PARAM_INT);
+        $query->execute();     
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$sousClasses[] = new SousClasse($data);
 		}

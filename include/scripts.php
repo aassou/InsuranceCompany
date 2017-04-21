@@ -26,4 +26,5 @@
 <![endif]-->
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/classes-sous-classes.js"></script>
+<script src="../assets/js/branche.js"></script>
 <script src="../assets/js/delete-element.js"></script>

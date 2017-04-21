@@ -16,7 +16,7 @@ class UserManager{
 		VALUES (:login, :password, :profil, :status, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':login', $user->login());
-		$query->bindValue(':password', $user->password());
+		$query->bindValue(':password', password_hash($user->password(), PASSWORD_DEFAULT));
 		$query->bindValue(':profil', $user->profil());
 		$query->bindValue(':status', $user->status());
 		$query->bindValue(':created', $user->created());
@@ -105,7 +105,10 @@ class UserManager{
 
 	public function getAllByLimits($begin, $end){
         $users = array();
-		$query = $this->_db->query('SELECT * FROM t_user ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->prepare('SELECT * FROM t_user ORDER BY id DESC LIMIT :begin, :end');
+        $query->bindValue(':begin', $begin, PDO::PARAM_INT);
+        $query->bindValue(':end', $end, PDO::PARAM_INT);
+        $query->execute();     
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$users[] = new User($data);
 		}

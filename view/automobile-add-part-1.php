@@ -8,6 +8,58 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
     //get objects
     $commercials = $commercialActionController->getAll();
     $regions     = $regionActionController->getAll();  
+    //backwards actions
+    $formValues = array();
+    if ( isset($_SESSION['form']) and $_SESSION['form']['name'] == 'client' ) {
+        $formValues = array(
+            'codeClient' => $_SESSION['form']['codeClient'], 
+            'typeClient' => $_SESSION['form']['typeClient'],
+            'civilite' => $_SESSION['form']['civilite'], 
+            'nom' => $_SESSION['form']['nom'], 
+            'cin' => $_SESSION['form']['cin'], 
+            'dateNaissance' => $_SESSION['form']['dateNaissance'],
+            'adresse' => $_SESSION['form']['adresse'],
+            'rue' => $_SESSION['form']['rue'],
+            'ville' => $_SESSION['form']['ville'],
+            'codeRegion' => $_SESSION['form']['codeRegion'],
+            'situationFamiliale' => $_SESSION['form']['situationFamiliale'], 
+            'activite' => $_SESSION['form']['activite'],
+            'tel1' => $_SESSION['form']['tel1'], 
+            'tel2' => $_SESSION['form']['tel2'], 
+            'fax' => $_SESSION['form']['fax'],
+            'email' => $_SESSION['form']['email'], 
+            'permis' => $_SESSION['form']['permis'], 
+            'datePermis' => $_SESSION['form']['datePermis'], 
+            'solvabilite' => $_SESSION['form']['solvabilite'],
+            'nombreIncident' => $_SESSION['form']['nombreIncident'], 
+            'idClient' => $_SESSION['form']['idClient'],
+            );
+    }
+    else {
+    	$formValues = array(
+            'codeClient' => '', 
+            'typeClient' => '',
+            'civilite' => '', 
+            'nom' => '', 
+            'cin' => '', 
+            'dateNaissance' => '',
+            'adresse' => '',
+            'rue' => '',
+            'ville' => '',
+            'codeRegion' => '',
+            'situationFamiliale' => '', 
+            'activite' => '',
+            'tel1' => '', 
+            'tel2' => '', 
+            'fax' => '',
+            'email' => '', 
+            'permis' => '', 
+            'datePermis' => '', 
+            'solvabilite' => '',
+            'nombreIncident' => '', 
+            'idClient' => '',
+            );
+    }
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -50,15 +102,15 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="row-fluid">
                                             <div class="span3">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="codeClient">Code Client</label>
+                                                    <label class="control-label" for="codeClient">Code Client <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <input required="required" type="text" id="codeClient" name="codeClient" class="m-wrap span12 bold">
+                                                        <input required="required" type="text" id="codeClient" name="codeClient" value="<?= $formValues['codeClient'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="span2">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="typeClient">Type Client</label>
+                                                    <label class="control-label" for="typeClient">Type Client <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
                                                         <select required="required" id="typeClient" name="typeClient" class="m-wrap span12 bold">
                                                             <option value="1">Particulier</option>
@@ -72,9 +124,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                             <div class="span1">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="civilite">Civilité</label>
+                                                    <label class="control-label" for="civilite">Civilité <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <select required="required" id="civilite" name="civilite" class="m-wrap span12 bold">
+                                                        <select required="required" id="civilite" name="civilite" value="<?= $formValues['civilite'] ?>" class="m-wrap span12 bold">
                                                             <option value="Monsieur">Monsieur</option>
                                                             <option value="Madame">Madame</option>
                                                             <option value="Mademoiselle">Mademoiselle</option>
@@ -84,18 +136,18 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                             <div class="span4">
                                                 <div class="control-group autocomplet_container">
-                                                    <label class="control-label" for="nom">Nom Client</label>
+                                                    <label class="control-label" for="nom">Nom Client <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <input required="required" type="text" id="nom" name="nom" class="m-wrap span12 bold" onkeyup="autocompletClient()">
+                                                        <input required="required" type="text" id="nom" name="nom" value="<?= $formValues['nom'] ?>" class="m-wrap span12 bold" onkeyup="autocompletClient()">
                                                         <ul id="clientList"></ul>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="span2">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="cin">CIN</label>
+                                                    <label class="control-label" for="cin">CIN <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <input type="text" id="cin" name="cin" class="m-wrap span12 bold">
+                                                        <input type="text" id="cin" name="cin" value="<?= $formValues['cin'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,10 +155,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="row-fluid">
                                             <div class="span3">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="dateCreation">Date de Naissance</label>
+                                                    <label class="control-label" for="dateNaissance">Date de Naissance <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
                                                         <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                            <input name="dateNaissance" id="dateNaissance" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
+                                                            <input name="dateNaissance" id="dateNaissance" class="m-wrap m-ctrl-small date-picker bold" type="text"  value="<?= $formValues['dateNaissance'] ?>" />
                                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                                         </div>
                                                     </div>
@@ -114,9 +166,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                             <div class="span3">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="adresse">Adresse</label>
+                                                    <label class="control-label" for="adresse">Adresse <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <input type="text" id="adresse" name="adresse" class="m-wrap span12 bold">
+                                                        <input type="text" id="adresse" name="adresse" value="<?= $formValues['adresse'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,7 +176,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="rue">Rue</label>
                                                     <div class="controls">
-                                                        <input type="text" id="rue" name="rue" class="m-wrap span12 bold">
+                                                        <input type="text" id="rue" name="rue" value="<?= $formValues['rue'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +184,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="ville">Ville</label>
                                                     <div class="controls">
-                                                        <input type="text" id="ville" name="ville" class="m-wrap span12 bold">
+                                                        <input type="text" id="ville" name="ville" value="<?= $formValues['ville'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -165,17 +217,17 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                             <div class="span2">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="activite">Activité</label>
+                                                    <label class="control-label" for="activite">Activité <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <input type="text" id="activite" name="activite" class="m-wrap span12 bold">
+                                                        <input type="text" id="activite" name="activite" value="<?= $formValues['activite'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="span2">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="tel1">Téléphone 1</label>
+                                                    <label class="control-label" for="tel1">Téléphone 1 <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <input type="text" id="tel1" name="tel1" class="m-wrap span12 bold">
+                                                        <input type="text" id="tel1" name="tel1" value="<?= $formValues['tel1'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +235,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="tel2">Téléphone 2</label>
                                                     <div class="controls">
-                                                        <input type="text" id="tel2" name="tel2" class="m-wrap span12 bold">
+                                                        <input type="text" id="tel2" name="tel2" value="<?= $formValues['tel2'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,7 +243,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="fax">Fax</label>
                                                     <div class="controls">
-                                                        <input type="text" id="fax" name="fax" class="m-wrap span12 bold">
+                                                        <input type="text" id="fax" name="fax" value="<?= $formValues['fax'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,7 +251,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="email">Email</label>
                                                     <div class="controls">
-                                                        <input type="email" id="email" name="email" class="m-wrap span12 bold">
+                                                        <input type="email" id="email" name="email" value="<?= $formValues['email'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -207,18 +259,18 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="row-fluid">
                                             <div class="span3">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="permis">Permis</label>
+                                                    <label class="control-label" for="permis">Permis <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
-                                                        <input type="text" id="permis" name="permis" class="m-wrap span12 bold">
+                                                        <input type="text" id="permis" name="permis" value="<?= $formValues['permis'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="span3">
                                                 <div class="control-group">
-                                                    <label class="control-label" for="datePermis">Date de Permis</label>
+                                                    <label class="control-label" for="datePermis">Date de Permis <sup class="red-asterisk">*</sup></label>
                                                     <div class="controls">
                                                         <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                            <input id="datePermis" name="datePermis" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
+                                                            <input id="datePermis" name="datePermis" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= $formValues['datePermis'] ?>" />
                                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                                         </div>
                                                     </div>
@@ -228,7 +280,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="solvabilite">Solvabilité</label>
                                                     <div class="controls">
-                                                        <input type="text" id="solvabilite" name="solvabilite" class="m-wrap span12 bold">
+                                                        <input type="text" id="solvabilite" name="solvabilite" value="<?= $formValues['solvabilite'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -236,7 +288,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <div class="control-group">
                                                     <label class="control-label" for="nombreIncident">Nombre Incidents</label>
                                                     <div class="controls">
-                                                        <input type="text" id="nombreIncident" name="nombreIncident" class="m-wrap span12 bold">
+                                                        <input type="text" id="nombreIncident" name="nombreIncident" value="<?= $formValues['nombreIncident'] ?>" class="m-wrap span12 bold">
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,8 +296,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="form-actions">
                                             <input type="hidden" name="action" value="add">
                                             <input type="hidden" name="source" value="client">
-                                            <input type="hidden" id="idClient" name="idClient" value="">
+                                            <input type="hidden" id="idClient" name="idClient" value="<?= $formValues['idClient'] ?>">
                                             <input type="hidden" id="generatedCode" name="generatedCode" value="<?= uniqid().date('YmdHis') ?>">
+                                            <p class="red-asterisk">* : Champs obligatoires</p>
                                             <a class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
                                             <button type="submit" class="btn blue">Continuer <i class="m-icon-swapright m-icon-white"></i></button>
                                         </div>
@@ -268,6 +321,16 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                    required: true
                },
                codeClient: {
+                   required: true,
+                   number: true
+               },
+               cin: {
+                   required: true
+               },
+               adresse: {
+                   required: true
+               },
+               permis: {
                    required: true
                }
              },

@@ -19,6 +19,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
     $usages      = $usageActionController->getAll();
     $branches    = $brancheActionController->getAll();
     $classes     = $classeActionController->getAll();
+    //set a session for form inputs comming from automobile-add-part-1 in case of backwards
+        if ( isset($_SESSION['form']) and $_SESSION['form']['name'] == 'contrat' ) {
+            
+    }
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -57,7 +61,6 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <div class="portlet-body">
                                     <div class="tabbable portlet-tabs">
                                         <ul class="nav nav-tabs">
-                                            <li><a href="#portlet_tab3" data-toggle="tab">Tab 3</a></li>
                                             <li><a href="#portlet_tab2" data-toggle="tab">Nouveau</a></li>
                                             <li class="active"><a href="#portlet_tab1" data-toggle="tab">Saisie par lot</a></li>
                                         </ul>
@@ -78,7 +81,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="codeCompagnie">Compagnie</label>
                                                                 <div class="controls">
-                                                                    <select required="required" id="codeCompagnie" name="codeCompagnie" class="m-wrap span12 bold">
+                                                                    <select required="required" id="codeCompagnie" name="idCompagnie" class="m-wrap span12 bold">
                                                                         <?php foreach ( $compagnies as $compagnie ) { ?>
                                                                         <option value="<?= $compagnie->id() ?>"><?= $compagnie->id()." : ".$compagnie->raisonSociale() ?></option>
                                                                         <?php } ?>
@@ -153,7 +156,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 <div class="controls">
                                                                     <select required="required" id="apporteur" name="apporteur" class="m-wrap span12 bold">
                                                                         <?php foreach ( $commercials as $commercial ) { ?>    
-                                                                        <option value="<?= $commercial->id() ?>"><?= $commercial->raisonSocial() ?></option>
+                                                                        <option value="<?= $commercial->raisonSocial() ?>"><?= $commercial->raisonSocial() ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
@@ -163,7 +166,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="branche">Branche</label>
                                                                 <div class="controls">
-                                                                    <select required="required" id="branche" name="branche" class="m-wrap span12 bold" onchange="getBranche()">
+                                                                    <select required="required" id="branche" name="idBranche" class="m-wrap span12 bold">
                                                                         <?php foreach ( $branches as $branche ) { ?>    
                                                                         <option value="<?= $branche->id() ?>"><?= $branche->code()." : ".$branche->designation() ?></option>
                                                                         <?php } ?>
@@ -175,7 +178,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="usage">Usage</label>
                                                                 <div class="controls">
-                                                                    <select required="required" id="usage" name="usage" class="m-wrap span12 bold">
+                                                                    <select required="required" id="usage" name="idUsage" class="m-wrap span12 bold">
                                                                         <?php foreach ( $usages as $usage ) { ?>    
                                                                         <option value="<?= $usage->id() ?>"><?= $usage->code() ?></option>
                                                                         <?php } ?>
@@ -187,7 +190,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="codeClasse">Classe</label>
                                                                 <div class="controls">
-                                                                    <select required="required" id="codeClasse" name="codeClasse" class="m-wrap span12 bold" onchange="getSousClasse('')">
+                                                                    <select required="required" id="codeClasse" name="idClasse" class="m-wrap span12 bold" onchange="getSousClasse('')">
                                                                         <?php foreach ( $classes as $classe ) { ?>    
                                                                         <option value="<?= $classe->code() ?>"><?= $classe->code() ?></option>
                                                                         <?php } ?>
@@ -199,7 +202,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="codeSousClasse">SousClasse</label>
                                                                 <div class="controls">
-                                                                    <select required="required" id="codeSousClasse" name="codeSousClasse" class="m-wrap span12 bold">
+                                                                    <select required="required" id="codeSousClasse" name="idSousClasse" class="m-wrap span12 bold">
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -321,15 +324,15 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="primeRC">Prime RC</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="primeRC" name="primeRC" class="m-wrap span12 bold">
+                                                                    <input type="text" id="primeRC" name="primeRC" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label bold" for="defenceRecours">Défense/Recours</label>
+                                                                <label class="control-label bold" for="defenseRecours">Défense/Recours</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="defenceRecours" name="defenceRecours" class="m-wrap span12 bold">
+                                                                    <input type="text" id="defenseRecours" name="defenseRecours" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -337,7 +340,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="tierce">Tierce</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="tierce" name="tierce" class="m-wrap span12 bold">
+                                                                    <input type="text" id="tierce" name="tierce" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -345,7 +348,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="collision">Collision</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="collision" name="collision" class="m-wrap span12 bold">
+                                                                    <input type="text" id="collision" name="collision" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -353,7 +356,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="vol">Vol</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="vol" name="vol" class="m-wrap span12 bold">
+                                                                    <input type="text" id="vol" name="vol" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -361,7 +364,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="incendie">Incendie</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="incendie" name="incendie" class="m-wrap span12 bold">
+                                                                    <input type="text" id="incendie" name="incendie" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -369,7 +372,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="brisGlace">Bris Glace</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="brisGlace" name="brisGlace" class="m-wrap span12 bold">
+                                                                    <input type="text" id="brisGlace" name="brisGlace" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -377,7 +380,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="individuel">Individuel</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="individuel" name="individuel" class="m-wrap span12 bold">
+                                                                    <input type="text" id="individuel" name="individuel" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -387,23 +390,31 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="primeNette">Prime Nette</label>
                                                                 <div class="controls">
-                                                                    <input style="background-color: #7FDBFF" type="text" id="primeNette" name="primeNette" class="m-wrap span12 bold">
+                                                                    <input style="background-color: #7FDBFF" type="text" id="primeNette" name="primeNette" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="montantTaxeAuto">Montant Taxe Auto</label>
+                                                                <label class="control-label" for="montantTaxeAuto">Taxe Auto</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="montantTaxeAuto" name="montantTaxeAuto" class="m-wrap span12 bold">
+                                                                    <input type="text" id="montantTaxeAuto" name="taxeAuto" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="timbre">Timbre</label>
+                                                                <label class="control-label" for="montantTaxePTA">Taxe PTA</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="timbre" name="timbre" class="m-wrap span12 bold" value="37">
+                                                                    <input type="text" id="montantTaxePTA" name="taxePTA" value="0" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="totalTaxe">Total Taxe</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="totalTaxe" name="totalTaxe" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -411,23 +422,23 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="montantPTA">Montant PTA</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="montantPTA" name="montantPTA" class="m-wrap span12 bold">
+                                                                    <input type="text" id="montantPTA" name="montantPTA" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span2">
+                                                        <div class="span1">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="montantTaxePTA">Montant Taxe PTA</label>
+                                                                <label class="control-label" for="timbre">Timbre</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="montantTaxePTA" name="montantTaxePTA" class="m-wrap span12 bold">
+                                                                    <input type="text" id="timbre" name="timbre" value="37" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span2">
+                                                        <div class="span1">
                                                             <div class="control-group">
                                                                 <label class="control-label" for="accessoires">Accessoires</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="accessoires" name="accessoires" class="m-wrap span12 bold">
+                                                                    <input type="text" id="accessoires" name="accessoires" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -437,15 +448,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label bold" for="primeTotale">Prime Totale</label>
                                                                 <div class="controls">
-                                                                    <input style="background-color: #39CCCC" type="text" id="primeTotale" name="primeTotale" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span1">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="totalTaxe">Total Taxe</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="totalTaxe" name="totalTaxe" class="m-wrap span12 bold">
+                                                                    <input style="background-color: #39CCCC" type="text" id="primeTotale" name="primeTotale" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -453,15 +456,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="commissionAuto">Commission Auto</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="commissionAuto" name="commissionAuto" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span1">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="tpsAuto">TPS Auto</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="tpsAuto" name="tpsAuto" class="m-wrap span12 bold">
+                                                                    <input type="text" id="commissionAuto" name="commissionAuto" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -469,15 +464,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="commissionPTA">Commission PTA</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="commissionPTA" name="commissionPTA" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span1">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="tpsPTA">TPS PTA</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="tpsPTA" name="tpsPTA" class="m-wrap span12 bold">
+                                                                    <input type="text" id="commissionPTA" name="commissionPTA" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -485,24 +472,39 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="totalCommission">Total commission</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="totalCommission" name="totalCommission" class="m-wrap span12 bold">
+                                                                    <input type="text" id="totalCommission" name="totalCommission" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span1">
                                                             <div class="control-group">
+                                                                <label class="control-label" for="tpsAuto">TPS Auto</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="tpsAuto" name="TPSAuto" value="0" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span1">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="tpsPTA">TPS PTA</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="tpsPTA" name="TPSPTA" value="0" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
                                                                 <label class="control-label" for="TotalTPS">Total TPS</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="TotalTPS" name="TotalTPS" class="m-wrap span12 bold">
+                                                                    <input type="text" id="totalTPS" name="totalTPS" value="0" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-actions">
                                                         <input type="hidden" name="action" value="add">
-                                                        <input type="hidden" name="source" value="contrat">
-                                                        <input type="hidden" id="brancheCommssion" name="brancheCommission" value="">
-                                                        <input type="hidden" id="brancheTax" name="brancheTax" value="">
+                                                        <input type="hidden" name="source" value="contratAuto">
+                                                        <input type="hidden" id="codeClient" name="codeClient" value="<?= $codeClient ?>">
                                                         <div id="brancheSection"></div>
                                                         <input type="hidden" id="generatedCode" name="generatedCode" value="<?= uniqid().date('YmdHis') ?>">
                                                         <a href="automobile-add-part-1.php" class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
@@ -518,14 +520,6 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat
                                                 </p>
                                             </div>
-                                            <div class="tab-pane" id="portlet_tab3">
-                                                <p>
-                                                    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   
-                                                </p>
-                                                <p>
-                                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
-                                                </p>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -539,30 +533,185 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         <?php include('../include/scripts.php'); ?>
         <script src="../assets/js/autocomplete.js" type="text/javascript"></script>     
         <script>
-        jQuery(document).ready( function(){ App.setPage("table_managed"); App.init(); } );
-        $("#automobile-add-part-2").validate({
-             rules:{
-               nomClient: {
-                   required: true
-               },
-               codeClient: {
-                   required: true
-               }
-             },
-             errorClass: "error-class",
-             validClass: "valid-class"
-        });
-        $('#primeRC, #defenceRecours, #tierce, #collision, #vol, #incendie, #brisGlace, #individuel').change(function(){
-            var primeRC = +$('#primeRC').val();
-            var defenceRecours = +$('#defenceRecours').val();
-            var tierce = +$('#tierce').val();
-            var collision = +$('#collision').val();
-            var vol = +$('#vol').val();
-            var incendie = +$('#incendie').val();
-            var brisGlace = +$('#brisGlace').val();
-            var individuel = +$('#individuel').val();
-            var primeNette = primeRC + defenceRecours + tierce + collision + vol + incendie + brisGlace + individuel;
-            $('#primeNette').val(primeNette);
+        jQuery(document).ready( function(){ 
+            App.setPage("table_managed"); 
+            App.init();
+            //declare and initialize variables
+            var brancheCommission = 0, brancheTax = 0, primeRC = 0, defenseRecours = 0, tierce = 0, 
+            collision = 0, vol = 0, incendie = 0, brisGlace = 0, individuel = 0, primeNette = 0, 
+            montantTaxAuto = 0, montantTaxPTA = 0, totalTaxe, tpsAuto = 0, tpsPTA = 0, totalTPS = 0, 
+            commissionAuto = 0, commissionPTA =0, totalCommission = 0, primeTotale = 0, accessoires = 0,
+            timbre = 37, dateEffet = '', dateProduction = '' , dateEcheance = '';
+            //Dates sections
+            var dateProduction = $('#dateProduction').val();
+            var dateEffet      = $('#dateProduction').val();
+            var dateEcheance   = $('#dateProduction').val();
+            var nombreMois     = +$('#nombreMois').val();
+            dateEffet          = new Date(dateEffet);
+            dateEcheance       = new Date(dateEcheance);
+            dateProduction     = new Date(dateProduction);
+            //alert(dateEffet.toString('yyyy-MM-dd'));
+            dateEffet.setDate(dateEffet.getDate()+1);
+            $('#dateEffet').val(dateEffet.toString('yyyy-MM-dd'));
+            dateEcheance.setDate(dateEcheance.getDate()+1);
+            dateEcheance.setMonth(dateEcheance.getMonth() + nombreMois);
+            $('#dateEcheance').val(dateEcheance.toString('yyyy-MM-dd'));
+            //onload processing begins
+            var id             = "#branche";
+            var branche        = $(id).val();
+            var brancheSection = "#brancheSection";
+            var data           = 'branche='+branche;
+            $.ajax({
+                type: "POST",
+                url: "../ajax/branches.php",
+                data: data,
+                cache: false,
+                success: function(html){
+                    $(brancheSection).html(html);
+                    brancheCommission = +$('#brancheCommission').val();
+                    brancheTax        = +$('#brancheTax').val(); 
+                    primeRC           = +$('#primeRC').val();
+                    montantTaxAuto    = (primeRC * brancheTax / 100) +
+                    ( (14/100) * (defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel) );
+                    montantTaxPTA     = 0;
+                    totalTaxe          = montantTaxAuto + montantTaxPTA;
+                    tpsAuto           = (12.281 / 100) * 
+                    (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
+                    tpsPTA            = 0;
+                    totalTPS          = tpsAuto + tpsPTA;
+                    commissionAuto    = (brancheCommission / 100) *
+                    (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
+                    commissionPTA     = 0;
+                    totalCommission   = 0;
+                    primeTotale       = 0 + primeNette + timbre + totalTaxe + accessoires; 
+                    $('#montantTaxeAuto').val(montantTaxAuto);
+                    $('#montantTaxePTA').val(montantTaxPTA);
+                    $('#totalTaxe').val(totalTaxe);
+                    $('#tpsAuto').val(tpsAuto);
+                    $('#tpsPTA').val(tpsPTA);
+                    $('#totalTPS').val(totalTPS);
+                    $('#commissionAuto').val(commissionAuto);
+                    $('#commissionPTA').val(commissionPTA);
+                    $('#totalCommission').val(totalCommission);
+                    $('#primeTotale').val(primeTotale);
+                }
+            });
+            //onload processing ends
+            //onchange dates begins
+            $('#nombreMois').change(function(){
+                dateProduction = $('#dateProduction').val();
+                dateEffet      = $('#dateProduction').val();
+                dateEcheance   = $('#dateProduction').val();
+                nombreMois     = +$('#nombreMois').val();
+                dateEffet      = new Date(dateEffet);
+                dateEcheance   = new Date(dateEcheance);
+                dateProduction = new Date(dateProduction);
+                //alert(dateEffet.toString('yyyy-MM-dd'));
+                dateEffet.setDate(dateEffet.getDate()+1);
+                $('#dateEffet').val(dateEffet.toString('yyyy-MM-dd'));
+                dateEcheance.setDate(dateEcheance.getDate()+1);
+                dateEcheance.setMonth(dateEcheance.getMonth() + nombreMois);
+                $('#dateEcheance').val(dateEcheance.toString('yyyy-MM-dd'));    
+            });
+            $('#dateProduction').datepicker().on('changeDate', function(){
+                dateProduction = $('#dateProduction').val();
+                dateEffet      = $('#dateProduction').val();
+                dateEcheance   = $('#dateProduction').val();
+                nombreMois     = +$('#nombreMois').val();
+                dateEffet      = new Date(dateEffet);
+                dateEcheance   = new Date(dateEcheance);
+                dateProduction = new Date(dateProduction);
+                //alert(dateEffet.toString('yyyy-MM-dd'));
+                dateEffet.setDate(dateEffet.getDate()+1);
+                $('#dateEffet').val(dateEffet.toString('yyyy-MM-dd'));
+                dateEcheance.setDate(dateEcheance.getDate()+1);
+                dateEcheance.setMonth(dateEcheance.getMonth() + nombreMois);
+                $('#dateEcheance').val(dateEcheance.toString('yyyy-MM-dd'));    
+            });
+            //onchange dates ends
+            //primeRC... onchange begins 
+            $('#primeRC, #defenseRecours, #tierce, #collision, #vol, #incendie, #brisGlace, #individuel').change(function(){
+                brancheCommission = +$('#brancheCommission').val();
+                brancheTax        = +$('#brancheTax').val(); 
+                primeRC           = +$('#primeRC').val();
+                defenseRecours    = +$('#defenseRecours').val();
+                tierce            = +$('#tierce').val();
+                collision         = +$('#collision').val();
+                vol               = +$('#vol').val();
+                incendie          = +$('#incendie').val();
+                brisGlace         = +$('#brisGlace').val();
+                individuel        = +$('#individuel').val();
+                primeNette        = primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel;
+                montantTaxAuto    = (primeRC * brancheTax / 100) +
+                ( (14/100) * (defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel) );
+                montantTaxPTA     = 0;
+                totalTaxe          = montantTaxAuto + montantTaxPTA;
+                tpsAuto           = (12.281 / 100) * 
+                (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
+                tpsPTA            = 0;
+                totalTPS          = tpsAuto + tpsPTA;
+                commissionAuto    = (brancheCommission / 100) *
+                (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
+                commissionPTA     = 0;
+                totalCommission   = 0;
+                (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
+                primeTotale       = 0 + primeNette + timbre + totalTaxe + accessoires;
+                $('#primeNette').val(primeNette);
+                $('#montantTaxeAuto').val(montantTaxAuto);
+                $('#montantTaxePTA').val(montantTaxPTA);
+                $('#totalTaxe').val(totalTaxe);
+                $('#tpsAuto').val(tpsAuto);
+                $('#tpsPTA').val(tpsPTA);
+                $('#totalTPS').val(totalTPS);
+                $('#commissionAuto').val(commissionAuto);
+                $('#commissionPTA').val(commissionPTA);
+                $('#totalCommission').val(totalCommission);
+                $('#primeTotale').val(primeTotale);
+            });
+            //primeRC... onchange ends
+            //branche onchange begins
+            $('#branche').change(function(){
+                id             = "#branche";
+                branche        = $(id).val();
+                brancheSection = "#brancheSection";
+                data           = 'branche='+branche;
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/branches.php",
+                    data: data,
+                    cache: false,
+                    success: function(html){
+                        $(brancheSection).html(html);
+                        brancheCommission = +$('#brancheCommission').val();
+                        brancheTax        = +$('#brancheTax').val(); 
+                        primeRC           = +$('#primeRC').val();
+                        montantTaxAuto    = primeRC * brancheTax / 100;
+                        $('#montantTaxeAuto').val(montantTaxAuto);
+                        $('#tpsAuto').val(tpsAuto);
+                        $('#commissionAuto').val(commissionAuto);
+                    }
+                });
+            });
+            //branche onchange ends
+            //validate form begins
+            $("#automobile-add-part-2").validate({
+                 rules:{
+                   police: {
+                       required: true,
+                       number: true
+                   },
+                   attestation: {
+                       required: true,
+                       number: true
+                   },
+                   branche: {
+                       required: true
+                   }
+                 },
+                 errorClass: "error-class",
+                 validClass: "valid-class"
+            });
+            //validate form ends
         });
         </script>
     </body>

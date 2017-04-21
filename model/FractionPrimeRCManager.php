@@ -72,8 +72,10 @@ class FractionPrimeRCManager{
 
 	public function getAllByLimits($begin, $end){
         $fractionPrimeRCs = array();
-		$query = $this->_db->query('SELECT * FROM t_fractionprimerc
-        ORDER BY codeCompagnie ASC, nombreMois ASC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->prepare('SELECT * FROM t_fractionprimerc ORDER BY codeCompagnie ASC, nombreMois ASC LIMIT :begin, :end');
+        $query->bindValue(':begin', $begin, PDO::PARAM_INT);
+        $query->bindValue(':end', $end, PDO::PARAM_INT);
+        $query->execute(); 
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$fractionPrimeRCs[] = new FractionPrimeRC($data);
 		}

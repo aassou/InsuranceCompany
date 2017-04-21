@@ -218,7 +218,19 @@ class ValidationController {
                 else if ( empty($formInputs['idClient']) ) {
                     //Case 1 :  if we try to force the creation of an existing customer
                     //we get an error message indicating that we do have a customer with that name 
-                    if( !empty($formInputs['codeClient'])){
+                    if( !empty($formInputs['codeClient'])
+                        and !empty($formInputs['typeClient']) 
+                        and !empty($formInputs['nom'])
+                        and !empty($formInputs['cin'])
+                        and !empty($formInputs['civilite'])
+                        and !empty($formInputs['dateNaissance'])
+                        and !empty($formInputs['adresse'])
+                        and !empty($formInputs['activite'])
+                        and !empty($formInputs['tel1'])
+                        and !empty($formInputs['permis'])
+                        and !empty($formInputs['datePermis'])
+                        and filter_var($formInputs['codeClient'], FILTER_VALIDATE_INT)
+                     ){
                         $codeClient = htmlentities($formInputs['codeClient']);
                         if( $this->_manager->exist($codeClient) ){
                             $this->_message = "<strong>Erreur Création Client : </strong>Un client existe déjà avec ce code : <strong>".$codeClient."</strong>.";
@@ -235,14 +247,32 @@ class ValidationController {
                     }
                     //This is a simple form validation, the field Nom should not be empty
                     else{
-                        $this->_message = "<strong>Erreur Création Client : </strong>Vous devez remplir au moins le champ <strong>&lt;Nom&gt;</strong>.";
-                        $this->_target = $this->_source.".php";
+                        $this->_message = "<strong>Erreur Création Client : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup>.";
+                        $this->_target = "automobile-add-part-1.php";
                         return 0;
                     }   
                 }
             }
         }
         //Client Object Test Validation Ends
+        //ContratAuto Object Test Validation Begins
+        else if ( $this->_source == "contratAuto" ){
+            $manager = ucfirst($this->_source).'Manager';
+            $this->_manager = new $manager(PDOFactory::getMysqlConnection());
+            if($action == "add") {
+                if ( !empty($formInputs['codeClient']) ) {
+                    $this->_message = "<strong>Opération Valide : </strong>Contrat Assurance Auto Ajouté avec succès.";
+                    $this->_target = "automobile.php";
+                    return 1;   
+                }
+                else{
+                    $this->_message = "<strong>Erreur Création Contrat Assurance Auto : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup>.";
+                    $this->_target = "automobile-add-part-2.php?generatedCode=".$formInputs['codeClient'];
+                    return 0;
+                }   
+            }
+        }
+        //ContratAuto Object Test Validation Ends
         //Other Object Test Validation Begins
         else {
             $this->_message = "Opération Valide: Ligne ajoutée avec succès";

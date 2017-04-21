@@ -100,8 +100,10 @@ class TarifRCManager{
 
 	public function getAllByLimits($begin, $end){
         $tarifRCs = array();
-		$query = $this->_db->query('SELECT * FROM t_tarifrc
-        ORDER BY id ASC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->prepare('SELECT * FROM t_tarifrc ORDER BY id ASC LIMIT :begin, :end');
+        $query->bindValue(':begin', $begin, PDO::PARAM_INT);
+        $query->bindValue(':end', $end, PDO::PARAM_INT);
+        $query->execute();     
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$tarifRCs[] = new TarifRC($data);
 		}

@@ -96,8 +96,10 @@ class CompagnieManager{
 
 	public function getAllByLimits($begin, $end){
         $compagnies = array();
-		$query = $this->_db->query('SELECT * FROM t_compagnie
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->prepare('SELECT * FROM t_compagnie ORDER BY id DESC LIMIT :begin, :end');
+        $query->bindValue(':begin', $begin, PDO::PARAM_INT);
+        $query->bindValue(':end', $end, PDO::PARAM_INT);
+        $query->execute(); 
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$compagnies[] = new Compagnie($data);
 		}

@@ -2,6 +2,12 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
+    $contratActionController = new AppController('contratAuto');
+    $clientActionController  = new AppController('client');
+    $usageActionController       = new AppController('usage');
+    $compagnieActionController   = new AppController('compagnie');
+    //get objects
+    $contrats     = $contratActionController->getAll();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -47,54 +53,48 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
-                                                <th class="t5">Cie</th>
-                                                <th class="t10">RéfCab</th>
-                                                <th class="t10">Client</th>
+                                                <th class="t15">Actions</th>
+                                                <th class="t20">Compagnie</th>
+                                                <th class="t20">Client</th>
+                                                <th class="t10">Attestation</th>
                                                 <th class="t10">Police</th>
-                                                <th class="t10">Avn</th>
-                                                <th class="t10">Matri</th>
-                                                <th class="t10">Attest</th>
-                                                <th class="t10">DEffet</th>
-                                                <th class="t10">DExpir</th>
-                                                <th class="t10">PrTotal</th>
-                                                <th class="t5">Type</th>
-                                                <th class="t10">QuitCabi</th>
+                                                <th class="t15">Date Echéance</th>
+                                                <th class="t10">Prime Totale</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             //if ( $attestationsNumber != 0 ) { 
-                                            //foreach ( $attestations as $attestation ) {
+                                            foreach ( $contrats as $contrat ) {
                                             ?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>
+                                                    <a href="contrat-auto-update.php?idContrat=<?= $contrat->id() ?>" class="btn mini" title="Voire"><i class="icon-eye-open"></i></a>
+                                                    <a class="btn mini green" title="Modifier"><i class="icon-refresh"></i></a>
+                                                    <a href="#deleteContratAuto<?= $contrat->id() ?>" data-toggle="modal" data_id="<?= $contrat->id() ?>" class="btn mini red" title="Supprimer"><i class="icon-remove"></i></a>
+                                                </td>
+                                                <td><?= $compagnieActionController->getOneById($contrat->idCompagnie())->raisonSociale() ?></td>
+                                                <td><?= $clientActionController->getOneByCode($contrat->codeClient())->nom() ?></td>
+                                                <td><?= $contrat->attestation() ?></td>
+                                                <td><?= $contrat->police() ?></td>
+                                                <td><?= date('d/m/Y', strtotime($contrat->dateEcheance())) ?></td>
+                                                <td><?= number_format($contrat->primeTotale(), 2, ',', ' ') ?></td>
                                             </tr>
-                                            <!-- deleteAttestation box begin -->
-                                            <div id="deleteAttestation<?php //$attestation->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+                                            <!-- deleteContratAuto box begin -->
+                                            <div id="deleteContratAuto<?= $contrat->id() ?>" class="modal modal-big hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h3>Supprimer Attestation</h3>
+                                                    <h3>Supprimer Contrat Assurance Auto</h3>
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Attestation :  ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer ce contrat :  ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="attestation" />    
+                                                                <input type="hidden" name="source" value="automobile" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -104,7 +104,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                             <!-- deleteAttestation box end --> 
                                             <?php 
-                                            //}//end foreach 
+                                            }//end foreach 
                                             //}//end if
                                             ?>
                                         </tbody>

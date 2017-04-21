@@ -1,13 +1,13 @@
-function getBranche(){
-    //alert(idClasse);
-    var idBranche = "#branche";
-    //alert(id);
-    var branche = $(id).val();
+function getBranche(idBranche){
+    alert(idBranche);
+    var id             = "#branche"+idBranche;
+    alert(id);
+    var branche        = $(id).val();
     var brancheSection = "#brancheSection";
-    var data = 'idBranche='+branche;
+    var data = 'branche='+branche;
     $.ajax({
         type: "POST",
-        url: "../ajax/branche.php",
+        url: "../ajax/branches.php",
         data: data,
         cache: false,
         success: function(html){

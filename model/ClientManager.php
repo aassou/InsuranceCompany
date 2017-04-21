@@ -161,8 +161,8 @@ class ClientManager{
 	public function getAllByLimits($begin, $end){
         $clients = array();
 		$query = $this->_db->prepare('SELECT * FROM t_client ORDER BY id DESC LIMIT :begin, :end');
-        $query->bindValue(':begin', $begin);
-        $query->bindValue(':end', $end);
+        $query->bindValue(':begin', $begin, PDO::PARAM_INT);
+        $query->bindValue(':end', $end, PDO::PARAM_INT);
         $query->execute();      
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$clients[] = new Client($data);

@@ -1,6 +1,6 @@
 <?php
 if ( isset($_POST['branche']) ) {
-    $idBranche = htmlentities($_POST['idBranche']);
+    $idBranche = htmlentities($_POST['branche']);
     $requete = "SELECT * FROM t_branche WHERE id = '".$idBranche."'";
     try{
         $bdd = new PDO('mysql:host=localhost;dbname=amazigh_assurances', 'root', '');
@@ -10,8 +10,8 @@ if ( isset($_POST['branche']) ) {
     }
     $resultat = $bdd->query($requete) or die(print_r($bdd->errorInfo()));
     while($donnees = $resultat->fetch(PDO::FETCH_ASSOC)) {
-        $res = '<input type="hidden" id="brancheTauxCommission" value="'.$donnees['tauxCommission'].'">';
-        $res = '<input type="hidden" id="brancheTauxTaxe" value="'.$donnees['tauxTaxe'].'">';
+        $res = '<input type="hidden" id="brancheCommission" value="'.$donnees['tauxCommission'].'">';
+        $res .= '<input type="hidden" id="brancheTax" value="'.$donnees['tauxTaxe'].'">';
         echo $res;
     }
 }

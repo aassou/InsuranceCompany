@@ -80,8 +80,10 @@ class AttestationManager{
 
 	public function getAllByLimits($begin, $end){
         $attestations = array();
-		$query = $this->_db->query('SELECT * FROM t_attestation
-        ORDER BY id DESC LIMIT '.$begin.', '.$end);
+		$query = $this->_db->prepare('SELECT * FROM t_attestation ORDER BY id DESC LIMIT :begin, :end');
+        $query->bindValue(':begin', $begin, PDO::PARAM_INT);
+        $query->bindValue(':end', $end, PDO::PARAM_INT);
+        $query->execute();
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$attestations[] = new Attestation($data);
 		}
@@ -103,5 +105,16 @@ class AttestationManager{
 		$id = $data['last_id'];
 		return $id;
 	}
+    
+    public function exists($number){
+        $attestations = array();
+        $attestations = $this->getAll();
+        foreach ($attestations as $attestation){
+            if ( $number >= $attestation->numeroDebut() and $number <= $attestation->numeroFin() ) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
