@@ -1,9 +1,10 @@
 <?php
+require ('../app/classLoad.php');
 if ( isset($_POST['branche']) ) {
     $idBranche = htmlentities($_POST['branche']);
     $requete = "SELECT * FROM t_branche WHERE id = '".$idBranche."'";
     try{
-        $bdd = new PDO('mysql:host=localhost;dbname=amazigh_assurances', 'root', '');
+        $bdd = PDOFactory::getMysqlConnection();
     } 
     catch(Exception $e){
         exit('Impossible de se connecter à la base de données.');

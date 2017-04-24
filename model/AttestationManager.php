@@ -106,15 +106,17 @@ class AttestationManager{
 		return $id;
 	}
     
-    public function exists($number){
+    public function exist($number){
         $attestations = array();
         $attestations = $this->getAll();
+        $counter      = 0;
         foreach ($attestations as $attestation){
             if ( $number >= $attestation->numeroDebut() and $number <= $attestation->numeroFin() ) {
-                return true;
+                $counter++;
+                break;    
             }
         }
-        return false;
+        return $counter;
     }
 
 }

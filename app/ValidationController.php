@@ -257,16 +257,19 @@ class ValidationController {
         //Client Object Test Validation Ends
         //ContratAuto Object Test Validation Begins
         else if ( $this->_source == "contratAuto" ){
-            $manager = ucfirst($this->_source).'Manager';
-            $this->_manager = new $manager(PDOFactory::getMysqlConnection());
+            $attestationActionController = new AppController('attestation');
+            $contratAutoActionController = new AppController('contratAuto');
             if($action == "add") {
-                if ( !empty($formInputs['codeClient']) ) {
+                if ( !empty($formInputs['codeClient']) and 
+                        ($attestationActionController->exist($numberAttestation) == 0 or
+                        $contratAutoActionController->exist($numberAttestation) != 0)
+                ) {
                     $this->_message = "<strong>Opération Valide : </strong>Contrat Assurance Auto Ajouté avec succès.";
                     $this->_target = "automobile.php";
                     return 1;   
                 }
                 else{
-                    $this->_message = "<strong>Erreur Création Contrat Assurance Auto : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup>.";
+                    $this->_message = "<strong>Erreur Création Contrat Assurance Auto : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
                     $this->_target = "automobile-add-part-2.php?generatedCode=".$formInputs['codeClient'];
                     return 0;
                 }   

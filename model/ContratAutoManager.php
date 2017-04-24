@@ -187,11 +187,17 @@ class ContratAutoManager{
     }
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_contratauto
-		ORDER BY id DESC LIMIT 0, 1');
+        $query = $this->_db->query('SELECT id AS last_id FROM t_contratauto ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];
 		return $id;
 	}
+    
+    public function exist($element){
+        $query = $this->_db->prepare('SELECT attestation FROM t_contratauto WHERE attestation=:attestation');
+        $query->bindValue(':attestation', $element, PDO::PARAM_INT);
+        $query->execute();
+        return (bool) $query->fetchColumn();
+    }
 
 }

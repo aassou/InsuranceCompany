@@ -3,24 +3,27 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controller
-    $compagnieController        = new AppController('compagnie');
-    $regionActionController     = new AppController('region');
-    $commercialActionController = new AppController('commercial');
-    $clientActionController     = new AppController('client');
-    $usageActionController      = new AppController('usage');
-    $brancheActionController    = new AppController('branche');
-    $classeActionController     = new AppController('classe');
+    $compagnieController         = new AppController('compagnie');
+    $regionActionController      = new AppController('region');
+    $commercialActionController  = new AppController('commercial');
+    $clientActionController      = new AppController('client');
+    $usageActionController       = new AppController('usage');
+    $brancheActionController     = new AppController('branche');
+    $classeActionController      = new AppController('classe');
+    $attestationActionController = new AppController('attestation');
+    $contratAutoActionController = new AppController('contratAuto');
     //get objects
-    $codeClient  = $_GET['generatedCode'];
-    $compagnies  = $compagnieController->getAll();
-    $client      = $clientActionController->getOneByCode($codeClient);
-    $commercials = $commercialActionController->getAll();
-    $regions     = $regionActionController->getAll();  
-    $usages      = $usageActionController->getAll();
-    $branches    = $brancheActionController->getAll();
-    $classes     = $classeActionController->getAll();
+    $codeClient   = $_GET['generatedCode'];
+    $compagnies   = $compagnieController->getAll();
+    $client       = $clientActionController->getOneByCode($codeClient);
+    $commercials  = $commercialActionController->getAll();
+    $regions      = $regionActionController->getAll();  
+    $usages       = $usageActionController->getAll();
+    $branches     = $brancheActionController->getAll();
+    $classes      = $classeActionController->getAll();
+    $attestations = $attestationActionController->getAll(); 
     //set a session for form inputs comming from automobile-add-part-1 in case of backwards
-        if ( isset($_SESSION['form']) and $_SESSION['form']['name'] == 'contrat' ) {
+    if ( isset($_SESSION['form']) and $_SESSION['form']['name'] == 'contrat' ) {
             
     }
 ?>
@@ -100,7 +103,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group autocomplet_container">
-                                                                <label class="control-label" for="police">Police</label>
+                                                                <label class="control-label" for="police">Police <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input required="required" type="text" id="police" name="police" class="m-wrap span12 bold">
                                                                 </div>
@@ -136,9 +139,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="row-fluid">
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="attestation">Attestation</label>
+                                                                <label class="control-label" for="attestation">Attestation <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="attestation" name="attestation" class="m-wrap span12 bold">
+                                                                    <span class="red-asterisk" id ="attestationMessage"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -202,7 +206,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="codeSousClasse">SousClasse</label>
                                                                 <div class="controls">
-                                                                    <select required="required" id="codeSousClasse" name="idSousClasse" class="m-wrap span12 bold">
+                                                                    <select id="codeSousClasse" name="idSousClasse" class="m-wrap span12 bold">
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -507,6 +511,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <input type="hidden" id="codeClient" name="codeClient" value="<?= $codeClient ?>">
                                                         <div id="brancheSection"></div>
                                                         <input type="hidden" id="generatedCode" name="generatedCode" value="<?= uniqid().date('YmdHis') ?>">
+                                                        <p class="red-asterisk">* : Champs obligatoires</p>
                                                         <a href="automobile-add-part-1.php" class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
                                                         <button type="submit" class="btn blue">Terminer <i class="icon-save m-icon-white"></i></button>
                                                     </div>
@@ -536,6 +541,14 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         jQuery(document).ready( function(){ 
             App.setPage("table_managed"); 
             App.init();
+            var attestations = [];
+            attestations = <?php echo json_encode($attestations) ?>;
+            attestations.forEach(function(element){
+                console.log(element.length);
+            });
+            /*for ( var key in attestations ) {
+                console.log(key);
+            }*/
             //declare and initialize variables
             var brancheCommission = 0, brancheTax = 0, primeRC = 0, defenseRecours = 0, tierce = 0, 
             collision = 0, vol = 0, incendie = 0, brisGlace = 0, individuel = 0, primeNette = 0, 
@@ -693,6 +706,23 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                 });
             });
             //branche onchange ends
+            //attestation onchange begins
+            $('#attestation').change(function(){
+                var idAttestation      = "#attestation";
+                var attestation        = +$(idAttestation).val();
+                var attestationMessage = "#attestationMessage";
+                var dataAttestation    = 'numberAttestation='+attestation;
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/attestations.php",
+                    data: dataAttestation,
+                    cache: false,
+                    success: function(html){
+                        $(attestationMessage).html(html);
+                    }
+                });
+            });
+            //attestation onchange ends
             //validate form begins
             $("#automobile-add-part-2").validate({
                  rules:{
