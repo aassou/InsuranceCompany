@@ -13,7 +13,7 @@
         $client    = $clientActionController->getOneByCode($contrat->codeClient()); 
         ob_start();
     ?>
-    <style type="text/css">p,h1,h2,h4{text-align: center;font-family : Arial;font-weight: 100;margin-bottom: 0px;} h1,h2{font-size: 16px;} table{border-collapse: collapse;width:100%;font-size:9px} table,th,td{border: 1px solid black;} td,th{padding : 5px;} th{background-color: #a8a8a8;}</style>
+    <style type="text/css">p,h1,h2,h4{text-align: center;font-family : Arial;font-weight: 100;margin-bottom: 0px;} h1,h2{font-size: 16px;} table{border-collapse: collapse;width:100%;font-size:9px} table,th,td{border: 1px solid black;} .no-border{border: 0px;} td,th{padding : 5px;} th{background-color: #a8a8a8;}</style>
     <page backtop="5mm" backbottom="5mm" backleft="3mm" backright="3mm">
         <img style="float: right" src="../assets/img/axa2.jpg" />
     	<h1 style="text-align: left;font-weight: bold">Conditions Particulières Solutions Auto Axa </h1>
@@ -305,10 +305,45 @@
         Téléphone : + 212 (0)5 22 88 92 92 - Fax : + 212 (0)5 22 88 91 88 - Internet www.axa.ma<br>
         Entreprise régie par la loi n°17-99 portant code des assurances S.A. au capital de 900 000 000,00 dh
     </p>  
-    <br>
+    <br><br><br><br><br>
     <div style="background-color: #a8a8a8;height: 50px">
         <p style="text-align: center;font-size: 16px;font-weight: bold;margin: auto;">Clauses</p>
     </div>
+    <p style="text-align: left;font-size: 10px">
+        Clause U01 — Etendue géographique : L'assurance du présent contrat produit ses effets au Maroc et dans les pays figurant expressément sur la carte verte à l'exception des pays qui y sont barrés. Les pays de la carte verte sont : Albanie — Allemagne — Andorre — Autriche — Belgique — Biélorussie — Bosnie-Herzégovine — Bulgarie — Chypre — Croatie — Danemark — Espagne — Estonie — Finlande — France — F.Y.R.O.M — Grèce — Hongrie — Irlande — Islande — Italie — Lettonie — Lituanie — Luxembourg, — Malte — Moldavie —Norvège - Pays-Bas — Pologne — Portugal — Rép. Islamique d'Iran — Rép. Slovaque — Rép. Tchèque — Royaume Uni de G B & Irlande du Nord — Serbie & Montenegro — Slovénie —Suède — Suisse — Tunisie — Turquie — Ukraine.
+        <br>
+        Par accord des parties, la garantie est étendue aux Etats suivants :
+    </p>
+    <br>
+    <p style="text-align: left;font-size: 10px">
+        Clause UO2 - Usage "A" tourisme : Le souscripteur déclare expressément que le véhicule, objet de l'assurance, n'est pas utilisé commercialement, même à titre exceptionnel, pour le transport ou la livraison de produits ou de marchandises, ou pour le transport à titre onéreux de personnes.
+    </p>
+    <br>
+    <p style="text-align: left;font-size: 10px">
+        Clause D1S - Durée ferme : Le présent contrat est souscrit pour la durée ferme indiquée aux conditions particulières. Il expire de plein droit et sans autre avis a la date mentionnée dans la rubrique «date d'expiration».
+    </p>
+    <br>
+    <p style="text-align: left;font-size: 10px">
+        Clause P01—Données Personnelles : Les données personnelles demandées par l'assureur ont un caractère obligatoire pour obtenir la souscription du présent contrat et l'exécution de l'ensemble des services qui y sont rattachés. Elles sont utilisées exclusivement à cette fin par les services de l'assureur et les tiers autorisés. La durée de conservation de ces données est limitée à la durée du contrat d'assurance et à la période postérieure pendant laquelle leur conservation est nécessaire pour permettre à l'assureur de respecter ses obligations en fonction des délais de prescription ou en application d'autres dispositions légales. Par ailleurs, la communication des informations de l'assuré/souscripteur est limitée aux communications obligatoires en fonction des obligations légales et réglementaires qui s'imposent à l'assureur et aux tiers légalement autorisés à obtenir lesdites informations. L'assureur garantit notamment le respect de la loi n''09-08 relative à la protection des personnes physiques à l'égard du traitemen' des données à caractère personnel. Les données sont protégées aussi bien sur support physique qu'électronique, de telle sorte que leur accès soit impossible à des tiers non autorisés.
+        <br><br>
+        L'assureur s'assure que les personnes habilitées à traiter les données personnelles connaissent leurs obligations légales en matière de protection de ces données et s'tiennent. Les données à caractère personnel peuvent à tout moment faire l'objet d'un droit d'accès, de modification, de rectification et d'opposition auprès du Service gestion des réclamations AXA Assurance Maroc par courrier à l'adresse :
+        <br>
+        120-122 Avenue Hassan Il — 20 000 Casablanca.
+        <br>
+        De manière expresse, l'assuré/souscripteur autorise l'assureur à utiliser ses coordonnées à des fins de prospections commerciales en vue de proposer d'autres services d'assurance. Il peut s'opposer par courrier à la réception de sollicitations commerciales.
+    </p>
+    <br><br><br>
+    <p style="text-align: left;font-size: 16px; font-weight: bold">
+        A Casablanca, le <?= date('d/m/Y') ?><br>   
+    </p>
+    <br><br>
+    <table class="no-border" style="font-size: 16px; font-weight: bold">
+        <tr class="no-border">
+            <td class="no-border" style="width: 70%">Souscripteur</td>
+            <td class="no-border" style="width: 30%">Axa Assurance Maroc</td>
+        </tr>
+    </table>
+    <br>
     </page>
     <?php
         $content = ob_get_clean();
