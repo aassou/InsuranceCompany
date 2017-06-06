@@ -86,7 +86,7 @@ class AppController{
         $this->_manager->delete($id);
         $this->_actionMessage = "Opération Valide : Ligne supprimée avec succès.";
         $this->_typeMessage = "success";
-        $this->_source = "view/$this->_source";
+        $this->_source = "view/".$this->_source.".php";
     }
     
     public function getOneById($id){

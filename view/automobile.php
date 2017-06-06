@@ -2,10 +2,10 @@
 require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
-    $contratActionController = new AppController('contratAuto');
-    $clientActionController  = new AppController('client');
-    $usageActionController       = new AppController('usage');
-    $compagnieActionController   = new AppController('compagnie');
+    $contratActionController   = new AppController('contratAuto');
+    $clientActionController    = new AppController('client');
+    $usageActionController     = new AppController('usage');
+    $compagnieActionController = new AppController('compagnie');
     //get objects
     $contrats     = $contratActionController->getAll();
 ?>
@@ -29,7 +29,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-briefcase"></i><a href="production.php">Production</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-truck"></i><a>Automobile</a></li>
+                                <li><i class="icon-truck"></i><a><strong>Automobile</strong></a></li>
                             </ul>
                         </div>
                     </div>
@@ -63,13 +63,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            //if ( $attestationsNumber != 0 ) { 
-                                            foreach ( $contrats as $contrat ) {
-                                            ?>
+                                            <?php foreach ( $contrats as $contrat ) { ?>
                                             <tr>
                                                 <td>
-                                                    <a href="contrat-auto-update.php?idContrat=<?= $contrat->id() ?>" class="btn mini" title="Voire"><i class="icon-eye-open"></i></a>
+                                                    <a href="automobile-update.php?idContrat=<?= $contrat->id() ?>" class="btn mini" title="Voire"><i class="icon-eye-open"></i></a>
                                                     <a class="btn mini green" title="Modifier"><i class="icon-refresh"></i></a>
                                                     <a href="#deleteContratAuto<?= $contrat->id() ?>" data-toggle="modal" data_id="<?= $contrat->id() ?>" class="btn mini red" title="Supprimer"><i class="icon-remove"></i></a>
                                                 </td>
@@ -94,7 +91,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="control-group">
                                                             <div class="controls">
                                                                 <input type="hidden" name="action" value="delete" />
-                                                                <input type="hidden" name="source" value="automobile" />    
+                                                                <input type="hidden" name="source" value="contratAuto" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
                                                                 <button type="submit" class="btn red" aria-hidden="true">Oui</button>
                                                             </div>
@@ -103,13 +100,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </form>
                                             </div>
                                             <!-- deleteAttestation box end --> 
-                                            <?php 
-                                            }//end foreach 
-                                            //}//end if
-                                            ?>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
-                                    <?php /*if($attestationsNumber != 0){ echo $pagination; }*/ ?><br>
                                 </div>
                             </div>
                         </div>
@@ -119,39 +112,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         </div>
         <?php include('../include/footer.php'); ?>
         <?php include('../include/scripts.php'); ?>     
-        <script>
-        jQuery(document).ready( function(){ App.setPage("table_managed"); App.init(); } );
-        $('#numeroDebut, #numeroFin').change(function(){
-            var numeroDebut = $('#numeroDebut').val();
-            var numeroFin = $('#numeroFin').val();
-            var nombreAttestation = (numeroFin - numeroDebut) + 1;
-            if ( (numeroFin - numeroDebut + 1) >= 1 ) {
-                nombreAttestation = (numeroFin - numeroDebut) + 1;    
-            }
-            else {
-                nombreAttestation = "Erreur : Numéro Fin < Numéro Début";
-            }
-            $('#nombreAttestation').val(nombreAttestation);
-        });
-        $("#addAttestationForm").validate({
-             rules:{
-               numeroDebut: {
-                   number: true,
-                   required: true
-               },
-               numeroFin: {
-                   number: true,
-                   required: true
-               },
-               nombreAttestation: {
-                   number: true,
-                   required: true
-               }
-             },
-             errorClass: "error-class",
-             validClass: "valid-class"
-        });
-        </script>
+        <script>jQuery(document).ready( function(){ App.setPage("table_managed"); App.init(); } );</script>
     </body>
 </html>
 <?php

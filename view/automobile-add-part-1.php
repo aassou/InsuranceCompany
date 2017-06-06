@@ -81,7 +81,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
                                 <li><i class="icon-briefcase"></i><a href="production.php">Production</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-truck"></i><a>Automobile</a></li>
+                                <li><i class="icon-truck"></i><a href="contratAuto.php">Automobile</a><i class="icon-angle-right"></i></li>
+                                <li><a>Création Contart Assurance Automobile : Informations Client (étape 1/2)</a></li>
                             </ul>
                         </div>
                     </div>
@@ -299,7 +300,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <input type="hidden" id="idClient" name="idClient" value="<?= $formValues['idClient'] ?>">
                                             <input type="hidden" id="generatedCode" name="generatedCode" value="<?= uniqid().date('YmdHis') ?>">
                                             <p class="red-asterisk">* : Champs obligatoires</p>
-                                            <a class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
+                                            <a href="contratAuto.php" class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
                                             <button type="submit" class="btn blue">Continuer <i class="m-icon-swapright m-icon-white"></i></button>
                                         </div>
                                     </form>     

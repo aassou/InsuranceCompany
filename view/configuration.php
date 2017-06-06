@@ -163,6 +163,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Individuel Conducteur</div></div>
                                     </div>
                                 </a>
+                                <a href="compteBancaire.php">
+                                    <div class="tile bg-olive-2">
+                                        <div class="tile-body"><i class="icon-money"></i></div>
+                                        <div class="tile-object"><div class="name">Comptes Bancaires</div></div>
+                                    </div>
+                                </a>
                                 <a href="user.php">
                                     <div class="tile bg-olive">
                                         <div class="tile-body"><i class="icon-group"></i></div>

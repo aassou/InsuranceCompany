@@ -274,6 +274,21 @@ class ValidationController {
                     return 0;
                 }   
             }
+            else if($action == "update") {
+                if ( !empty($formInputs['id']) and 
+                        ($attestationActionController->exist($numberAttestation) == 0 or
+                        $contratAutoActionController->exist($numberAttestation) != 0)
+                ) {
+                    $this->_message = "<strong>Opération Valide : </strong>Contrat Assurance Auto Modifié avec succès.";
+                    $this->_target = "automobile-update.php?idContrat=".$formInputs['id'];
+                    return 1;   
+                }
+                else{
+                    $this->_message = "<strong>Erreur Création Contrat Assurance Auto : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+                    $this->_target = "automobile-update.php?idContrat=".$formInputs['id'];
+                    return 0;
+                }   
+            }
         }
         //ContratAuto Object Test Validation Ends
         //Other Object Test Validation Begins

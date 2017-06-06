@@ -21,7 +21,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                     <div class="row-fluid">
                         <div class="span12">
                             <ul class="breadcrumb">
-                                <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a></li>
+                                <li><i class="icon-home"></i><a href="dashboard.php"><strong>Accueil</strong></a></li>
                             </ul>
                             <div class="tiles">
                                 <a href="caisse-group.php">

@@ -22,10 +22,10 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                         <div class="span12">
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
-                                <li><i class="icon-briefcase"></i><a>Production</a></li>
+                                <li><i class="icon-briefcase"></i><a><strong>Production</strong></a></li>
                             </ul>
                             <div class="tiles">
-                                <a href="automobile.php">
+                                <a href="contratAuto.php">
                                     <div class="tile bg-black">
                                         <div class="tile-body"><i class="icon-truck"></i></div>
                                         <div class="tile-object"><div class="name">Automobile</div></div>
