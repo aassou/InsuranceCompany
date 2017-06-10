@@ -30,27 +30,27 @@ class ChequeActionController {
     
     //actions
     public function add($cheque){
-        if( !empty($cheque['dateRecu']) ){
-			$dateRecu = htmlentities($cheque['dateRecu']);
+        if( !empty($cheque['date']) ){
+			$date = htmlentities($cheque['date']);
 			$numero = htmlentities($cheque['numero']);
 			$designationSociete = htmlentities($cheque['designationSociete']);
 			$designationPersonne = htmlentities($cheque['designationPersonne']);
 			$montant = htmlentities($cheque['montant']);
+			$compteBancaire = htmlentities($cheque['compteBancaire']);
 			$status = htmlentities($cheque['status']);
 			$url = htmlentities($cheque['url']);
-			$compteBancaire = htmlentities($cheque['compteBancaire']);
 			$createdBy = $_SESSION['userAxaAmazigh']->login();
             $created = date('Y-m-d h:i:s');
             //create object
             $cheque = new Cheque(array(
-				'dateRecu' => $dateRecu,
+				'date' => $date,
 				'numero' => $numero,
 				'designationSociete' => $designationSociete,
 				'designationPersonne' => $designationPersonne,
 				'montant' => $montant,
+				'compteBancaire' => $compteBancaire,
 				'status' => $status,
 				'url' => $url,
-				'compteBancaire' => $compteBancaire,
 				'created' => $created,
             	'createdBy' => $createdBy
 			));
@@ -61,7 +61,7 @@ class ChequeActionController {
             $this->_source = "view/cheque";
         }
         else{
-            $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'dateRecu'.";
+            $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'date'.";
             $this->_typeMessage = "error";
             $this->_source = "view/cheque";
         }
@@ -69,27 +69,27 @@ class ChequeActionController {
     
 
     public function update($cheque){
-        if(!empty($cheque['dateRecu'])){
-			$dateRecu = htmlentities($cheque['dateRecu']);
+        if(!empty($cheque['date'])){
+			$date = htmlentities($cheque['date']);
 			$numero = htmlentities($cheque['numero']);
 			$designationSociete = htmlentities($cheque['designationSociete']);
 			$designationPersonne = htmlentities($cheque['designationPersonne']);
 			$montant = htmlentities($cheque['montant']);
+			$compteBancaire = htmlentities($cheque['compteBancaire']);
 			$status = htmlentities($cheque['status']);
 			$url = htmlentities($cheque['url']);
-			$compteBancaire = htmlentities($cheque['compteBancaire']);
 			$updatedBy = $_SESSION['userAxaAmazigh']->login();
             $updated = date('Y-m-d h:i:s');
             $cheque = new Cheque(array(
 				'id' => $idCheque,
-				'dateRecu' => $dateRecu,
+				'date' => $date,
 				'numero' => $numero,
 				'designationSociete' => $designationSociete,
 				'designationPersonne' => $designationPersonne,
 				'montant' => $montant,
+				'compteBancaire' => $compteBancaire,
 				'status' => $status,
 				'url' => $url,
-				'compteBancaire' => $compteBancaire,
 				'updated' => $updated,
             	'updatedBy' => $updatedBy
 			));
@@ -99,7 +99,7 @@ class ChequeActionController {
             $this->_source = "view/cheque";
         }
         else{
-            $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'dateRecu'.";
+            $this->_actionMessage = "Opération Invalide : Vous devez remplir le champ 'date'.";
             $this->_typeMessage = "error";
             $this->_source = "view/cheque";
         }

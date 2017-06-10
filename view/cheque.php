@@ -41,6 +41,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                         <div class="span12">
                             <ul class="breadcrumb">
                                 <li><i class="icon-home"></i><a href="dashboard.php">Accueil</a><i class="icon-angle-right"></i></li>
+                                <li><i class="icon-envelope-alt"></i><a href="cheque.php"><strong>Chèques</strong></a></li>
                             </ul>
                         </div>
                     </div>
@@ -55,13 +56,14 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                     <h3>Ajouter Cheque</h3>
                                 </div>
-                                <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
+                                <form class="form-horizontal" action="../app/Dispatcher.php" method="post" enctype="multipart/form-data">
                                     <div class="modal-body">
-                                    <div class="control-group">
-                                            <label class="control-label">DateRecu</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="dateRecu" />
-                                            </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Date</label>
+                                            <div class="controls date date-picker" data-date="" data-date-format="yyyy-mm-dd">
+                                                <input name="date" id="date" class="m-wrap m-ctrl-small date-picker" type="text" value="<?= date('Y-m-d') ?>" />
+                                                <span class="add-on"><i class="icon-calendar"></i></span>
+                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">Numero</label>
@@ -70,17 +72,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">DesignationSociete</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="designationSociete" />
-                                            </div>
+                                        <label class="control-label">Désignation</label>
+                                        <div class="controls">
+                                            <input class="span5" type="text" name="designationSociete" placeholder="Société" />
+                                            <input class="span5" type="text" name="designationPersonne" placeholder="Personne" />
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label">DesignationPersonne</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="designationPersonne" />
-                                            </div>
-                                        </div>
+                                    </div>
                                         <div class="control-group">
                                             <label class="control-label">Montant</label>
                                             <div class="controls">
@@ -88,24 +85,28 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Status</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="status" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Url</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="url" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">CompteBancaire</label>
+                                            <label class="control-label">Compte Bancaire</label>
                                             <div class="controls">
                                                 <input required="required" type="text" name="compteBancaire" />
                                             </div>
                                         </div>
-                                             
+                                        <div class="control-group">
+                                            <label class="control-label">Status</label>
+                                            <div class="controls">
+                                                <select name="status">
+                                                    <option value="0">En cours</option>
+                                                    <option value="1">Déposé</option>
+                                                    <option value="2">Déposé+TVA</option>
+                                                    <option value="3">Annulé</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Copie Chèque</label>
+                                            <div class="controls">
+                                                <input type="file" name="url" />
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <div class="control-group">
@@ -139,14 +140,14 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <thead>
                                             <tr>
                                                 <th class="t10 hidden-phone">Actions</th>
-                                                <th class="t10">DateRecu</th>
+                                                <th class="t10">Date</th>
                                                 <th class="t10">Numero</th>
                                                 <th class="t10">DesignationSociete</th>
                                                 <th class="t10">DesignationPersonne</th>
                                                 <th class="t10">Montant</th>
+                                                <th class="t10">CompteBancaire</th>
                                                 <th class="t10">Status</th>
                                                 <th class="t10">Url</th>
-                                                <th class="t10">CompteBancaire</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -159,14 +160,14 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <a href="#deleteCheque<?= $cheque->id() ?>" data-toggle="modal" data-id="<?= $cheque->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateCheque<?= $cheque->id() ?>" data-toggle="modal" data-id="<?= $cheque->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                 </td>
-                                                <td><?= $cheque->dateRecu() ?></td>
+                                                <td><?= $cheque->date() ?></td>
                                                 <td><?= $cheque->numero() ?></td>
                                                 <td><?= $cheque->designationSociete() ?></td>
                                                 <td><?= $cheque->designationPersonne() ?></td>
                                                 <td><?= $cheque->montant() ?></td>
+                                                <td><?= $cheque->compteBancaire() ?></td>
                                                 <td><?= $cheque->status() ?></td>
                                                 <td><?= $cheque->url() ?></td>
-                                                <td><?= $cheque->compteBancaire() ?></td>
                                             </tr> 
                                             <!-- updateCheque box begin -->
                                             <div id="updateCheque<?= $cheque->id() ?>" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
@@ -177,9 +178,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
                                                         <div class="control-group">
-                                                            <label class="control-label">DateRecu</label>
+                                                            <label class="control-label">Date</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="dateRecu"  value="<?= $cheque->dateRecu() ?>" />
+                                                                <input required="required" type="text" name="date"  value="<?= $cheque->date() ?>" />
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
@@ -207,6 +208,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
+                                                            <label class="control-label">CompteBancaire</label>
+                                                            <div class="controls">
+                                                                <input required="required" type="text" name="compteBancaire"  value="<?= $cheque->compteBancaire() ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
                                                             <label class="control-label">Status</label>
                                                             <div class="controls">
                                                                 <input required="required" type="text" name="status"  value="<?= $cheque->status() ?>" />
@@ -218,17 +225,11 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 <input required="required" type="text" name="url"  value="<?= $cheque->url() ?>" />
                                                             </div>
                                                         </div>
-                                                        <div class="control-group">
-                                                            <label class="control-label">CompteBancaire</label>
-                                                            <div class="controls">
-                                                                <input required="required" type="text" name="compteBancaire"  value="<?= $cheque->compteBancaire() ?>" />
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idCheque" value="<?= $cheque->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $cheque->id() ?>" />
                                                                 <input type="hidden" name="action" value="update" />
                                                                 <input type="hidden" name="source" value="cheque" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
@@ -247,12 +248,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 </div>
                                                 <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
-                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Cheque : <?= $cheque->dateRecu() ?> ? Cette action est irréversible!</h4>
+                                                        <h4 class="dangerous-action">Êtes-vous sûr de vouloir supprimer Cheque : <?= $cheque->numero().' - '.$cheque->designationSociete() ?> ? Cette action est irréversible!</h4>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="control-group">
                                                             <div class="controls">
-                                                                <input type="hidden" name="idCheque" value="<?= $cheque->id() ?>" />
+                                                                <input type="hidden" name="id" value="<?= $cheque->id() ?>" />
                                                                 <input type="hidden" name="action" value="delete" />
                                                                 <input type="hidden" name="source" value="cheque" />    
                                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>

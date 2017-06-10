@@ -42,7 +42,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Charges</div></div>
                                     </div>
                                 </a>
-                                <a href="company-cheques.php?idSociete=3">
+                                <a href="cheque.php">
                                     <div class="tile bg-blue">
                                         <div class="tile-body"><i class="icon-envelope-alt"></i></div>
                                         <div class="tile-object"><div class="name">Chèques</div></div>

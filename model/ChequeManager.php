@@ -12,17 +12,17 @@ class ChequeManager{
 	//BASIC CRUD OPERATIONS
 	public function add(Cheque $cheque){
         $query = $this->_db->prepare(' INSERT INTO t_cheque (
-		dateRecu, numero, designationSociete, designationPersonne, montant, status, url, compteBancaire, created, createdBy)
-		VALUES (:dateRecu, :numero, :designationSociete, :designationPersonne, :montant, :status, :url, :compteBancaire, :created, :createdBy)')
+		date, numero, designationSociete, designationPersonne, montant, compteBancaire, status, url, created, createdBy)
+		VALUES (:date, :numero, :designationSociete, :designationPersonne, :montant, :compteBancaire, :status, :url, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
-		$query->bindValue(':dateRecu', $cheque->dateRecu());
+		$query->bindValue(':date', $cheque->date());
 		$query->bindValue(':numero', $cheque->numero());
 		$query->bindValue(':designationSociete', $cheque->designationSociete());
 		$query->bindValue(':designationPersonne', $cheque->designationPersonne());
 		$query->bindValue(':montant', $cheque->montant());
+		$query->bindValue(':compteBancaire', $cheque->compteBancaire());
 		$query->bindValue(':status', $cheque->status());
 		$query->bindValue(':url', $cheque->url());
-		$query->bindValue(':compteBancaire', $cheque->compteBancaire());
 		$query->bindValue(':created', $cheque->created());
 		$query->bindValue(':createdBy', $cheque->createdBy());
 		$query->execute();
@@ -31,18 +31,18 @@ class ChequeManager{
 
 	public function update(Cheque $cheque){
         $query = $this->_db->prepare(' UPDATE t_cheque SET 
-		dateRecu=:dateRecu, numero=:numero, designationSociete=:designationSociete, designationPersonne=:designationPersonne, montant=:montant, status=:status, url=:url, compteBancaire=:compteBancaire, updated=:updated, updatedBy=:updatedBy
+		date=:date, numero=:numero, designationSociete=:designationSociete, designationPersonne=:designationPersonne, montant=:montant, compteBancaire=:compteBancaire, status=:status, url=:url, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $cheque->id());
-		$query->bindValue(':dateRecu', $cheque->dateRecu());
+		$query->bindValue(':date', $cheque->date());
 		$query->bindValue(':numero', $cheque->numero());
 		$query->bindValue(':designationSociete', $cheque->designationSociete());
 		$query->bindValue(':designationPersonne', $cheque->designationPersonne());
 		$query->bindValue(':montant', $cheque->montant());
+		$query->bindValue(':compteBancaire', $cheque->compteBancaire());
 		$query->bindValue(':status', $cheque->status());
 		$query->bindValue(':url', $cheque->url());
-		$query->bindValue(':compteBancaire', $cheque->compteBancaire());
 		$query->bindValue(':updated', $cheque->updated());
 		$query->bindValue(':updatedBy', $cheque->updatedBy());
 		$query->execute();

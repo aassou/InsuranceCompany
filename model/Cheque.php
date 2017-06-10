@@ -3,14 +3,14 @@ class Cheque{
 
 	//attributes
 	private $_id;
-	private $_dateRecu;
+	private $_date;
 	private $_numero;
 	private $_designationSociete;
 	private $_designationPersonne;
 	private $_montant;
+	private $_compteBancaire;
 	private $_status;
 	private $_url;
-	private $_compteBancaire;
 	private $_created;
 	private $_createdBy;
 	private $_updated;
@@ -36,8 +36,8 @@ class Cheque{
 	public function setId($id){
         $this->_id = $id;
     }
-	public function setDateRecu($dateRecu){
-        $this->_dateRecu = $dateRecu;
+	public function setDate($date){
+        $this->_date = $date;
     }
 
 	public function setNumero($numero){
@@ -56,16 +56,16 @@ class Cheque{
         $this->_montant = $montant;
     }
 
+	public function setCompteBancaire($compteBancaire){
+        $this->_compteBancaire = $compteBancaire;
+    }
+
 	public function setStatus($status){
         $this->_status = $status;
     }
 
 	public function setUrl($url){
         $this->_url = $url;
-    }
-
-	public function setCompteBancaire($compteBancaire){
-        $this->_compteBancaire = $compteBancaire;
     }
 
 	public function setCreated($created){
@@ -88,8 +88,8 @@ class Cheque{
 	public function id(){
         return $this->_id;
     }
-	public function dateRecu(){
-        return $this->_dateRecu;
+	public function date(){
+        return $this->_date;
     }
 
 	public function numero(){
@@ -108,16 +108,16 @@ class Cheque{
         return $this->_montant;
     }
 
+	public function compteBancaire(){
+        return $this->_compteBancaire;
+    }
+
 	public function status(){
         return $this->_status;
     }
 
 	public function url(){
         return $this->_url;
-    }
-
-	public function compteBancaire(){
-        return $this->_compteBancaire;
     }
 
 	public function created(){
