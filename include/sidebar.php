@@ -71,6 +71,8 @@
 			or $currentPage=="automobile-add-part-2.php"
 			or $currentPage=="divers.php"
 			or $currentPage=="attestation.php"
+			or $currentPage=="assurancesFrontiers.php"
+			or $currentPage=="assurances-frontiers-add.php"
 			){
 				$productionClass = "active ";
 			}
@@ -89,7 +91,8 @@
                     ) {
                 ?>
                 <li <?php if($currentPage=="automobile.php"
-                            or $currentPage=="livraisons-fournisseur.php"
+                            or $currentPage=="automobile-add-part-1.php"
+                            or $currentPage=="automobile-add-part-2.php"
                             ){
                     ?> class="active" <?php } ?> >
                     <a href="automobile.php">Automobile</a>
@@ -108,6 +111,37 @@
                             or $currentPage=="autres.php"
                             ){?> class="active" <?php } ?> >
                     <a href="divers.php">Divers</a>
+                </li>
+                <?php
+                }
+                ?>
+                <?php
+                if ( 
+                    $_SESSION["userAxaAmazigh"]->profil() == "admin" ||
+                    $_SESSION['userAxaAmazigh']->profil() == "manager" ||
+                    $_SESSION['userAxaAmazigh']->profil() == "consultant" 
+                    ) {
+                ?>
+                <li <?php if($currentPage=="attestation.php"
+                            ){
+                    ?> class="active" <?php } ?> >
+                    <a href="attestation.php">Attestations</a>
+                </li>
+                <?php
+                }
+                ?>
+                <?php
+                if ( 
+                    $_SESSION["userAxaAmazigh"]->profil() == "admin" ||
+                    $_SESSION['userAxaAmazigh']->profil() == "manager" ||
+                    $_SESSION['userAxaAmazigh']->profil() == "consultant" 
+                    ) {
+                ?>
+                <li <?php if($currentPage=="assurancesFrontiers.php"
+                            or $currentPage=="assurances-frontiers-add.php"
+                            ){
+                    ?> class="active" <?php } ?> >
+                    <a href="assurancesFrontiers.php">Assurances Frontières</a>
                 </li>
                 <?php
                 }
@@ -329,6 +363,7 @@
         or $currentPage=="operations-status-archive.php"
         or $currentPage=="releve-bancaire-archive.php"
         or $currentPage=="compteBancaire.php"
+        or $currentPage=="tarifsAssurancesFrontieres.php"
         ){echo "active ";} ?>">
             <a href="configuration.php">
             <i class="icon-wrench"></i> 

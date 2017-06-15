@@ -43,13 +43,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Attestation</div></div>
                                     </div>
                                 </a>
-                                <!--a href="classe.php">
-                                    <div class="tile bg-blue">
-                                        <div class="tile-body"><i class="icon-file"></i></div>
-                                        <div class="tile-object"><div class="name">Classes</div></div>
+                                <a href="assurancesFrontieres.php">
+                                    <div class="tile bg-blue-2">
+                                        <div class="tile-body"><i class="icon-plane"></i></div>
+                                        <div class="tile-object"><div class="name">Assurances Frontières</div></div>
                                     </div>
                                 </a>
-                                <a href="sousClasse.php">
+                                <!--a href="sousClasse.php">
                                     <div class="tile bg-blue-2">
                                         <div class="tile-body"><i class="icon-copy"></i></div>
                                         <div class="tile-object"><div class="name">Sous Classes</div></div>

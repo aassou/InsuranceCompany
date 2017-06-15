@@ -169,8 +169,14 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Comptes Bancaires</div></div>
                                     </div>
                                 </a>
-                                <a href="user.php">
+                                <a href="tarifsAssurancesFrontieres.php">
                                     <div class="tile bg-olive">
+                                        <div class="tile-body"><i class="icon-plane"></i></div>
+                                        <div class="tile-object"><div class="name">Tarif Assurances Frontières</div></div>
+                                    </div>
+                                </a>
+                                <a href="user.php">
+                                    <div class="tile bg-brown">
                                         <div class="tile-body"><i class="icon-group"></i></div>
                                         <div class="tile-object"><div class="name">Utilisateurs</div></div>
                                     </div>
