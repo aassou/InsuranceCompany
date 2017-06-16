@@ -13,6 +13,10 @@ class AssurancesFrontiers{
 	private $_passeport;
 	private $_cin;
 	private $_adresse;
+    private $_souscripteur;
+    private $_cinSouscripteur;
+    private $_passeportSouscripteur;
+    private $_pays;
 	private $_permis;
 	private $_datePermis;
 	private $_categorie;
@@ -91,6 +95,22 @@ class AssurancesFrontiers{
 
 	public function setAdresse($adresse){
         $this->_adresse = $adresse;
+    }
+    
+    public function setSouscripteur($souscripteur){
+        $this->_souscripteur = $souscripteur;
+    }
+    
+    public function setCinSouscripteur($cinSouscripteur){
+        $this->_cinSouscripteur = $cinSouscripteur;
+    }
+    
+    public function setPasseportSouscripteur($passeportSouscripteur){
+        $this->_passeport = $passeportSouscripteur;
+    }
+    
+    public function setPays($pays){
+        $this->_pays = $pays;
     }
 
 	public function setPermis($permis){
@@ -239,6 +259,22 @@ class AssurancesFrontiers{
 
 	public function marque(){
         return $this->_marque;
+    }
+    
+    public function souscripteur(){
+        return $this->_souscripteur;
+    }
+    
+    public function cinSouscripteur(){
+        return $this->_cinSouscripteur;
+    }
+    
+    public function passeportSouscripteur(){
+        return $this->_passeport;
+    }
+    
+    public function pays(){
+        return $this->_pays;
     }
 
 	public function type(){

@@ -41,6 +41,10 @@ class AssurancesFrontiersActionController {
 			$passeport = htmlentities($assurancesFrontiers['passeport']);
 			$cin = htmlentities($assurancesFrontiers['cin']);
 			$adresse = htmlentities($assurancesFrontiers['adresse']);
+            $souscripteur = htmlentities($assurancesFrontiers['souscripteur']);
+            $cinSouscripteur = htmlentities($assurancesFrontiers['cinSouscripteur']);
+            $passeportSouscripteur = htmlentities($assurancesFrontiers['passeportSouscripteur']);
+            $pays = htmlentities($assurancesFrontiers['pays']);
 			$permis = htmlentities($assurancesFrontiers['permis']);
 			$datePermis = htmlentities($assurancesFrontiers['datePermis']);
 			$categorie = htmlentities($assurancesFrontiers['categorie']);
@@ -70,6 +74,10 @@ class AssurancesFrontiersActionController {
 				'passeport' => $passeport,
 				'cin' => $cin,
 				'adresse' => $adresse,
+				'souscripteur' => $souscripteur,
+				'cinSouscripteur' => $cinSouscripteur,
+				'passeportSouscripteur' => $passeportSouscripteur,
+				'pays' => $pays,
 				'permis' => $permis,
 				'datePermis' => $datePermis,
 				'categorie' => $categorie,
@@ -114,6 +122,10 @@ class AssurancesFrontiersActionController {
 			$passeport = htmlentities($assurancesFrontiers['passeport']);
 			$cin = htmlentities($assurancesFrontiers['cin']);
 			$adresse = htmlentities($assurancesFrontiers['adresse']);
+			$souscripteur = htmlentities($assurancesFrontiers['souscripteur']);
+            $cinSouscripteur = htmlentities($assurancesFrontiers['cinSouscripteur']);
+            $passeportSouscripteur = htmlentities($assurancesFrontiers['passeportSouscripteur']);
+            $pays = htmlentities($assurancesFrontiers['pays']);
 			$permis = htmlentities($assurancesFrontiers['permis']);
 			$datePermis = htmlentities($assurancesFrontiers['datePermis']);
 			$categorie = htmlentities($assurancesFrontiers['categorie']);
@@ -143,6 +155,10 @@ class AssurancesFrontiersActionController {
 				'passeport' => $passeport,
 				'cin' => $cin,
 				'adresse' => $adresse,
+				'souscripteur' => $souscripteur,
+                'cinSouscripteur' => $cinSouscripteur,
+                'passeportSouscripteur' => $passeportSouscripteur,
+                'pays' => $pays,
 				'permis' => $permis,
 				'datePermis' => $datePermis,
 				'categorie' => $categorie,

@@ -43,7 +43,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Attestation</div></div>
                                     </div>
                                 </a>
-                                <a href="assurancesFrontieres.php">
+                                <a href="assurancesFrontiers.php">
                                     <div class="tile bg-blue-2">
                                         <div class="tile-body"><i class="icon-plane"></i></div>
                                         <div class="tile-object"><div class="name">Assurances Frontières</div></div>

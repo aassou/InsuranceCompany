@@ -12,8 +12,8 @@ class AssurancesFrontiersManager{
 	//BASIC CRUD OPERATIONS
 	public function add(AssurancesFrontiers $assurancesFrontiers){
         $query = $this->_db->prepare(' INSERT INTO t_assurancesfrontiers (
-		police, attestation, idUsage, dateEffet, duree, dateExpiration, proprietaire, passeport, cin, adresse, permis, datePermis, categorie, immatriculation, moteur, chassis, marque, type, typeCarrosserie, poidsTotalCharge, nombrePlaces, remorque, immatriculationRemorque, cylindre, intermediaire, created, createdBy)
-		VALUES (:police, :attestation, :idUsage, :dateEffet, :duree, :dateExpiration, :proprietaire, :passeport, :cin, :adresse, :permis, :datePermis, :categorie, :immatriculation, :moteur, :chassis, :marque, :type, :typeCarrosserie, :poidsTotalCharge, :nombrePlaces, :remorque, :immatriculationRemorque, :cylindre, :intermediaire, :created, :createdBy)')
+		police, attestation, idUsage, dateEffet, duree, dateExpiration, proprietaire, passeport, cin, adresse, permis, datePermis, categorie, immatriculation, moteur, chassis, marque, type, typeCarrosserie, poidsTotalCharge, nombrePlaces, remorque, immatriculationRemorque, cylindre, intermediaire, souscripteur, cinSouscripteur, passeportSouscripteur, pays, created, createdBy)
+		VALUES (:police, :attestation, :idUsage, :dateEffet, :duree, :dateExpiration, :proprietaire, :passeport, :cin, :adresse, :permis, :datePermis, :categorie, :immatriculation, :moteur, :chassis, :marque, :type, :typeCarrosserie, :poidsTotalCharge, :nombrePlaces, :remorque, :immatriculationRemorque, :cylindre, :intermediaire, :souscripteur, :cinSouscripteur, :passeportSouscripteur, :pays, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':police', $assurancesFrontiers->police());
 		$query->bindValue(':attestation', $assurancesFrontiers->attestation());
@@ -25,6 +25,10 @@ class AssurancesFrontiersManager{
 		$query->bindValue(':passeport', $assurancesFrontiers->passeport());
 		$query->bindValue(':cin', $assurancesFrontiers->cin());
 		$query->bindValue(':adresse', $assurancesFrontiers->adresse());
+        $query->bindValue(':souscripteur', $assurancesFrontiers->souscripteur());
+        $query->bindValue(':passeportSouscripteur', $assurancesFrontiers->passeportSouscripteur());
+        $query->bindValue(':cinSouscripteur', $assurancesFrontiers->cinSouscripteur());
+        $query->bindValue(':pays', $assurancesFrontiers->pays());
 		$query->bindValue(':permis', $assurancesFrontiers->permis());
 		$query->bindValue(':datePermis', $assurancesFrontiers->datePermis());
 		$query->bindValue(':categorie', $assurancesFrontiers->categorie());
@@ -48,7 +52,14 @@ class AssurancesFrontiersManager{
 
 	public function update(AssurancesFrontiers $assurancesFrontiers){
         $query = $this->_db->prepare(' UPDATE t_assurancesfrontiers SET 
-		police=:police, attestation=:attestation, idUsage=:idUsage, dateEffet=:dateEffet, duree=:duree, dateExpiration=:dateExpiration, proprietaire=:proprietaire, passeport=:passeport, cin=:cin, adresse=:adresse, permis=:permis, datePermis=:datePermis, categorie=:categorie, immatriculation=:immatriculation, moteur=:moteur, chassis=:chassis, marque=:marque, type=:type, typeCarrosserie=:typeCarrosserie, poidsTotalCharge=:poidsTotalCharge, nombrePlaces=:nombrePlaces, remorque=:remorque, immatriculationRemorque=:immatriculationRemorque, cylindre=:cylindre, intermediaire=:intermediaire, updated=:updated, updatedBy=:updatedBy
+		police=:police, attestation=:attestation, idUsage=:idUsage, dateEffet=:dateEffet, duree=:duree, 
+		dateExpiration=:dateExpiration, proprietaire=:proprietaire, passeport=:passeport, cin=:cin, 
+		adresse=:adresse, permis=:permis, datePermis=:datePermis, categorie=:categorie, 
+		immatriculation=:immatriculation, moteur=:moteur, chassis=:chassis, marque=:marque, type=:type, 
+		typeCarrosserie=:typeCarrosserie, poidsTotalCharge=:poidsTotalCharge, nombrePlaces=:nombrePlaces, 
+		remorque=:remorque, immatriculationRemorque=:immatriculationRemorque, cylindre=:cylindre, 
+		intermediaire=:intermediaire, souscripteur=:souscripteur, cinSouscripteur=:cinSouscripteur, 
+		passeportSouscripteur=:passeportSouscripteur, pays=:pays updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $assurancesFrontiers->id());
@@ -62,6 +73,10 @@ class AssurancesFrontiersManager{
 		$query->bindValue(':passeport', $assurancesFrontiers->passeport());
 		$query->bindValue(':cin', $assurancesFrontiers->cin());
 		$query->bindValue(':adresse', $assurancesFrontiers->adresse());
+        $query->bindValue(':souscripteur', $assurancesFrontiers->souscripteur());
+        $query->bindValue(':passeportSouscripteur', $assurancesFrontiers->passeportSouscripteur());
+        $query->bindValue(':cinSouscripteur', $assurancesFrontiers->cinSouscripteur());
+        $query->bindValue(':pays', $assurancesFrontiers->pays());
 		$query->bindValue(':permis', $assurancesFrontiers->permis());
 		$query->bindValue(':datePermis', $assurancesFrontiers->datePermis());
 		$query->bindValue(':categorie', $assurancesFrontiers->categorie());

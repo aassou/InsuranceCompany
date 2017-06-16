@@ -50,21 +50,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     <div class="tabbable portlet-tabs">
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="portlet_tab1">
-                                                <form id="automobile-add-part-2" class="horizontal-form" action="../app/Dispatcher.php" method="POST">
+                                                <form id="assurances-frontieres-add" class="horizontal-form" action="../app/Dispatcher.php" method="POST">
                                                     <h4 class="red-asterisk">Infos Contrat</h4>
                                                     <hr>
                                                     <div class="row-fluid">
                                                         <div class="span4">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="police">N° Police <sup class="red-asterisk">*</sup></label>
-                                                                <div class="controls">
-                                                                    <input required="required" type="text" id="police" name="police" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span4">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="police">N° Attestation <sup class="red-asterisk">*</sup></label>
+                                                                <label class="control-label" for="attestation">N° Attestation <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input required="required" type="text" id="attestation" name="attestation" class="m-wrap span12 bold">
                                                                 </div>
@@ -72,15 +64,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                         <div class="span4">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="police">Intermédiaire</label>
+                                                                <label class="control-label" for="police">N° Police <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
-                                                                    <input required="required" type="text" id="intermediaire" name="intermediaire" class="m-wrap span12 bold">
+                                                                    <input required="required" type="text" id="police" name="police" class="m-wrap span12 bold" value="2017/">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row-fluid">
-                                                        <div class="span3">
+                                                        <div class="span4">
                                                             <div class="control-group">
                                                                 <label class="control-label" for="usage">Usage</label>
                                                                 <div class="controls">
@@ -109,20 +99,65 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span1">
+                                                    </div>
+                                                    <div class="row-fluid">
+                                                        <div id="sectionAssurances">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-fluid">
+                                                        <div class="span6">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="codeSousClasse">SousClasse</label>
+                                                                <label class="control-label" for="dateEffet">Date Effet</label>
                                                                 <div class="controls">
-                                                                    <select id="codeSousClasse" name="idSousClasse" class="m-wrap span12 bold">
-                                                                    </select>
+                                                                    <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
+                                                                        <input name="dateEffet" id="dateEffet" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
+                                                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span6">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="dateExpiration">Date Expiration</label>
+                                                                <div class="controls">
+                                                                    <div class="input-append date" data-date="" data-date-format="yyyy-mm-dd">
+                                                                        <input disabled="disabled" name="dateExpiration" id="dateExpiration" class="m-wrap m-ctrl-small date-picker bold" type="text" />
+                                                                        <span class="add-on"><i style="cursor: default" onclick="return false;" class="icon-calendar"></i></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <h4 class="red-asterisk">Inforamtions Véhicule</h4>
+                                                    <hr>
                                                     <div class="row-fluid">
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="marque">Marque Véhicule</label>
+                                                                <label class="control-label" for="immatriculation">Immatriculation</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="immatriculation" name="immatriculation" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="moteur">Moteur</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="moteur" name="moteur" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="chassis">Chassis</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="chassis" name="chassis" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="marque">Marque</label>
                                                                 <div class="controls">
                                                                     <input type="text" id="marque" name="marque" class="m-wrap span12 bold">
                                                                 </div>
@@ -130,26 +165,27 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="matricule">Matricule</label>
+                                                                <label class="control-label" for="type">Type</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="matricule" name="matricule" class="m-wrap span12 bold">
+                                                                    <input type="text" id="type" name="type" class="m-wrap span12 bold">
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span3">
-                                                            <div class="control-group">
-                                                               <label class="control-label">Définitive/Provisoire</label>
-                                                               <div class="controls">
-                                                                  <label class="radio"><div class="radio"><span><input type="radio" name="definitiveProvisoire" value="Definitive" style="opacity: 0;"></span></div>Definitive</label>
-                                                                  <label class="radio"><div class="radio"><span class="checked"><input type="radio" name="definitiveProvisoire" value="Provisoire" checked="" style="opacity: 0;"></span></div>Provisoire</label>
-                                                               </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="puissanceFiscale">Puissance Fiscale</label>
+                                                                <label class="control-label" for="typeCarrosserie">Type Carrosserie</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="puissanceFiscale" name="puissanceFiscale" class="m-wrap span12 bold">
+                                                                    <input type="text" id="typeCarrosserie" name="typeCarrosserie" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-fluid">
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="poidsTotalCharge">Poids Total en Charge</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="poidsTotalCharge" name="poidsTotalCharge" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -161,255 +197,133 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span1">
+                                                        <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="carburant">Carburant</label>
+                                                               <label class="control-label">Remorque</label>
+                                                               <div class="controls">
+                                                                  <label class="radio"><div class="radio"><span><input type="radio" name="remorque" value="Oui" style="opacity: 0;"></span></div>Oui</label>
+                                                                  <label class="radio"><div class="radio"><span class="checked"><input type="radio" name="remorque" value="Non" checked="" style="opacity: 0;"></span></div>Non</label>
+                                                               </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span3" style="display: none" id="divImmatriculationRemorque">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="immatriculationRemorque">Immatriculation Remorque</label>
                                                                 <div class="controls">
-                                                                    <select required="required" id="carburant" name="carburant" class="m-wrap span12 bold">
-                                                                        <option value="D">D</option>
-                                                                        <option value="E">E</option>
-                                                                    </select>
+                                                                    <input type="text" id="immatriculationRemorque" name="immatriculationRemorque" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="cylindre">Cylindre</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="cylindre" name="cylindre" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row-fluid">
-                                                        <div class="span3">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="dateProduction">Date de Production</label>
-                                                                <div class="controls">
-                                                                    <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                                        <input name="dateProduction" id="dateProduction" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
-                                                                        <span class="add-on"><i class="icon-calendar"></i></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span3">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="dateEffet">Date d'effet</label>
-                                                                <div class="controls">
-                                                                    <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                                        <input name="dateEffet" id="dateEffet" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
-                                                                        <span class="add-on"><i class="icon-calendar"></i></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span3">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="nombreMois">Nombre de Mois</label>
-                                                                <div class="controls">
-                                                                    <select required="required" id="nombreMois" name="nombreMois" class="m-wrap span12 bold">
-                                                                        <option value="1">1</option>
-                                                                        <option value="2">2</option>
-                                                                        <option value="3">3</option>
-                                                                        <option value="4">4</option>
-                                                                        <option value="5">5</option>
-                                                                        <option value="6">6</option>
-                                                                        <option value="7">7</option>
-                                                                        <option value="8">8</option>
-                                                                        <option value="9">9</option>
-                                                                        <option value="10">10</option>
-                                                                        <option value="11">11</option>
-                                                                        <option value="12">12</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span3">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="dateEcheance">Date d'écheance</label>
-                                                                <div class="controls">
-                                                                    <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
-                                                                        <input name="dateEcheance" id="dateEcheance" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
-                                                                        <span class="add-on"><i class="icon-calendar"></i></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <h4 class="red-asterisk">Informations Souscripteur / Propriétaire</h4>
                                                     <hr>
                                                     <div class="row-fluid">
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label bold" for="primeRC">Prime RC</label>
+                                                                <label class="control-label" for="souscripteur">Souscripteur</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="primeRC" name="primeRC" value="0" class="m-wrap span12 bold">
+                                                                    <input type="text" id="souscripteur" name="souscripteur" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label bold" for="defenseRecours">Défense/Recours</label>
+                                                                <label class="control-label" for="passportSouscripteur">Passeport Souscripteur</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="defenseRecours" name="defenseRecours" value="0" class="m-wrap span12 bold">
+                                                                    <input type="text" id="passportSouscripteur" name="passeportSouscripteur" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label bold" for="tierce">Tierce</label>
+                                                                <label class="control-label" for="cinSouscripteur">CIN Souscripteur</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="tierce" name="tierce" value="0" class="m-wrap span12 bold">
+                                                                    <input type="text" id="cinSouscripteur" name="cinSouscripteur" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label bold" for="collision">Collision</label>
+                                                                <label class="control-label" for="permis">Permis</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="collision" name="collision" value="0" class="m-wrap span12 bold">
+                                                                    <input type="text" id="permis" name="permis" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span3">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="datePermis">Delivré le</label>
+                                                                <div class="controls">
+                                                                    <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
+                                                                        <input name="datePermis" id="datePermis" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
+                                                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span1">
                                                             <div class="control-group">
-                                                                <label class="control-label bold" for="vol">Vol</label>
+                                                                <label class="control-label" for="categorie">Catégorie</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="vol" name="vol" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span1">
-                                                            <div class="control-group">
-                                                                <label class="control-label bold" for="incendie">Incendie</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="incendie" name="incendie" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span1">
-                                                            <div class="control-group">
-                                                                <label class="control-label bold" for="brisGlace">Bris Glace</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="brisGlace" name="brisGlace" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span1">
-                                                            <div class="control-group">
-                                                                <label class="control-label bold" for="individuel">Individuel</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="individuel" name="individuel" value="0" class="m-wrap span12 bold">
+                                                                    <select name="categorie" class="m-wrap span12">
+                                                                        <option value="A">A</option>
+                                                                        <option value="B">B</option>
+                                                                        <option value="C">C</option>
+                                                                        <option value="D">D</option>
+                                                                        <option value="E">E</option>
+                                                                        <option value="F">F</option>
+                                                                        <option value="G">G</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row-fluid">
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="proprietaire">Propriétaire</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="proprietaire" name="proprietaire" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="passeport">Passeport Propriétaire</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="passeport" name="passeport" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="cin">CIN Propriétaire</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="cin" name="cin" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="span4">
                                                             <div class="control-group">
-                                                                <label class="control-label bold" for="primeNette">Prime Nette</label>
+                                                                <label class="control-label" for="adresse">Adresse</label>
                                                                 <div class="controls">
-                                                                    <input style="background-color: #dd4d40;font-size: 16px;" type="text" id="primeNette" name="primeNette" value="0" class="m-wrap span12 bold">
+                                                                    <input type="text" id="adresse" name="adresse" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="montantTaxeAuto">Taxe Auto</label>
+                                                                <label class="control-label" for="pays">Pays</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="montantTaxeAuto" name="taxeAuto" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="commissionAuto">Commission Auto</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="commissionAuto" name="commissionAuto" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="tpsAuto">TPS Auto</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="tpsAuto" name="TPSAuto" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="timbre">Timbre</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="timbre" name="timbre" value="37" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row-fluid">
-                                                        <div class="span4">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="montantPTA">Montant PTA</label>
-                                                                <div class="controls">
-                                                                    <input style="background-color: #ffce43;font-size: 16px" type="text" id="montantPTA" name="montantPTA" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="montantTaxePTA">Taxe PTA</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="montantTaxePTA" name="taxePTA" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="commissionPTA">Commission PTA</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="commissionPTA" name="commissionPTA" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="tpsPTA">TPS PTA</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="tpsPTA" name="TPSPTA" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="accessoires">Accessoires</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="accessoires" name="accessoires" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row-fluid">
-                                                        <div class="span4">
-                                                            <div class="control-group">
-                                                                <label class="control-label bold" for="primeTotale">Prime Totale</label>
-                                                                <div class="controls">
-                                                                    <input style="background-color: #18a15e;font-size: 16px" type="text" id="primeTotale" name="primeTotale" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="totalTaxe">Total Taxe</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="totalTaxe" name="totalTaxe" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="totalCommission">Total commission</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="totalCommission" name="totalCommission" value="0" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="TotalTPS">Total TPS</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="totalTPS" name="totalTPS" value="0" class="m-wrap span12 bold">
+                                                                    <input type="text" id="pays" name="pays" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -441,194 +355,87 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
         jQuery(document).ready( function(){ 
             App.setPage("table_managed"); 
             App.init();
+            $(":input[type='radio']").on("change", function () {
+                if ($(this).prop("checked") && $(this).val() != "Oui")
+                    $("#divImmatriculationRemorque").hide();
+                else
+                    $("#divImmatriculationRemorque").show();
+            });
             //declare and initialize variables
-            var brancheCommission = 0, brancheTax = 0, primeRC = 0, defenseRecours = 0, tierce = 0, 
-            collision = 0, vol = 0, incendie = 0, brisGlace = 0, individuel = 0, primeNette = 0, 
-            montantTaxAuto = 0, montantTaxPTA = 0, totalTaxe, tpsAuto = 0, tpsPTA = 0, totalTPS = 0, 
-            commissionAuto = 0, commissionPTA =0, totalCommission = 0, primeTotale = 0, accessoires = 0,
-            timbre = 37, dateEffet = '', dateProduction = '' , dateEcheance = '';
-            //Dates sections
-            var dateProduction = $('#dateProduction').val();
-            var dateEffet      = $('#dateProduction').val();
-            var dateEcheance   = $('#dateProduction').val();
-            var nombreMois     = +$('#nombreMois').val();
-            dateEffet          = new Date(dateEffet);
-            dateEcheance       = new Date(dateEcheance);
-            dateProduction     = new Date(dateProduction);
-            //alert(dateEffet.toString('yyyy-MM-dd'));
-            dateEffet.setDate(dateEffet.getDate()+1);
-            $('#dateEffet').val(dateEffet.toString('yyyy-MM-dd'));
-            dateEcheance.setDate(dateEcheance.getDate()+1);
-            dateEcheance.setMonth(dateEcheance.getMonth() + nombreMois);
-            $('#dateEcheance').val(dateEcheance.toString('yyyy-MM-dd'));
+            var usage, idUsage, sectionAssurances, data, dateEffet, dateExpiration, periode;
             //onload processing begins
-            var id             = "#branche";
-            var branche        = $(id).val();
-            var brancheSection = "#brancheSection";
-            var data           = 'branche='+branche;
+            usage             = "#usage";
+            idUsage           = $(usage).val();
+            sectionAssurances = "#sectionAssurances";
+            data              = 'idUsage='+idUsage;
             $.ajax({
                 type: "POST",
-                url: "../ajax/branches.php",
+                url: "../ajax/tarifs-assurances-frontieres.php",
                 data: data,
                 cache: false,
                 success: function(html){
-                    $(brancheSection).html(html);
-                    brancheCommission = +$('#brancheCommission').val();
-                    brancheTax        = +$('#brancheTax').val(); 
-                    primeRC           = +$('#primeRC').val();
-                    montantTaxAuto    = (primeRC * brancheTax / 100) +
-                    ( (14/100) * (defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel) );
-                    montantTaxPTA     = 0;
-                    totalTaxe         = montantTaxAuto + montantTaxPTA;
-                    commissionAuto    = (brancheCommission / 100) *
-                    (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
-                    commissionPTA     = 0;
-                    totalCommission   = 0;
-                    //tpsAuto           = (12.281 / 100) * 
-                    //(primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
-                    tpsAuto           = Number((commissionAuto * (12.281 / 100)).toFixed(2));
-                    tpsPTA            = 0;
-                    totalTPS          = tpsAuto + tpsPTA;
-                    primeTotale       = 0 + primeNette + timbre + totalTaxe + accessoires; 
-                    $('#montantTaxeAuto').val(montantTaxAuto);
-                    $('#montantTaxePTA').val(montantTaxPTA);
-                    $('#totalTaxe').val(totalTaxe);
-                    $('#tpsAuto').val(tpsAuto);
-                    $('#tpsPTA').val(tpsPTA);
-                    $('#totalTPS').val(totalTPS);
-                    $('#commissionAuto').val(commissionAuto);
-                    $('#commissionPTA').val(commissionPTA);
-                    $('#totalCommission').val(totalCommission);
-                    $('#primeTotale').val(primeTotale);
+                    $(sectionAssurances).html(html);
+                    //Dates sections
+                    dateEffet      = $('#dateEffet').val();
+                    dateExpiration = $('#dateEffet').val();
+                    periode        = +$('#periode').text();
+                    dateEffet      = new Date(dateEffet);
+                    dateExpiration = new Date(dateExpiration);
+                    dateExpiration.setDate(dateEffet.getDate()+periode);
+                    $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));
                 }
             });
             //onload processing ends
             //onchange dates begins
-            $('#nombreMois').change(function(){
-                dateProduction = $('#dateProduction').val();
-                dateEffet      = $('#dateProduction').val();
-                dateEcheance   = $('#dateProduction').val();
-                nombreMois     = +$('#nombreMois').val();
+            $('#dateEffet').datepicker().on('changeDate', function(){
+                dateEffet      = $('#dateEffet').val();
+                dateExpiration = $('#dateEffet').val();
+                periode        = +$('#periode').text();
                 dateEffet      = new Date(dateEffet);
-                dateEcheance   = new Date(dateEcheance);
-                dateProduction = new Date(dateProduction);
-                //alert(dateEffet.toString('yyyy-MM-dd'));
-                dateEffet.setDate(dateEffet.getDate()+1);
-                $('#dateEffet').val(dateEffet.toString('yyyy-MM-dd'));
-                dateEcheance.setDate(dateEcheance.getDate()+1);
-                dateEcheance.setMonth(dateEcheance.getMonth() + nombreMois);
-                $('#dateEcheance').val(dateEcheance.toString('yyyy-MM-dd'));    
-            });
-            $('#dateProduction').datepicker().on('changeDate', function(){
-                dateProduction = $('#dateProduction').val();
-                dateEffet      = $('#dateProduction').val();
-                dateEcheance   = $('#dateProduction').val();
-                nombreMois     = +$('#nombreMois').val();
-                dateEffet      = new Date(dateEffet);
-                dateEcheance   = new Date(dateEcheance);
-                dateProduction = new Date(dateProduction);
-                //alert(dateEffet.toString('yyyy-MM-dd'));
-                dateEffet.setDate(dateEffet.getDate()+1);
-                $('#dateEffet').val(dateEffet.toString('yyyy-MM-dd'));
-                dateEcheance.setDate(dateEcheance.getDate()+1);
-                dateEcheance.setMonth(dateEcheance.getMonth() + nombreMois);
-                $('#dateEcheance').val(dateEcheance.toString('yyyy-MM-dd'));    
+                dateExpiration = new Date(dateExpiration);
+                dateExpiration.setDate(dateExpiration.getDate()+periode);
+                $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));    
             });
             //onchange dates ends
-            //primeRC... onchange begins 
-            $('#primeRC, #defenseRecours, #tierce, #collision, #vol, #incendie, #brisGlace, #individuel').change(function(){
-                brancheCommission = +$('#brancheCommission').val();
-                brancheTax        = +$('#brancheTax').val(); 
-                primeRC           = +$('#primeRC').val();
-                defenseRecours    = +$('#defenseRecours').val();
-                tierce            = +$('#tierce').val();
-                collision         = +$('#collision').val();
-                vol               = +$('#vol').val();
-                incendie          = +$('#incendie').val();
-                brisGlace         = +$('#brisGlace').val();
-                individuel        = +$('#individuel').val();
-                primeNette        = primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel;
-                montantTaxAuto    = (primeRC * brancheTax / 100) +
-                ( (14/100) * (defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel) );
-                montantTaxPTA     = 0;
-                totalTaxe         = montantTaxAuto + montantTaxPTA;
-                commissionAuto    = (brancheCommission / 100) *
-                (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
-                commissionPTA     = 0;
-                totalCommission   = commissionAuto + commissionPTA;
-                //tpsAuto           = (12.281 / 100) * 
-                //(primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
-                tpsAuto           = Number((commissionAuto * (12.281 / 100)).toFixed(2));
-                tpsPTA            = 0;
-                totalTPS          = tpsAuto + tpsPTA;
-                (primeRC + defenseRecours + tierce + collision + vol + incendie + brisGlace + individuel);
-                primeTotale       = 0 + primeNette + timbre + totalTaxe + accessoires;
-                $('#primeNette').val(primeNette);
-                $('#montantTaxeAuto').val(montantTaxAuto);
-                $('#montantTaxePTA').val(montantTaxPTA);
-                $('#totalTaxe').val(totalTaxe);
-                $('#tpsAuto').val(tpsAuto);
-                $('#tpsPTA').val(tpsPTA);
-                $('#totalTPS').val(totalTPS);
-                $('#commissionAuto').val(commissionAuto);
-                $('#commissionPTA').val(commissionPTA);
-                $('#totalCommission').val(totalCommission);
-                $('#primeTotale').val(primeTotale);
-            });
-            //primeRC... onchange ends
-            //branche onchange begins
-            $('#branche').change(function(){
-                id             = "#branche";
-                branche        = $(id).val();
-                brancheSection = "#brancheSection";
-                data           = 'branche='+branche;
+            //usage onchange begins
+            $('#usage').change(function(){
+                usage             = "#usage";
+                idUsage           = $(usage).val();
+                sectionAssurances = "#sectionAssurances";
+                data              = 'idUsage='+idUsage;
                 $.ajax({
                     type: "POST",
-                    url: "../ajax/branches.php",
+                    url: "../ajax/tarifs-assurances-frontieres.php",
                     data: data,
                     cache: false,
                     success: function(html){
-                        $(brancheSection).html(html);
-                        brancheCommission = +$('#brancheCommission').val();
-                        brancheTax        = +$('#brancheTax').val(); 
-                        primeRC           = +$('#primeRC').val();
-                        montantTaxAuto    = primeRC * brancheTax / 100;
-                        $('#montantTaxeAuto').val(montantTaxAuto);
-                        $('#tpsAuto').val(tpsAuto);
-                        $('#commissionAuto').val(commissionAuto);
+                        $(sectionAssurances).html(html);
+                        //Dates sections
+                        dateEffet      = $('#dateEffet').val();
+                        dateExpiration = $('#dateEffet').val();
+                        periode        = +$('#periode').text();
+                        dateEffet      = new Date(dateEffet);
+                        dateExpiration = new Date(dateExpiration);
+                        dateExpiration.setDate(dateEffet.getDate()+periode);
+                        $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));
                     }
                 });
             });
-            //branche onchange ends
-            //attestation onchange begins
+            //usage onchange ends
             $('#attestation').change(function(){
-                var idAttestation      = "#attestation";
-                var attestation        = +$(idAttestation).val();
-                var attestationMessage = "#attestationMessage";
-                var dataAttestation    = 'numberAttestation='+attestation;
-                $.ajax({
-                    type: "POST",
-                    url: "../ajax/attestations.php",
-                    data: dataAttestation,
-                    cache: false,
-                    success: function(html){
-                        $(attestationMessage).html(html);
-                    }
-                });
+                var attestation = $('#attestation').val();
+                $('#police').val('2017/'+attestation);
             });
-            //attestation onchange ends
             //validate form begins
-            $("#automobile-add-part-2").validate({
+            $("#assurances-frontieres-add").validate({
                  rules:{
                    police: {
                        required: true,
-                       number: true
                    },
                    attestation: {
                        required: true,
-                       number: true
                    },
-                   branche: {
+                   usage: {
                        required: true
                    }
                  },
