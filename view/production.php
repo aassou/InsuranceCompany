@@ -49,13 +49,13 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Assurances Frontières</div></div>
                                     </div>
                                 </a>
-                                <!--a href="sousClasse.php">
-                                    <div class="tile bg-blue-2">
-                                        <div class="tile-body"><i class="icon-copy"></i></div>
-                                        <div class="tile-object"><div class="name">Sous Classes</div></div>
+                                <a href="carteVerte.php">
+                                    <div class="tile bg-green">
+                                        <div class="tile-body"><i class="icon-file"></i></div>
+                                        <div class="tile-object"><div class="name">Carte Verte</div></div>
                                     </div>
                                 </a>
-                                <a href="banque.php">
+                                <!--a href="banque.php">
                                     <div class="tile bg-aqua">
                                         <div class="tile-body"><i class="icon-credit-card"></i></div>
                                         <div class="tile-object"><div class="name">Banques</div></div>

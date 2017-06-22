@@ -73,6 +73,7 @@
 			or $currentPage=="attestation.php"
 			or $currentPage=="assurancesFrontiers.php"
 			or $currentPage=="assurances-frontiers-add.php"
+			or $currentPage=="carteVerte.php"
 			){
 				$productionClass = "active ";
 			}
@@ -142,6 +143,10 @@
                             ){
                     ?> class="active" <?php } ?> >
                     <a href="assurancesFrontiers.php">Assurances Frontières</a>
+                </li>
+                <li <?php if($currentPage=="carteVerte.php"){
+                    ?> class="active" <?php } ?> >
+                    <a href="carteVerte.php">Cartes Vertes</a>
                 </li>
                 <?php
                 }

@@ -105,7 +105,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                     </div>
                                                     <div class="row-fluid">
-                                                        <div class="span6">
+                                                        <div class="span4">
                                                             <div class="control-group">
                                                                 <label class="control-label" for="dateEffet">Date Effet</label>
                                                                 <div class="controls">
@@ -116,14 +116,22 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span6">
+                                                        <div class="span4">
                                                             <div class="control-group">
                                                                 <label class="control-label" for="dateExpiration">Date Expiration</label>
                                                                 <div class="controls">
                                                                     <div class="input-append date" data-date="" data-date-format="yyyy-mm-dd">
-                                                                        <input disabled="disabled" name="dateExpiration" id="dateExpiration" class="m-wrap m-ctrl-small date-picker bold" type="text" />
+                                                                        <input readonly="readonly" name="dateExpiration" id="dateExpiration" class="m-wrap m-ctrl-small date-picker bold" type="text" />
                                                                         <span class="add-on"><i style="cursor: default" onclick="return false;" class="icon-calendar"></i></span>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="periode">Période</label>
+                                                                <div class="controls">
+                                                                    <input readonly="readonly" type="text" id="periodeValue" name="duree" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -236,9 +244,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="passportSouscripteur">Passeport Souscripteur</label>
+                                                                <label class="control-label" for="passeportSouscripteur">Passeport Souscripteur</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="passportSouscripteur" name="passeportSouscripteur" class="m-wrap span12 bold">
+                                                                    <input type="text" id="passeportSouscripteur" name="passeportSouscripteur" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -383,6 +391,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                     dateExpiration = new Date(dateExpiration);
                     dateExpiration.setDate(dateEffet.getDate()+periode);
                     $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));
+                    $('#periodeValue').val(periode);
                 }
             });
             //onload processing ends
@@ -395,6 +404,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                 dateExpiration = new Date(dateExpiration);
                 dateExpiration.setDate(dateExpiration.getDate()+periode);
                 $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));    
+                $('#periodeValue').val(periode);
             });
             //onchange dates ends
             //usage onchange begins
@@ -418,6 +428,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                         dateExpiration = new Date(dateExpiration);
                         dateExpiration.setDate(dateEffet.getDate()+periode);
                         $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));
+                        $('#periodeValue').val(periode);
                     }
                 });
             });
@@ -425,6 +436,18 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
             $('#attestation').change(function(){
                 var attestation = $('#attestation').val();
                 $('#police').val('2017/'+attestation);
+            });
+            $('#souscripteur').keypress(function(){
+                var souscripteur = $('#souscripteur').val();
+                $('#proprietaire').val(souscripteur);
+            });
+            $('#passeportSouscripteur').keypress(function(){
+                var passeportSouscripteur = $('#passeportSouscripteur').val();
+                $('#passeport').val(passeportSouscripteur);
+            });
+            $('#cinSouscripteur').keypress(function(){
+                var cinSouscripteur = $('#cinSouscripteur').val();
+                $('#cin').val(cinSouscripteur);
             });
             //validate form begins
             $("#assurances-frontieres-add").validate({

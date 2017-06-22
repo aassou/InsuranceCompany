@@ -3,9 +3,10 @@ require('../app/classLoad.php');
 session_start();
 if ( isset($_SESSION['userAxaAmazigh']) ) {
     //create Controller
-    $assurancesFrontiersActionController = new AppController('assurancesFrontiers');
+    $assurancesFrontiersActionController        = new AppController('assurancesFrontiers');
+    $tarifsAssurancesFrontieresActionController = new AppController('tarifsAssurancesFrontieres'); 
     //get objects
-    $assurancesFrontierss = $assurancesFrontiersActionController->getAll(); 
+    $assurancesFrontierss = $assurancesFrontiersActionController->getAll();
     /*$assurancesFrontierssNumber = $assurancesFrontiersActionController->getAllNumber(); 
     $p = 1;
     if ( $assurancesFrontierssNumber != 0 ) {
@@ -51,178 +52,6 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <?php if(isset($_SESSION['actionMessage']) and isset($_SESSION['typeMessage'])){ $message = $_SESSION['actionMessage']; $typeMessage = $_SESSION['typeMessage']; ?>
                             <div class="alert alert-<?= $typeMessage ?>"><button class="close" data-dismiss="alert"></button><?= $message ?></div>
                             <?php } unset($_SESSION['actionMessage']); unset($_SESSION['typeMessage']); ?>
-                            <!-- addAssurancesFrontiers box begin -->
-                            <div id="addAssurancesFrontiers" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false" >
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h3>Ajouter Assurances Frontières</h3>
-                                </div>
-                                <form class="form-horizontal" action="../app/Dispatcher.php" method="post">
-                                    <div class="modal-body">
-                                    <div class="control-group">
-                                            <label class="control-label">Police</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="police" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Attestation</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="attestation" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Usage</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="idUsage" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">DateEffet</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="dateEffet" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Duree</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="duree" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">DateExpiration</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="dateExpiration" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Proprietaire</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="proprietaire" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Passeport</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="passeport" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Cin</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="cin" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Adresse</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="adresse" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Permis</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="permis" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">DatePermis</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="datePermis" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Categorie</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="categorie" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Immatriculation</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="immatriculation" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Moteur</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="moteur" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Chassis</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="chassis" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Marque</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="marque" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Type</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="type" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">TypeCarrosserie</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="typeCarrosserie" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">PoidsTotalCharge</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="poidsTotalCharge" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">NombrePlaces</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="nombrePlaces" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Remorque</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="remorque" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">ImmatriculationRemorque</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="immatriculationRemorque" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Cylindre</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="cylindre" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Intermediaire</label>
-                                            <div class="controls">
-                                                <input required="required" type="text" name="intermediaire" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="control-group">
-                                            <div class="controls">
-                                                <input type="hidden" name="action" value="add" />
-                                                <input type="hidden" name="source" value="assurancesFrontiers" />    
-                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Non</button>
-                                                <button type="submit" class="btn red" aria-hidden="true">Oui</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>    
-                            <!-- addAssurancesFrontiers box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
                                     <h4>Liste des Assurances Frontières</h4>
@@ -242,13 +71,12 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <thead>
                                             <tr>
                                                 <th class="t10 hidden-phone">Actions</th>
+                                                <th class="t15">Propriétaire</th>
                                                 <th class="t10">Police</th>
                                                 <th class="t10">Attestation</th>
-                                                <th class="t10">Intermédiaire</th>
-                                                <th class="t10">Usage</th>
+                                                <th class="t15">Usage</th>
                                                 <th class="t10">D.Effet</th>
                                                 <th class="t10">D.Expiration</th>
-                                                <th class="t10">Propriétaire</th>
                                                 <th class="t10">Immatriculation</th>
                                                 <th class="t10">Nbr Places</th>
                                             </tr>
@@ -257,20 +85,20 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <?php
                                             //if ( $assurancesFrontierssNumber != 0 ) { 
                                             foreach ( $assurancesFrontierss as $assurancesFrontiers ) {
+                                                $tarifsAssurancesFrontieres = $tarifsAssurancesFrontieresActionController->getOneById($assurancesFrontiers->idUsage());
                                             ?>
                                             <tr>
                                                 <td class="hidden-phone">
                                                     <a href="#deleteAssurancesFrontiers<?= $assurancesFrontiers->id() ?>" data-toggle="modal" data-id="<?= $assurancesFrontiers->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
                                                     <a href="#updateAssurancesFrontiers<?= $assurancesFrontiers->id() ?>" data-toggle="modal" data-id="<?= $assurancesFrontiers->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
-                                                    <a href="print/AssurancesFrontiersPrint.php?id=<?= $assurancesFrontiers->id() ?>" class="btn mini blue"><i class="icon-print"></i></a>
+                                                    <a href="../print/AssurancesFrontiersPrint.php?id=<?= $assurancesFrontiers->id() ?>" class="btn mini blue" target="_blank"><i class="icon-print"></i></a>
                                                 </td>
+                                                <td><?= $assurancesFrontiers->proprietaire() ?></td>
                                                 <td><?= $assurancesFrontiers->police() ?></td>
                                                 <td><?= $assurancesFrontiers->attestation() ?></td>
-                                                <td><?= $assurancesFrontiers->intermediaire() ?></td>
-                                                <td><?= $assurancesFrontiers->idUsage() ?></td>
-                                                <td><?= $assurancesFrontiers->dateEffet() ?></td>
-                                                <td><?= $assurancesFrontiers->dateExpiration() ?></td>
-                                                <td><?= $assurancesFrontiers->proprietaire() ?></td>
+                                                <td><?= $tarifsAssurancesFrontieres->typeUsage() ?></td>
+                                                <td><?= date('d/m/Y', strtotime($assurancesFrontiers->dateEffet())) ?></td>
+                                                <td><?= date('d/m/Y', strtotime($assurancesFrontiers->dateExpiration())) ?></td>
                                                 <td><?= $assurancesFrontiers->immatriculation() ?></td>
                                                 <td><?= $assurancesFrontiers->nombrePlaces() ?></td>
                                             </tr> 
