@@ -11,7 +11,7 @@ class CarteVerteManager{
 
 	//BASIC CRUD OPERATIONS
 	public function add(CarteVerte $carteVerte){
-        $query = $this->_db->prepare(' INSERT INTO t_carteVerte (
+        $query = $this->_db->prepare(' INSERT INTO t_carteverte (
 		dateEffet, dateExpiration, immatriculation, categorie, marque, numeroPolice, souscripteur, adresse, created, createdBy)
 		VALUES (:dateEffet, :dateExpiration, :immatriculation, :categorie, :marque, :numeroPolice, :souscripteur, :adresse, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
@@ -30,7 +30,7 @@ class CarteVerteManager{
 	}
 
 	public function update(CarteVerte $carteVerte){
-        $query = $this->_db->prepare(' UPDATE t_carteVerte SET 
+        $query = $this->_db->prepare(' UPDATE t_carteverte SET 
 		dateEffet=:dateEffet, dateExpiration=:dateExpiration, immatriculation=:immatriculation, categorie=:categorie, marque=:marque, numeroPolice=:numeroPolice, souscripteur=:souscripteur, adresse=:adresse, updated=:updated, updatedBy=:updatedBy
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
@@ -50,7 +50,7 @@ class CarteVerteManager{
 	}
 
 	public function delete($id){
-        $query = $this->_db->prepare(' DELETE FROM t_carteVerte
+        $query = $this->_db->prepare(' DELETE FROM t_carteverte
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
@@ -59,7 +59,7 @@ class CarteVerteManager{
 	}
 
 	public function getOneById($id){
-        $query = $this->_db->prepare(' SELECT * FROM t_carteVerte
+        $query = $this->_db->prepare(' SELECT * FROM t_carteverte
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $id);
@@ -71,7 +71,7 @@ class CarteVerteManager{
 
 	public function getAll(){
         $carteVertes = array();
-		$query = $this->_db->query('SELECT * FROM t_carteVerte
+		$query = $this->_db->query('SELECT * FROM t_carteverte
         ORDER BY id ASC');
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$carteVertes[] = new CarteVerte($data);
@@ -82,7 +82,7 @@ class CarteVerteManager{
 
 	public function getAllByLimits($begin, $end){
         $carteVertes = array();
-		$query = $this->_db->query('SELECT * FROM t_carteVerte
+		$query = $this->_db->query('SELECT * FROM t_carteverte
         ORDER BY id DESC LIMIT '.$begin.', '.$end);
 		while($data = $query->fetch(PDO::FETCH_ASSOC)){
 			$carteVertes[] = new CarteVerte($data);
@@ -92,14 +92,14 @@ class CarteVerteManager{
 	}
 
 	public function getAllNumber(){
-        $query = $this->_db->query('SELECT COUNT(*) AS carteVertesNumber FROM t_carteVerte');
+        $query = $this->_db->query('SELECT COUNT(*) AS carteVertesNumber FROM t_carteverte');
         $data = $query->fetch(PDO::FETCH_ASSOC);
         $carteVerte = $data['carteVertesNumber'];
         return $carteVerte;
     }
 
 	public function getLastId(){
-        $query = $this->_db->query(' SELECT id AS last_id FROM t_carteVerte
+        $query = $this->_db->query(' SELECT id AS last_id FROM t_carteverte
 		ORDER BY id DESC LIMIT 0, 1');
 		$data = $query->fetch(PDO::FETCH_ASSOC);
 		$id = $data['last_id'];

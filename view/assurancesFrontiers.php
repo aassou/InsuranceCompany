@@ -70,7 +70,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                                         <thead>
                                             <tr>
-                                                <th class="t10 hidden-phone">Actions</th>
+                                                <th class="t15 hidden-phone">Actions</th>
                                                 <th class="t15">Propriétaire</th>
                                                 <th class="t10">Police</th>
                                                 <th class="t10">Attestation</th>
@@ -78,7 +78,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <th class="t10">D.Effet</th>
                                                 <th class="t10">D.Expiration</th>
                                                 <th class="t10">Immatriculation</th>
-                                                <th class="t10">Nbr Places</th>
+                                                <th class="t5">NPlaces</th>
                                             </tr>
                                         </thead>
                                         <tbody>

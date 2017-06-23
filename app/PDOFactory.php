@@ -13,7 +13,7 @@ class PDOFactory{
     
     const HOST = 'mysql:host=localhost;dbname=amazigh_assurances';
     const USER = 'root';
-    const PASSWORD = 'RevoK2017VPS!@';
+    const PASSWORD = '';
     
     private function __construct() {}
     private function __clone() {}
