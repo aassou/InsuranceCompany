@@ -138,7 +138,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                             <!-- addCarteVerte box end -->
                             <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <h4>Liste des CarteVertes</h4>
+                                    <h4>Liste des Cartes Vertes</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="reload"></a>
                                     </div>

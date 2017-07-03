@@ -24,7 +24,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                 <li><i class="icon-home"></i><a href="dashboard.php"><strong>Accueil</strong></a></li>
                             </ul>
                             <div class="tiles">
-                                <a href="caisse-group.php">
+                                <a href="#">
                                     <div class="tile bg-purple">
                                         <div class="tile-body"><i class="icon-money"></i></div>
                                         <div class="tile-object"><div class="name">Caisse</div></div>
@@ -36,25 +36,25 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                         <div class="tile-object"><div class="name">Production</div></div>
                                     </div>
                                 </a>
-                                <a href="charges-communs-grouped.php">
+                                <a href="#">
                                     <div class="tile bg-grey">
                                         <div class="tile-body"><i class="icon-signal"></i></div>
                                         <div class="tile-object"><div class="name">Charges</div></div>
                                     </div>
                                 </a>
-                                <a href="cheque.php">
+                                <a href="#">
                                     <div class="tile bg-blue">
                                         <div class="tile-body"><i class="icon-envelope-alt"></i></div>
                                         <div class="tile-object"><div class="name">Chèques</div></div>
                                     </div>
                                 </a>
-                                <a href="suivi-company.php">
+                                <a href="#">
                                     <div class="tile bg-brown">
                                         <div class="tile-body"><i class="icon-bar-chart"></i></div>
                                         <div class="tile-object"><div class="name">Statistiques</div></div>
                                     </div>
                                 </a>
-                                <a href="status.php">
+                                <a href="#">
                                     <div class="tile bg-yellow">
                                         <div class="tile-body"><i class="icon-tasks"></i></div>
                                         <div class="tile-object"><div class="name">Les états</div></div>

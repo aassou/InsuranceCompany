@@ -13,24 +13,24 @@
     <style type="text/css">p{height:10px;font-size:18px;font-weight:bold}</style>
     <page>
         <p style="">
-            <span style="margin-top: 215px;margin-left: 370px"><?= date('d', strtotime($carteVerte->dateEffet())) ?></span>
-            <span style="margin-top: 215px;margin-left: 20px"><?= date('m', strtotime($carteVerte->dateEffet())) ?></span>
-            <span style="margin-top: 215px;margin-left: 20px"><?= date('Y', strtotime($carteVerte->dateEffet())) ?></span>
-            <span style="margin-top: 215px;margin-left: 70px"><?= date('d', strtotime($carteVerte->dateExpiration())) ?></span>
-            <span style="margin-top: 215px;margin-left: 20px"><?= date('m', strtotime($carteVerte->dateExpiration())) ?></span>
-            <span style="margin-top: 215px;margin-left: 20px"><?= date('Y', strtotime($carteVerte->dateExpiration())) ?></span>
+            <span style="margin-top: 175px;margin-left: 365px"><?= date('d', strtotime($carteVerte->dateEffet())) ?></span>
+            <span style="margin-top: 175px;margin-left: 20px"><?= date('m', strtotime($carteVerte->dateEffet())) ?></span>
+            <span style="margin-top: 175px;margin-left: 20px"><?= date('Y', strtotime($carteVerte->dateEffet())) ?></span>
+            <span style="margin-top: 175px;margin-left: 65px"><?= date('d', strtotime($carteVerte->dateExpiration())) ?></span>
+            <span style="margin-top: 175px;margin-left: 20px"><?= date('m', strtotime($carteVerte->dateExpiration())) ?></span>
+            <span style="margin-top: 175px;margin-left: 20px"><?= date('Y', strtotime($carteVerte->dateExpiration())) ?></span>
         </p>
         <p style="">
-            <span style="margin-top: 200px;margin-left: 1000px"><?= $carteVerte->numeroPolice() ?></span>
+            <span style="margin-top: 165px;margin-left: 920px"><?= $carteVerte->numeroPolice() ?></span>
         </p>
         <p style="">
-            <span style="margin-top: 160px;margin-left: 370px"><?= $carteVerte->immatriculation() ?></span>
-            <span style="margin-top: 160px;margin-left: 220px"><?= $carteVerte->categorie() ?></span>
-            <span style="margin-top: 160px;margin-left: 120px"><?= $carteVerte->marque() ?></span>
+            <span style="margin-top: 135px;margin-left: 370px"><?= $carteVerte->immatriculation() ?></span>
+            <span style="margin-top: 135px;margin-left: 220px"><?= $carteVerte->categorie() ?></span>
+            <span style="margin-top: 135px;margin-left: 90px"><?= $carteVerte->marque() ?></span>
         </p>
         <p style="">
-            <span style="margin-top: 430px;margin-left: 370px"><?= $carteVerte->souscripteur() ?></span>
-            <span style="margin-top: 450px;margin-left: -100px"><?= $carteVerte->adresse() ?></span>
+            <span style="margin-top: 405px;margin-left: 370px"><?= $carteVerte->souscripteur() ?></span>
+            <span style="margin-top: 425px;margin-left: -100px"><?= $carteVerte->adresse() ?></span>
         </p>
     </page>
     <?php
