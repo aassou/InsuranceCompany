@@ -12,8 +12,14 @@ class AssurancesFrontiersManager{
 	//BASIC CRUD OPERATIONS
 	public function add(AssurancesFrontiers $assurancesFrontiers){
         $query = $this->_db->prepare(' INSERT INTO t_assurancesfrontiers (
-		police, attestation, idUsage, dateEffet, duree, dateExpiration, proprietaire, passeport, adresse, permis, datePermis, categorie, immatriculation, moteur, chassis, marque, type, poidsTotalCharge, nombrePlaces, remorque, immatriculationRemorque, cylindre, intermediaire, souscripteur, passeportSouscripteur, pays, created, createdBy)
-		VALUES (:police, :attestation, :idUsage, :dateEffet, :duree, :dateExpiration, :proprietaire, :passeport, :adresse, :permis, :datePermis, :categorie, :immatriculation, :moteur, :chassis, :marque, :type, :typeCarrosserie, :poidsTotalCharge, :nombrePlaces, :remorque, :immatriculationRemorque, :cylindre, :intermediaire, :souscripteur, :passeportSouscripteur, :pays, :created, :createdBy)')
+		police, attestation, idUsage, dateEffet, duree, dateExpiration, proprietaire, passeport, 
+		adresse, permis, datePermis, categorie, immatriculation, moteur, chassis, marque, type, 
+		poidsTotalCharge, nombrePlaces, remorque, immatriculationRemorque, cylindre, intermediaire, 
+		souscripteur, passeportSouscripteur, pays, created, createdBy)
+		VALUES (:police, :attestation, :idUsage, :dateEffet, :duree, :dateExpiration, :proprietaire, :passeport, 
+        :adresse, :permis, :datePermis, :categorie, :immatriculation, :moteur, :chassis, :marque, :type, 
+        :poidsTotalCharge, :nombrePlaces, :remorque, :immatriculationRemorque, :cylindre, :intermediaire, 
+        :souscripteur, :passeportSouscripteur, :pays, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':police', $assurancesFrontiers->police());
 		$query->bindValue(':attestation', $assurancesFrontiers->attestation());
