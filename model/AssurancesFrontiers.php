@@ -11,10 +11,8 @@ class AssurancesFrontiers{
 	private $_dateExpiration;
 	private $_proprietaire;
 	private $_passeport;
-	private $_cin;
 	private $_adresse;
     private $_souscripteur;
-    private $_cinSouscripteur;
     private $_passeportSouscripteur;
     private $_pays;
 	private $_permis;
@@ -25,7 +23,6 @@ class AssurancesFrontiers{
 	private $_chassis;
 	private $_marque;
 	private $_type;
-	private $_typeCarrosserie;
 	private $_poidsTotalCharge;
 	private $_nombrePlaces;
 	private $_remorque;
@@ -89,20 +86,12 @@ class AssurancesFrontiers{
         $this->_passeport = $passeport;
     }
 
-	public function setCin($cin){
-        $this->_cin = $cin;
-    }
-
 	public function setAdresse($adresse){
         $this->_adresse = $adresse;
     }
     
     public function setSouscripteur($souscripteur){
         $this->_souscripteur = $souscripteur;
-    }
-    
-    public function setCinSouscripteur($cinSouscripteur){
-        $this->_cinSouscripteur = $cinSouscripteur;
     }
     
     public function setPasseportSouscripteur($passeportSouscripteur){
@@ -143,10 +132,6 @@ class AssurancesFrontiers{
 
 	public function setType($type){
         $this->_type = $type;
-    }
-
-	public function setTypeCarrosserie($typeCarrosserie){
-        $this->_typeCarrosserie = $typeCarrosserie;
     }
 
 	public function setPoidsTotalCharge($poidsTotalCharge){
@@ -225,10 +210,6 @@ class AssurancesFrontiers{
         return $this->_passeport;
     }
 
-	public function cin(){
-        return $this->_cin;
-    }
-
 	public function adresse(){
         return $this->_adresse;
     }
@@ -265,10 +246,6 @@ class AssurancesFrontiers{
         return $this->_souscripteur;
     }
     
-    public function cinSouscripteur(){
-        return $this->_cinSouscripteur;
-    }
-    
     public function passeportSouscripteur(){
         return $this->_passeport;
     }
@@ -279,10 +256,6 @@ class AssurancesFrontiers{
 
 	public function type(){
         return $this->_type;
-    }
-
-	public function typeCarrosserie(){
-        return $this->_typeCarrosserie;
     }
 
 	public function poidsTotalCharge(){
