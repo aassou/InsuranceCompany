@@ -90,7 +90,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                             <tr>
                                                 <td class="hidden-phone">
                                                     <a href="#deleteAssurancesFrontiers<?= $assurancesFrontiers->id() ?>" data-toggle="modal" data-id="<?= $assurancesFrontiers->id() ?>" class="btn mini red"><i class="icon-remove"></i></a>
-                                                    <a href="#updateAssurancesFrontiers<?= $assurancesFrontiers->id() ?>" data-toggle="modal" data-id="<?= $assurancesFrontiers->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
+                                                    <a href="assurances-frontiers-update.php?id=<?= $assurancesFrontiers->id() ?>" class="btn mini green"><i class="icon-refresh"></i></a>
                                                     <a href="../print/AssurancesFrontiersPrint.php?id=<?= $assurancesFrontiers->id() ?>" class="btn mini blue" target="_blank"><i class="icon-print"></i></a>
                                                 </td>
                                                 <td><?= $assurancesFrontiers->proprietaire() ?></td>
