@@ -139,9 +139,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <h4 class="red-asterisk">Inforamtions Véhicule</h4>
                                                     <hr>
                                                     <div class="row-fluid">
-                                                        <div class="span2">
+                                                        <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="immatriculation">Immatriculation</label>
+                                                                <label class="control-label" for="immatriculation">Immatriculation <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="immatriculation" name="immatriculation" class="m-wrap span12 bold">
                                                                 </div>
@@ -163,9 +163,9 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span2">
+                                                        <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="marque">Marque</label>
+                                                                <label class="control-label" for="marque">Marque <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="marque" name="marque" class="m-wrap span12 bold">
                                                                 </div>
@@ -179,29 +179,29 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span2">
+                                                        <!--div class="span2">
                                                             <div class="control-group">
                                                                 <label class="control-label" for="typeCarrosserie">Type Carrosserie</label>
                                                                 <div class="controls">
                                                                     <input type="text" id="typeCarrosserie" name="typeCarrosserie" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div-->
                                                     </div>
                                                     <div class="row-fluid">
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="poidsTotalCharge">Poids Total en Charge</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="poidsTotalCharge" name="poidsTotalCharge" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div class="span2">
                                                             <div class="control-group">
                                                                 <label class="control-label" for="nombrePlaces">Nombre Places</label>
                                                                 <div class="controls">
                                                                     <input type="text" id="nombrePlaces" name="nombrePlaces" class="m-wrap span12 bold">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span2">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="poidsTotalCharge">Poids Total en Charge</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="poidsTotalCharge" name="poidsTotalCharge" class="m-wrap span12 bold" value="0">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -234,17 +234,17 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <h4 class="red-asterisk">Informations Souscripteur / Propriétaire</h4>
                                                     <hr>
                                                     <div class="row-fluid">
-                                                        <div class="span2">
+                                                        <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="souscripteur">Souscripteur</label>
+                                                                <label class="control-label" for="souscripteur">Souscripteur <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="souscripteur" name="souscripteur" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span2">
+                                                        <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="passeportSouscripteur">Passeport Souscripteur</label>
+                                                                <label class="control-label" for="passeportSouscripteur">Passeport/CIN Souscripteur <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="passeportSouscripteur" name="passeportSouscripteur" class="m-wrap span12 bold">
                                                                 </div>
@@ -252,15 +252,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="cinSouscripteur">CIN Souscripteur</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="cinSouscripteur" name="cinSouscripteur" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="permis">Permis</label>
+                                                                <label class="control-label" for="permis">Permis <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="permis" name="permis" class="m-wrap span12 bold">
                                                                 </div>
@@ -268,7 +260,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                         <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="datePermis">Delivré le</label>
+                                                                <label class="control-label" for="datePermis">Delivré le <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
                                                                         <input name="datePermis" id="datePermis" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= date('Y-m-d') ?>" />
@@ -295,33 +287,25 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                     </div>
                                                     <div class="row-fluid">
-                                                        <div class="span2">
+                                                        <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="proprietaire">Propriétaire</label>
+                                                                <label class="control-label" for="proprietaire">Propriétaire <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="proprietaire" name="proprietaire" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span2">
+                                                        <div class="span3">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="passeport">Passeport Propriétaire</label>
+                                                                <label class="control-label" for="passeport">Passeport/CIN Propriétaire <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="passeport" name="passeport" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="cin">CIN Propriétaire</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="cin" name="cin" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div class="span4">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="adresse">Adresse</label>
+                                                                <label class="control-label" for="adresse">Adresse <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="adresse" name="adresse" class="m-wrap span12 bold">
                                                                 </div>
@@ -329,7 +313,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         </div>
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="pays">Pays</label>
+                                                                <label class="control-label" for="pays">Pays <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="pays" name="pays" class="m-wrap span12 bold">
                                                                 </div>
@@ -342,7 +326,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div id="brancheSection"></div>
                                                         <input type="hidden" id="generatedCode" name="generatedCode" value="<?= uniqid().date('YmdHis') ?>">
                                                         <p class="red-asterisk">* : Champs obligatoires</p>
-                                                        <a href="automobile-add-part-1.php" class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
+                                                        <a href="assurancesFrontiers.php" class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
                                                         <button type="submit" class="btn blue">Terminer <i class="icon-save m-icon-white"></i></button>
                                                     </div>
                                                 </form>     
@@ -389,7 +373,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                     periode        = +$('#periode').text();
                     dateEffet      = new Date(dateEffet);
                     dateExpiration = new Date(dateExpiration);
-                    dateExpiration.setDate(dateEffet.getDate()+periode);
+                    dateExpiration.setDate(dateEffet.getDate()+periode-1);
                     $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));
                     $('#periodeValue').val(periode);
                 }
@@ -402,7 +386,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                 periode        = +$('#periode').text();
                 dateEffet      = new Date(dateEffet);
                 dateExpiration = new Date(dateExpiration);
-                dateExpiration.setDate(dateExpiration.getDate()+periode);
+                dateExpiration.setDate(dateExpiration.getDate()+periode-1);
                 $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));    
                 $('#periodeValue').val(periode);
             });
@@ -426,7 +410,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                         periode        = +$('#periode').text();
                         dateEffet      = new Date(dateEffet);
                         dateExpiration = new Date(dateExpiration);
-                        dateExpiration.setDate(dateEffet.getDate()+periode);
+                        dateExpiration.setDate(dateEffet.getDate()+periode-1);
                         $('#dateExpiration').val(dateExpiration.toString('yyyy-MM-dd'));
                         $('#periodeValue').val(periode);
                     }
@@ -459,7 +443,43 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                        required: true,
                    },
                    usage: {
-                       required: true
+                       required: true,
+                   },
+                   marque: {
+                       required: true,
+                   },
+                   souscripteur: {
+                       required: true,
+                   },
+                   passeportSouscripteur: {
+                       required: true,
+                   },
+                   proprietaire: {
+                       required: true,
+                   },
+                   passeport: {
+                       required: true,
+                   },
+                   datePermis: {
+                       required: true,
+                   },
+                   adresse: {
+                       required: true,
+                   },
+                   pays: {
+                       required: true,
+                   },
+                   permis: {
+                       required: true,
+                   },
+                   immatriculation: {
+                       required: true,
+                   },
+                   poidsTotalCharge: {
+                       number: true,
+                   },
+                   nombrePlaces: {
+                       number: true,
                    }
                  },
                  errorClass: "error-class",

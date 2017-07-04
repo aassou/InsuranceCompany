@@ -72,7 +72,7 @@
             <span style="margin-top: 200px;margin-left: -240px"><?= $assurancesFrontiers->poidsTotalCharge() ?></span>
             <span style="margin-top: 200px;margin-left: 155px"><?= $assurancesFrontiers->remorque() ?></span>
             <span style="margin-top: 195px;margin-left: 250px"><?= $assurancesFrontiers->police() ?></span>
-            <span style="margin-top: 215px;margin-left: -600px"><?= $assurancesFrontiers->cylindre() ?></span>
+            <span style="margin-top: 215px;margin-left: -600px"><?php if ( $assurancesFrontiers->cylindre() != 0 ){ echo $assurancesFrontiers->cylindre(); } else { echo "-"; }  ?></span>
             <span style="margin-top: 215px;margin-left: 200px"><?= $assurancesFrontiers->immatriculationRemorque() ?></span>
             <span style="margin-top: 215px;margin-left: 230px">Amazigh Assurances A/2360</span>
         </p>
@@ -82,7 +82,7 @@
             <span style="margin-top: 230px;margin-left: 30px"><?= number_format($totalRC, 2, ',', ' ') ?></span>
             <span style="margin-top: 220px;margin-left: 260px"><?= $assurancesFrontiers->immatriculation() ?></span>
             <span style="margin-top: 250px;margin-left: -40px"><?= strtoupper($assurancesFrontiers->marque().' '.$assurancesFrontiers->type()) ?></span>
-            <span style="margin-top: 265px;margin-left: -80px"><?= strtoupper($assurancesFrontiers->typeCarrosserie()) ?></span>
+            <span style="margin-top: 265px;margin-left: -80px"><?= ucfirst($tarifsAssurancesFrontiers->typeUsage()) ?></span>
             <span style="margin-top: 280px;margin-left: -60px"><?= $assurancesFrontiers->poidsTotalCharge() ?></span>
         </p>
         <p style="">

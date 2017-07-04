@@ -194,15 +194,21 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                 <form class="form-inline" action="../app/Dispatcher.php" method="post">
                                                     <div class="modal-body">
                                                         <div class="control-group">
-                                                            <label class="control-label">DateEffet</label>
+                                                            <label class="control-label" for="dateEffet">Date Effet</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="dateEffet"  value="<?= $carteVerte->dateEffet() ?>" />
+                                                                <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
+                                                                    <input name="dateEffet" id="dateEffet" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= $carteVerte->dateEffet() ?>" />
+                                                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
-                                                            <label class="control-label">DateExpiration</label>
+                                                            <label class="control-label" for="dateExpiration">Date Expiration</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="dateExpiration"  value="<?= $carteVerte->dateExpiration() ?>" />
+                                                                <div class="input-append date date-picker" data-date="" data-date-format="yyyy-mm-dd">
+                                                                    <input name="dateExpiration" id="dateExpiration" class="m-wrap m-ctrl-small date-picker bold" type="text" value="<?= $carteVerte->dateExpiration() ?>" />
+                                                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
@@ -214,7 +220,17 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <div class="control-group">
                                                             <label class="control-label">Categorie</label>
                                                             <div class="controls">
-                                                                <input required="required" type="text" name="categorie"  value="<?= $carteVerte->categorie() ?>" />
+                                                                <select class="m-wrap" name="categorie">
+                                                                    <option value="<?= $carteVerte->categorie() ?>"><?= $carteVerte->categorie() ?></option>
+                                                                    <option disabled="disabled">-----------</option>
+                                                                    <option value="A">A: AUTOMOBILE</option>
+                                                                    <option value="B">B: MOTOCYCLETE</option>
+                                                                    <option value="C">C: CAMION OU TRACTEUR</option>
+                                                                    <option value="D">D: CYCLE A MOTEUR AUXILIAIRE</option>
+                                                                    <option value="E">E: AUTOBUS OU AUTOCAR</option>
+                                                                    <option value="F">F: REMORQUE</option>
+                                                                    <option value="G">G: AUTRE</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="control-group">
