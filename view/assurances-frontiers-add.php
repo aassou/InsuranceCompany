@@ -191,7 +191,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                     <div class="row-fluid">
                                                         <div class="span2">
                                                             <div class="control-group">
-                                                                <label class="control-label" for="nombrePlaces">Nombre Places</label>
+                                                                <label class="control-label" for="nombrePlaces">Nombre Places <sup class="red-asterisk">*</sup></label>
                                                                 <div class="controls">
                                                                     <input type="text" id="nombrePlaces" name="nombrePlaces" class="m-wrap span12 bold">
                                                                 </div>
