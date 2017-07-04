@@ -226,7 +226,7 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="cylindre">Cylindre</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="cylindre" name="cylindre" class="m-wrap span12 bold">
+                                                                    <input type="text" id="cylindre" name="cylindre" class="m-wrap span12 bold" value="0">
                                                                 </div>
                                                             </div>
                                                         </div>
