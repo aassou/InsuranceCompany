@@ -91,7 +91,7 @@
             <span style="margin-top: 255px;margin-left: 30px"><?= number_format($totalDR, 2, ',', ' ') ?></span>
             <span style="margin-top: 255px;margin-left: 260px"><?php if($assurancesFrontiers->remorque() == "Oui"){echo $assurancesFrontiers->immatriculationRemorque(); }else{echo $assurancesFrontiers->remorque(); } ?></span>
         </p>
-        <?php if ( $assurancesFrontiers->remorque() == "Non" ) { ?>
+        <?php if ( $assurancesFrontiers->remorque() == "Oui" ) { ?>
         <p style="">
             <span style="margin-top: 230px;margin-left: 310px"><?= number_format($primeRemorque, 2, ',', ' ') ?></span>
             <span style="margin-top: 230px;margin-left: 20px"><?= number_format($taxesRemorque, 2, ',', ' ') ?></span>
