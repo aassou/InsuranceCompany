@@ -14,11 +14,11 @@ class AssurancesFrontiersManager{
         $query = $this->_db->prepare(' INSERT INTO t_assurancesfrontiers (
 		police, attestation, idUsage, dateEffet, duree, dateExpiration, proprietaire, passeport, 
 		adresse, permis, datePermis, categorie, immatriculation, moteur, chassis, marque, type, 
-		poidsTotalCharge, nombrePlaces, remorque, immatriculationRemorque, cylindre, intermediaire, 
+		poidsTotalCharge, nombrePlaces, remorque, immatriculationRemorque, cylindre, 
 		souscripteur, passeportSouscripteur, pays, created, createdBy)
 		VALUES (:police, :attestation, :idUsage, :dateEffet, :duree, :dateExpiration, :proprietaire, :passeport, 
         :adresse, :permis, :datePermis, :categorie, :immatriculation, :moteur, :chassis, :marque, :type, 
-        :poidsTotalCharge, :nombrePlaces, :remorque, :immatriculationRemorque, :cylindre, :intermediaire, 
+        :poidsTotalCharge, :nombrePlaces, :remorque, :immatriculationRemorque, :cylindre, 
         :souscripteur, :passeportSouscripteur, :pays, :created, :createdBy)')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':police', $assurancesFrontiers->police());
@@ -46,7 +46,6 @@ class AssurancesFrontiersManager{
 		$query->bindValue(':remorque', $assurancesFrontiers->remorque());
 		$query->bindValue(':immatriculationRemorque', $assurancesFrontiers->immatriculationRemorque());
 		$query->bindValue(':cylindre', $assurancesFrontiers->cylindre());
-		$query->bindValue(':intermediaire', $assurancesFrontiers->intermediaire());
 		$query->bindValue(':created', $assurancesFrontiers->created());
 		$query->bindValue(':createdBy', $assurancesFrontiers->createdBy());
 		$query->execute();
@@ -61,8 +60,8 @@ class AssurancesFrontiersManager{
 		immatriculation=:immatriculation, moteur=:moteur, chassis=:chassis, marque=:marque, type=:type, 
 		poidsTotalCharge=:poidsTotalCharge, nombrePlaces=:nombrePlaces, 
 		remorque=:remorque, immatriculationRemorque=:immatriculationRemorque, cylindre=:cylindre, 
-		intermediaire=:intermediaire, souscripteur=:souscripteur, 
-		passeportSouscripteur=:passeportSouscripteur, pays=:pays updated=:updated, updatedBy=:updatedBy
+		souscripteur=:souscripteur, 
+		passeportSouscripteur=:passeportSouscripteur, pays=:pays
 		WHERE id=:id')
 		or die (print_r($this->_db->errorInfo()));
 		$query->bindValue(':id', $assurancesFrontiers->id());
@@ -91,9 +90,6 @@ class AssurancesFrontiersManager{
 		$query->bindValue(':remorque', $assurancesFrontiers->remorque());
 		$query->bindValue(':immatriculationRemorque', $assurancesFrontiers->immatriculationRemorque());
 		$query->bindValue(':cylindre', $assurancesFrontiers->cylindre());
-		$query->bindValue(':intermediaire', $assurancesFrontiers->intermediaire());
-		$query->bindValue(':updated', $assurancesFrontiers->updated());
-		$query->bindValue(':updatedBy', $assurancesFrontiers->updatedBy());
 		$query->execute();
 		$query->closeCursor();
 	}

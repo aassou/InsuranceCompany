@@ -10,6 +10,19 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
     $assurancesFrontiers       = $assurancesFrontiersActionController->getOneById($id);
     $tarifsAssurancesFrontiers = $tarifsAssurancesFrontiersActionController->getAll();
     $tarifsAssurancesFrontier  = $tarifsAssurancesFrontiersActionController->getOneById($assurancesFrontiers->idUsage());
+    //process for showing period in days or months
+    $libellePeriode_ = "";
+    $periode_ = 0;
+    if ( $tarifsAssurancesFrontier->periode() <= 10 ) 
+    {
+        $periode_ = $tarifsAssurancesFrontier->periode();
+        $libellePeriode_ = "jours";    
+    }
+    else 
+    {
+        $periode_ = $tarifsAssurancesFrontier->periode()/30;
+        $libellePeriode_ = "mois";
+    }
     //set a session for form inputs comming from automobile-add-part-1 in case of backwards
     if ( isset($_SESSION['form']) and $_SESSION['form']['name'] == 'contrat' ) {
             
@@ -79,6 +92,8 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 <label class="control-label" for="usage">Usage</label>
                                                                 <div class="controls">
                                                                     <select required="required" id="usage" name="idUsage" class="m-wrap span12 bold">
+                                                                        <option value="<?= $tarifsAssurancesFrontier->id() ?>"><?= $tarifsAssurancesFrontier->typeUsage().' : '.$periode_.' '.$libellePeriode_ ?></option>
+                                                                        <option disabled="disabled">----------------------</option>
                                                                         <?php 
                                                                         foreach ( $tarifsAssurancesFrontiers as $tarifs ) 
                                                                         { 
@@ -183,14 +198,6 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!--div class="span2">
-                                                            <div class="control-group">
-                                                                <label class="control-label" for="typeCarrosserie">Type Carrosserie</label>
-                                                                <div class="controls">
-                                                                    <input type="text" id="typeCarrosserie" name="typeCarrosserie" class="m-wrap span12 bold">
-                                                                </div>
-                                                            </div>
-                                                        </div-->
                                                     </div>
                                                     <div class="row-fluid">
                                                         <div class="span2">
@@ -209,11 +216,14 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <?php
+                                                        if ( $assurancesFrontiers->remorque() == 'Non' )
+                                                        {
+                                                        ?>
                                                         <div class="span3">
                                                             <div class="control-group">
                                                                <label class="control-label">Remorque</label>
                                                                <div class="controls">
-                                                                   
                                                                   <label class="radio"><div class="radio"><span><input type="radio" name="remorque" value="Oui" style="opacity: 0;"></span></div>Oui</label>
                                                                   <label class="radio"><div class="radio"><span class="checked"><input type="radio" name="remorque" value="Non" checked="" style="opacity: 0;"></span></div>Non</label>
                                                                </div>
@@ -223,10 +233,35 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                             <div class="control-group">
                                                                 <label class="control-label" for="immatriculationRemorque">Immatriculation Remorque</label>
                                                                 <div class="controls">
-                                                                    <input type="text" id="immatriculationRemorque" name="immatriculationRemorque" class="m-wrap span12 bold" value="<?= $assurancesFrontiers->immatriculationRemorque() ?>" />
+                                                                    <input type="text" id="immatriculationRemorque" name="immatriculationRemorque" class="m-wrap span12 bold">
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <?php  
+                                                        }
+                                                        else
+                                                        {
+                                                        ?>
+                                                        <div class="span3">
+                                                            <div class="control-group">
+                                                               <label class="control-label">Remorque</label>
+                                                               <div class="controls">
+                                                                  <label class="radio"><div class="radio"><span class="checked"><input type="radio" name="remorque" value="Oui" checked="" style="opacity: 0;"></span></div>Oui</label>
+                                                                  <label class="radio"><div class="radio"><span><input type="radio" name="remorque" value="Non" style="opacity: 0;"></span></div>Non</label>
+                                                               </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="span3" id="divImmatriculationRemorque">
+                                                            <div class="control-group">
+                                                                <label class="control-label" for="immatriculationRemorque">Immatriculation Remorque</label>
+                                                                <div class="controls">
+                                                                    <input type="text" id="immatriculationRemorque" name="immatriculationRemorque" class="m-wrap span12 bold" value="<?= $assurancesFrontiers->immatriculationRemorque() ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php    
+                                                        }
+                                                        ?>
                                                         <div class="span2">
                                                             <div class="control-group">
                                                                 <label class="control-label" for="cylindre">Cylindre</label>
@@ -332,7 +367,6 @@ if ( isset($_SESSION['userAxaAmazigh']) ) {
                                                         <input type="hidden" name="source" value="assurancesFrontiers">
                                                         <input type="hidden" name="id" value="<?= $assurancesFrontiers->id() ?>">
                                                         <div id="brancheSection"></div>
-                                                        <input type="hidden" id="generatedCode" name="generatedCode" value="<?= uniqid().date('YmdHis') ?>">
                                                         <p class="red-asterisk">* : Champs obligatoires</p>
                                                         <a href="assurancesFrontiers.php" class="btn black"><i class="m-icon-swapleft m-icon-white"></i> Retour</a>
                                                         <button type="submit" class="btn blue">Terminer <i class="icon-save m-icon-white"></i></button>

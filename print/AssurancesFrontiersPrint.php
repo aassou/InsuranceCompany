@@ -20,7 +20,15 @@
         $taxesRemorque = $tarifsAssurancesFrontiers->taxes()*$tarifsAssurancesFrontiers->tauxPrimeRemorque();
         $totalRemorque = $primeRemorque + $taxesRemorque;
         $timbre = 37;
-        $primeTotale   = $totalRC + $totalDR + $totalRemorque + $timbre; 
+        $primeTotale   = $totalRC + $totalDR + $timbre;
+        if ( $assurancesFrontiers->remorque() == "Oui" ) 
+        {
+            $primeTotale   = $totalRC + $totalDR + $totalRemorque + $timbre;
+        }
+        else
+        {
+            $primeTotale   = $totalRC + $totalDR + $timbre;    
+        }      
         //tranform periode if it's >= 30 days to months
         $libellePeriode = "";
         $periode = 0;
@@ -49,7 +57,7 @@
         <p style="">
             <span style="margin-top: 130px;margin-left: 160px"><?= $tarifsAssurancesFrontiers->typeUsage() ?></span>
             <span style="margin-top: 130px;margin-left: 160px">9655</span>
-            <span style="margin-top: 165px;margin-left: -300px"><?= $assurancesFrontiers->souscripteur() ?></span>
+            <span style="margin-top: 165px;margin-left: -400px"><?= $assurancesFrontiers->souscripteur() ?></span>
             <span style="margin-top: 165px;margin-left: 120px"><?= $assurancesFrontiers->proprietaire() ?></span>
             <span style="margin-top: 155px;margin-left: 260px"><?= $assurancesFrontiers->proprietaire() ?></span>
         </p>

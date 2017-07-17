@@ -291,6 +291,42 @@ class ValidationController {
             }
         }
         //ContratAuto Object Test Validation Ends
+        //ContratAuto Object Test Validation Begins
+        else if ( $this->_source == "assurancesFrontiers" ){
+            if($action == "add") {
+                if ( !empty($formInputs['attestation']) and !empty($formInputs['police'])
+                    and !empty($formInputs['immatriculation']) and !empty($formInputs['marque'])
+                    and !empty($formInputs['nomrePlaces']) and !empty($formInputs['souscripteur'])
+                    and !empty($formInputs['passeport']) and !empty($formInputs['permis'])
+                    and !empty($formInputs['datePermis']) and !empty($formInputs['proprietaire']) 
+                    and !empty($formInputs['souscripteur']) and !empty($formInputs['passeportSouscripteur'])
+                    and !empty($formInputs['adresse']) and !empty($formInputs['pays'])
+                ) {
+                    $this->_message = "<strong>Opération Valide : </strong>Contrat Assurance Auto Ajouté avec succès.";
+                    $this->_target = "assurancesFrontiers.php";
+                    return 1;   
+                }
+                else{
+                    $this->_message = "<strong>Erreur Création Contrat Assurances Frontiers : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+                    $this->_target = "assurances-frontiers-add.php";
+                    return 0;
+                }   
+            }
+            else if($action == "update") {
+                if ( !empty($formInputs['id'])
+                ) {
+                    $this->_message = "<strong>Opération Valide : </strong>Contrat Assurance Frontiers Modifié avec succès.";
+                    $this->_target = "assurances-frontiers-update.php?id=".$formInputs['id'];
+                    return 1;   
+                }
+                else{
+                    $this->_message = "<strong>Erreur Création Contrat Assurances Frontiers : </strong>Vous devez remplir tous les champs obligatoires : <sup>*</sup> correctement.";
+                    $this->_target = "assurances-frontiers-update.php?id=".$formInputs['id'];
+                    return 0;
+                }   
+            }
+        }
+        //AssurancesFrontiers Object Test Validation Ends
         //Other Object Test Validation Begins
         else {
             $this->_message = "Opération Valide: Ligne ajoutée avec succès";
