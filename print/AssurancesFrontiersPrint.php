@@ -131,6 +131,10 @@
             <span style="margin-top: 190px;margin-left: 45px"><?= date('m', strtotime($assurancesFrontiers->dateExpiration())) ?></span>
             <span style="margin-top: 190px;margin-left: 55px"><?= date('Y', strtotime($assurancesFrontiers->dateExpiration())) ?></span>
         </p>
+        <p style="">
+            <span style="margin-top: 220px;margin-left: 900px">Nador</span>
+            <span style="margin-top: 220px;margin-left: -155px"><?= date('d/m/Y') ?></span>
+        </p>
     </page>
     <?php
         $content = ob_get_clean();

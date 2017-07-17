@@ -73,6 +73,7 @@
 			or $currentPage=="attestation.php"
 			or $currentPage=="assurancesFrontiers.php"
 			or $currentPage=="assurances-frontiers-add.php"
+			or $currentPage=="assurances-frontiers-update.php"
 			or $currentPage=="carteVerte.php"
 			){
 				$productionClass = "active ";

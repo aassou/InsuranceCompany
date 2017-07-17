@@ -69,7 +69,7 @@ class AppController{
         //If validation goes well, then add the object to our db
         if ( $this->_validation->validate($formInputs, $this->_action) == 1 ) {
             $this->_manager->update($object);
-            $this->_actionMessage = $this->_manager->update($object);  
+            $this->_actionMessage = $this->_validation->getMessage();  
             $this->_typeMessage = "success";
             $this->_source = "view/".$this->_validation->getTarget();
         }
